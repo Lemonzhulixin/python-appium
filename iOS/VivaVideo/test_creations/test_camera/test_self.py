@@ -73,7 +73,7 @@ class TestCameraSelf(TestCase):
 
         sc.logger.info('点击屏幕消除贴纸控件')
         actions = TouchAction(sc.driver)
-        actions.tap(None, 500, 500, 0.5).release().perform()
+        actions.tap(None, 500, 500, 1).release().perform()
         time.sleep(0.5)
         sc.capture_screen(fun_name,self.img_path)
 
@@ -84,7 +84,7 @@ class TestCameraSelf(TestCase):
 
         sc.logger.info('点击屏幕消除滤镜控件')
         actions = TouchAction(sc.driver)
-        actions.tap(None, 500, 500, 0.5).release().perform()
+        actions.tap(None, 500, 500, 1).release().perform()
         time.sleep(0.5)
         sc.capture_screen(fun_name, self.img_path)
 

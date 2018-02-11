@@ -73,7 +73,7 @@ class TestCreationExport(TestCase):
 
         sc.logger.info('点击屏幕消除软键盘')
         actions = TouchAction(sc.driver)
-        actions.tap(None, 500, 500, 0.5).release().perform()
+        actions.tap(None, 500, 500, 1).release().perform()
 
         sc.logger.info('点击“保存到相册”')
         sc.driver.find_element_by_name('保存到相册').click()
@@ -130,7 +130,7 @@ class TestCreationExport(TestCase):
 
         sc.logger.info('点击屏幕消除软键盘')
         actions = TouchAction(sc.driver)
-        actions.tap(None, 500, 500, 0.5).release().perform()
+        actions.tap(None, 500, 500, 1).release().perform()
 
         sc.logger.info('点击“保存到相册”')
         sc.driver.find_element_by_name('保存到相册').click()
@@ -185,7 +185,7 @@ class TestCreationExport(TestCase):
 
         sc.logger.info('点击屏幕消除软键盘')
         actions = TouchAction(sc.driver)
-        actions.tap(None, 500, 500, 0.5).release().perform()
+        actions.tap(None, 500, 500, 1).release().perform()
 
         sc.logger.info('点击“保存到相册”')
         sc.driver.find_element_by_name('保存到相册').click()
@@ -206,7 +206,7 @@ class TestCreationExport(TestCase):
         except NoSuchElementException:
             sc.logger.info('当前设备不支持1080P导出，点击屏幕消除选项框')
             actions = TouchAction(sc.driver)
-            actions.tap(None, 500, 300, 0.5).release().perform()
+            actions.tap(None, 500, 300, 1).release().perform()
 
             sc.logger.info('点击“存草稿”按钮')
             sc.driver.find_element_by_name("存草稿").click()
@@ -252,7 +252,7 @@ class TestCreationExport(TestCase):
 
         sc.logger.info('点击屏幕消除软键盘')
         actions = TouchAction(sc.driver)
-        actions.tap(None, 500, 500, 0.5).release().perform()
+        actions.tap(None, 500, 500, 1).release().perform()
 
         sc.logger.info('点击“保存到相册”')
         sc.driver.find_element_by_name('保存到相册').click()
@@ -273,7 +273,7 @@ class TestCreationExport(TestCase):
         except NoSuchElementException:
             sc.logger.info('当前设备不支持GIF导出，点击屏幕消除选项框')
             actions = TouchAction(sc.driver)
-            actions.tap(None, 500, 300, 0.5).release().perform()
+            actions.tap(None, 500, 300, 1).release().perform()
 
             sc.logger.info('点击“存草稿”按钮')
             sc.driver.find_element_by_name("存草稿").click()
@@ -337,7 +337,7 @@ class TestCreationExport(TestCase):
 
         sc.logger.info('点击屏幕消除软键盘')
         actions = TouchAction(sc.driver)
-        actions.tap(None, 500, 500, 0.5).release().perform()
+        actions.tap(None, 500, 500, 1).release().perform()
 
         sc.logger.info('点击“保存到相册”')
         sc.driver.find_element_by_name('保存到相册').click()

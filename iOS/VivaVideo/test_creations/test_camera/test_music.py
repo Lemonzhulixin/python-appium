@@ -59,7 +59,7 @@ class TestCameraMusic(TestCase):
         sc.driver.find_element_by_name("点击添加配乐").click()
         time.sleep(2)
 
-        sc.logger.info('点击第下载按钮')
+        sc.logger.info('点击下载按钮')
         el_download = sc.driver.find_element_by_name('vivavideo material download3 n')
         el_download.click()
         sc.capture_screen(fun_name, self.img_path)

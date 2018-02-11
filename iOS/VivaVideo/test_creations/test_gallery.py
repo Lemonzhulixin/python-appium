@@ -84,7 +84,7 @@ class TestGallery(TestCase):
         sc.driver.find_element_by_name("视频剪辑").click()
         time.sleep(1)
 
-        sc.logger.info('切换到相册页面')
+        sc.logger.info('切换到图片')
         sc.driver.find_element_by_name("视频").click()
         sc.driver.find_element_by_name("图片").click()
         sc.driver.find_element_by_name("其他相册").click()
@@ -161,8 +161,8 @@ class TestGallery(TestCase):
         time.sleep(1)
 
         sc.logger.info('取消添加视频')
-        el_video = sc.driver.find_elements_by_accessibility_id("vivavideo_tool_gallery_audio_type_video")
-        el_video[0].click()
+        el_video = sc.driver.find_element_by_accessibility_id("vivavideo_tool_gallery_audio_type_video")
+        el_video.click()
         sc.driver.find_element_by_name("xiaoying com cancel").click()
 
         sc.logger.info('取消添加图片')
