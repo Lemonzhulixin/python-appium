@@ -133,9 +133,9 @@ class TestEditCollage(TestCase):
         time.sleep(1)
         sc.driver.find_element_by_name("vivavideo com nav back n").click()
 
-    def test_edit_text_03_del(self):
-        """剪辑-字幕-删除."""
-        sc.logger.info('剪辑-字幕-删除')
+    def test_edit_collage_03_del(self):
+        """剪辑-画中画-删除."""
+        sc.logger.info('剪辑-画中画-删除')
         fun_name = 'test_edit_text_del'
 
         time.sleep(1)
@@ -149,7 +149,9 @@ class TestEditCollage(TestCase):
         sc.driver.find_element_by_name("画中画").click()
 
         sc.logger.info('点击已添加的"图片"')
-        sc.driver.find_element_by_xpath("//*/XCUIElementTypeOther[2]//*/XCUIElementTypeButton")
+        time.sleep(1)
+        sc.driver.find_element_by_xpath(
+            "//*/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeButton").click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击删除按钮')

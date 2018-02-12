@@ -215,7 +215,7 @@ class TestEditMusic(TestCase):
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击"左上角X"放弃添加')
-        sc.driver.find_element_by_name("vivavideo editor common cancel").click()
+        sc.driver.find_element_by_name("xiaoying com cancel").click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击"确认"放弃添加')

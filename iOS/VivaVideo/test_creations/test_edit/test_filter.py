@@ -28,10 +28,6 @@ class TestEditFilter(TestCase):
         sc.driver.find_element_by_name("更多草稿").click()
         time.sleep(0.5)
 
-        sc.logger.info('点击"更多草稿"')
-        sc.driver.find_element_by_name("更多草稿").click()
-        time.sleep(0.5)
-
         sc.logger.info('点击一个草稿工程封面')
         el_draft = sc.driver.find_element_by_xpath(
             "//*/XCUIElementTypeCollectionView//*/XCUIElementTypeImage[1]")
@@ -45,17 +41,19 @@ class TestEditFilter(TestCase):
 
         sc.logger.info('选择一个"滤镜"')
         el_filter = sc.driver.find_element_by_xpath(
-            "//*/XCUIElementTypeCollectionView//*/XCUIElementTypeImage")
+            "//*/XCUIElementTypeCollectionView/XCUIElementTypeCell[3]/XCUIElementTypeOther/XCUIElementTypeImage")
         el_filter.click()
         sc.capture_screen(fun_name,self.img_path)
 
         sc.logger.info('切回"空滤镜"')
+        time.sleep(1)
         el_empty = sc.driver.find_element_by_accessibility_id(
             "XiaoYingResource.bundle/vivavideo_tool_camera_none_n")
         el_empty.click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击“下载更多”按钮')
+        time.sleep(1)
         el_more = sc.driver.find_element_by_accessibility_id(
             "XiaoYingResource.bundle/vivavideo_tool_camera_store_n")
         el_more.click()
@@ -81,23 +79,6 @@ class TestEditFilter(TestCase):
 
         sc.logger.info('点击“右上角”保存')
         sc.driver.find_element_by_name("xiaoying com ok").click()
-
-        sc.logger.info('再次点击"滤镜"')
-        sc.driver.find_element_by_name("滤镜").click()
-
-        sc.logger.info('切换一个"滤镜"')
-        el_filter = sc.driver.find_element_by_xpath(
-            "//*/XCUIElementTypeCollectionView//*/XCUIElementTypeImage")
-        el_filter.click()
-        sc.capture_screen(fun_name, self.img_path)
-
-        sc.logger.info('点击“左上角X”取消')
-        sc.driver.find_element_by_name("xiaoying com cancel").click()
-        sc.capture_screen(fun_name, self.img_path)
-
-        sc.logger.info('确认取消')
-        sc.driver.find_element_by_name("确认").click()
-        time.sleep(3)
 
         sc.logger.info('存草稿并返回创作页首页')
         sc.driver.find_element_by_name("存草稿").click()

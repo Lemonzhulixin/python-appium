@@ -162,7 +162,8 @@ class TestEditText(TestCase):
         sc.driver.find_element_by_name("字幕").click()
 
         sc.logger.info('点击已添加的"字幕"')
-        sc.driver.find_element_by_xpath("//*/XCUIElementTypeOther[2]//*/XCUIElementTypeButton")
+        sc.driver.find_element_by_xpath(
+            "//*/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeButton").click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击删除按钮')
@@ -172,26 +173,13 @@ class TestEditText(TestCase):
         sc.logger.info('点击右上角确认按钮')
         sc.driver.find_element_by_name("vivavideo editor common ok").click()
 
-        sc.logger.info('点击“存草稿”按钮')
-        sc.driver.find_element_by_name("存草稿").click()
-
-        sc.logger.info('返回创作中心主界面')
-        time.sleep(1)
-        sc.driver.find_element_by_name("vivavideo com nav back n").click()
-
     def test_edit_text_04_cancel(self):
         """剪辑-字幕-放弃."""
         sc.logger.info('剪辑-字幕-放弃')
         fun_name = 'test_edit_text_cancel'
 
-        time.sleep(1)
-        sc.logger.info('点击首页第一个草稿封面')
-        el_draft = sc.driver.find_element_by_xpath("//*/XCUIElementTypeOther[2]/*/XCUIElementTypeButton")
-        el_draft.click()
-
         sc.logger.info('点击"字幕"')
-        time.sleep(0.5)
-        sc.driver.find_element_by_name("剪辑").click()
+        time.sleep(1)
         sc.driver.find_element_by_name("字幕").click()
 
         sc.logger.info('点击添加按钮')
