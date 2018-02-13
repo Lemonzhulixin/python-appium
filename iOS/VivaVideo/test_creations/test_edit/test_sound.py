@@ -19,6 +19,12 @@ class TestEditSound(TestCase):
         fun_name = 'test_edit_sound_add'
 
         time.sleep(5)
+        sc.logger.info('点击创作中心主按钮')
+        try:
+            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_n']").click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_f']").click()
+
         sc.logger.info('点击首页第一个草稿封面')
         el_draft = sc.driver.find_element_by_xpath("//*/XCUIElementTypeOther[2]/*/XCUIElementTypeButton")
         el_draft.click()
@@ -33,7 +39,12 @@ class TestEditSound(TestCase):
         sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 800)
 
         sc.logger.info('点击"配音"')
-        sc.driver.find_element_by_name("配音").click()
+        try:
+            sc.driver.find_element_by_name("配音").click()
+        except NoSuchElementException:
+            sc.logger.info('未找到"配音"按钮，再向左滑动')
+            sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 800)
+            sc.driver.find_element_by_name("配音").click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击右侧预置"配音"图标')
@@ -65,9 +76,9 @@ class TestEditSound(TestCase):
             except NoSuchElementException:
                 sc.logger.info("已授权")
 
-            sc.logger.info('长按录制5s音频')
+            sc.logger.info('长按录制10s音频')
             actions = TouchAction(sc.driver)
-            actions.long_press(el_record, None, None, 5000).release().perform()
+            actions.long_press(el_record, None, None, 10000).release().perform()
             sc.capture_screen(fun_name, self.img_path)
         except NoSuchElementException:
             sc.logger.info('添加的配音音频时长超出20s，可选择时长小的音频或者修改等待时长')
@@ -103,7 +114,7 @@ class TestEditSound(TestCase):
         try:
             sc.driver.find_element_by_name("配音").click()
         except NoSuchElementException:
-            sc.logger.info('未找到"配乐"按钮，再向左滑动')
+            sc.logger.info('未找到"配音"按钮，再向左滑动')
             sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 800)
             sc.driver.find_element_by_name("配音").click()
         sc.capture_screen(fun_name, self.img_path)
@@ -113,7 +124,7 @@ class TestEditSound(TestCase):
 
         sc.logger.info('点击"编辑"按钮')
         try:
-            WebDriverWait(sc.driver,30).until(
+            WebDriverWait(sc.driver,20).until(
                 lambda el_edit:el_edit.find_element_by_name("vivavideo tool fx edit n"))
             sc.logger.info('点击左侧"暂停"按钮')
             sc.driver.find_element_by_name("vivavideo editor framebar paus").click()
@@ -151,15 +162,10 @@ class TestEditSound(TestCase):
         sc.driver.find_element_by_name("添加").click()
         sc.capture_screen(fun_name, self.img_path)
 
+        sc.logger.info('等待配音添加完成')
         try:
             WebDriverWait(sc.driver,20).until(
                 lambda el_record:el_record.find_element_by_name("vivavideo tool sound start n"))
-            sc.logger.info('录制取消')
-            el_record = sc.driver.find_element_by_name("vivavideo tool sound start n")
-            actions = TouchAction(sc.driver)
-            actions.long_press(el_record, None, None, 10000).move_to(
-                sc.driver.find_element_by_name("滑到这里"), None, None).release().perform()
-            sc.capture_screen(fun_name, self.img_path)
         except NoSuchElementException:
             sc.logger.info('添加的配音音频时长超出20s，可选择时长小的音频或者修改等待时长')
 

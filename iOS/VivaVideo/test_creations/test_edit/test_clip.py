@@ -41,7 +41,7 @@ class TestEditClip(TestCase):
         sc.logger.info('点击"修剪"')
         try:
             sc.driver.find_element_by_name("修剪").click()
-
+            # #长按拖动还需要再调试
             # sc.logger.info('滑动左侧trim bar')
             # time.sleep(3)
             # el_left_trim = sc.driver.find_element_by_accessibility_id("vivavideo_tool_clipedit_trim_left_n")
@@ -258,6 +258,7 @@ class TestEditClip(TestCase):
         sc.driver.find_element_by_name("镜头编辑").click()
         sc.capture_screen(fun_name,self.img_path)
 
+        # #长按拖动还需要再调试
         # sc.logger.info('调整镜头')
         # el_clip_01 = sc.driver.find_element_by_xpath(
         #     "//*/XCUIElementTypeScrollView/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeImage[1]")

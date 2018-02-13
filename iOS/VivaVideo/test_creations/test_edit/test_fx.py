@@ -4,6 +4,7 @@ import time
 from unittest import TestCase
 from iOS import script_ultils as sc
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException
 
 
 class TestEditFX(TestCase):
@@ -26,15 +27,26 @@ class TestEditFX(TestCase):
         time.sleep(0.5)
         sc.driver.find_element_by_name("剪辑").click()
 
-        sc.logger.info('向左滑动，点击特效')
+        sc.logger.info('向左滑动')
         start_x = self.width - self.width // 10
         start_bottom = self.height - self.height // 5
-        while True:
-            try:
-                sc.driver.find_element_by_name("特效").click()
-                break
-            except:
-                sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 500)
+        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 800)
+
+        # sc.logger.info('点击"特效"')
+        # try:
+        #     sc.driver.find_element_by_name("特效").click()
+        # except NoSuchElementException:
+        #     sc.logger.info('未找到"特效"按钮，再向左滑动')
+        #     sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 800)
+        #     sc.driver.find_element_by_name("特效").click()
+        # sc.capture_screen(fun_name, self.img_path)
+
+        sc.logger.info('点击"特效"')
+        el_sound = sc.driver.find_element_by_name('配音')
+        coord_x = el_sound.location.get('x')
+        coord_y = el_sound.location.get('y')
+        sc.swipe_by_ratio(coord_x, coord_y, 'left', 0.8, 800)
+        sc.driver.find_element_by_name("特效").click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击"添加"按钮')
@@ -49,9 +61,9 @@ class TestEditFX(TestCase):
         try:
             WebDriverWait(sc.driver,20).until(
                 lambda el_fx_use:el_fx_use.find_element_by_xpath(
-                    "//*/XCUIElementTypeCollectionView/*/XCUIElementTypeOther/XCUIElementTypeImage"))
+                    "//*/XCUIElementTypeOther[5]//*/XCUIElementTypeOther/XCUIElementTypeImage"))
             el_fx = sc.driver.find_element_by_xpath(
-                "//*/XCUIElementTypeCollectionView/*/XCUIElementTypeOther/XCUIElementTypeImage")
+                "//*/XCUIElementTypeOther[5]//*/XCUIElementTypeOther/XCUIElementTypeImage")
             el_fx.click()
             sc.capture_screen(fun_name, self.img_path)
         except Exception as e:
@@ -83,7 +95,7 @@ class TestEditFX(TestCase):
         sc.logger.info('剪辑-特效-删除')
         fun_name = 'test_edit_fx_del'
 
-        time.sleep(1)
+        time.sleep(5)
         sc.logger.info('点击首页第一个草稿封面')
         el_draft = sc.driver.find_element_by_xpath("//*/XCUIElementTypeOther[2]/*/XCUIElementTypeButton")
         el_draft.click()
@@ -92,19 +104,26 @@ class TestEditFX(TestCase):
         time.sleep(0.5)
         sc.driver.find_element_by_name("剪辑").click()
 
-        sc.logger.info('向左滑动，点击特效')
+        sc.logger.info('向左滑动')
         start_x = self.width - self.width // 10
         start_bottom = self.height - self.height // 5
-        while True:
-            try:
-                sc.driver.find_element_by_name("特效").click()
-                break
-            except:
-                sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 500)
+        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 800)
+
+        sc.logger.info('点击"特效"')
+        el_sound = sc.driver.find_element_by_name('配音')
+        coord_x = el_sound.location.get('x')
+        coord_y = el_sound.location.get('y')
+        sc.swipe_by_ratio(coord_x, coord_y, 'left', 0.8, 800)
+        sc.driver.find_element_by_name("特效").click()
         sc.capture_screen(fun_name, self.img_path)
 
+        sc.logger.info('向左滑动到添加fx片段位置')
+        fx_edit_x = self.width - self.width // 4
+        fx_edit_y = self.height - self.height // 4
+        sc.swipe_by_ratio(fx_edit_x, fx_edit_y, 'left', 0.1, 500)
+
         sc.logger.info('点击编辑按钮')
-        sc.driver.find_element_by_name("vivavideo tool fx edit n")
+        sc.driver.find_element_by_name("vivavideo tool fx edit n").click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击删除按钮')
@@ -129,7 +148,7 @@ class TestEditFX(TestCase):
 
         sc.logger.info('选择一个"特效"使用')
         el_fx = sc.driver.find_element_by_xpath(
-            "//*/XCUIElementTypeCollectionView/*/XCUIElementTypeOther/XCUIElementTypeImage")
+            "//*/XCUIElementTypeOther[5]//*/XCUIElementTypeOther/XCUIElementTypeImage")
         el_fx.click()
         sc.capture_screen(fun_name, self.img_path)
 

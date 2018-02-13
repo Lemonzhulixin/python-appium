@@ -26,15 +26,17 @@ class TestEditClipsAdd(TestCase):
         time.sleep(0.5)
         sc.driver.find_element_by_name("剪辑").click()
 
-        sc.logger.info('向左滑动，点击"添加镜头"')
+        sc.logger.info('向左滑动')
         start_x = self.width - self.width // 10
         start_bottom = self.height - self.height // 5
-        while True:
-            try:
-                sc.driver.find_element_by_name("添加镜头").click()
-                break
-            except:
-                sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 500)
+        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 800)
+
+        sc.logger.info('点击"添加镜头"')
+        el_sound = sc.driver.find_element_by_name('配音')
+        coord_x = el_sound.location.get('x')
+        coord_y = el_sound.location.get('y')
+        sc.swipe_by_ratio(coord_x, coord_y, 'left', 0.8, 800)
+        sc.driver.find_element_by_name("添加镜头").click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('添加视频')
@@ -60,7 +62,7 @@ class TestEditClipsAdd(TestCase):
         fun_name = 'test_edit_clips_shot'
 
         sc.logger.info('点击"添加镜头"')
-        time.sleep(5)
+        time.sleep(1)
         sc.driver.find_element_by_name("添加镜头").click()
 
         sc.logger.info('点击右上角拍摄按钮')
@@ -91,7 +93,7 @@ class TestEditClipsAdd(TestCase):
         fun_name = 'test_edit_clips_cancel'
 
         sc.logger.info('点击"添加镜头"')
-        time.sleep(5)
+        time.sleep(1)
         sc.driver.find_element_by_name("添加镜头").click()
 
         sc.logger.info('切换到图片')
@@ -99,8 +101,8 @@ class TestEditClipsAdd(TestCase):
         sc.driver.find_element_by_name("图片").click()
 
         sc.logger.info('添加图片')
-        el_img = sc.driver.find_element_by_xpath("//*/XCUIElementTypeImage")
-        el_img.click()
+        el_img = sc.driver.find_elements_by_xpath("//*/XCUIElementTypeImage")
+        el_img[1].click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击“左上角按钮”取消')
@@ -121,7 +123,7 @@ class TestEditClipsAdd(TestCase):
         sc.logger.info('剪辑-排序')
         fun_name = 'test_edit_sort'
 
-        time.sleep(5)
+        time.sleep(1)
         sc.logger.info('点击首页第一个草稿封面')
         el_draft = sc.driver.find_element_by_xpath("//*/XCUIElementTypeOther[2]/*/XCUIElementTypeButton")
         el_draft.click()
@@ -130,23 +132,28 @@ class TestEditClipsAdd(TestCase):
         time.sleep(0.5)
         sc.driver.find_element_by_name("剪辑").click()
 
-        sc.logger.info('向左滑动，点击"排序"')
+        sc.logger.info('向左滑动')
+        time.sleep(1)
         start_x = self.width - self.width // 10
         start_bottom = self.height - self.height // 5
-        while True:
-            try:
-                sc.driver.find_element_by_name("排序").click()
-                break
-            except:
-                sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 500)
+        for i in range(3):
+            sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 800)
+
+        sc.logger.info('点击"排序"')
+        sc.driver.find_element_by_name("排序").click()
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('把特效和动画贴纸位置互换')
-        el_fx = sc.driver.find_element_by_name("特效")
-        el_sticker = sc.driver.find_element_by_name("动画贴纸")
-        actions = TouchAction(sc.driver)
-        actions.long_press(el_fx, None, None, 1000).move_to(el_sticker, None, None, 1000).release().perform()
-        sc.capture_screen(fun_name, self.img_path)
+        # #长按拖动还需要再调试
+        # sc.logger.info('把特效和动画贴纸位置互换')
+        # try:
+        #     el_fx = sc.driver.find_element_by_name("特效")
+        #     el_sticker = sc.driver.find_element_by_name("动画贴纸")
+        #     actions = TouchAction(sc.driver)
+        #     actions.long_press(el_fx,1000).move_to(el_sticker).release().perform()
+        #     sc.capture_screen(fun_name, self.img_path)
+        # except Exception as e:
+        #     sc.logger.error("排序失败",e)
+        #     return False
 
         sc.logger.info('点击"完成"保存设置')
         sc.driver.find_element_by_name("完成").click()
