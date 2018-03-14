@@ -3,7 +3,6 @@
 import time
 from unittest import TestCase
 from iOS import script_ultils as sc
-from appium.webdriver.common.touch_action import TouchAction
 
 
 class TestEditClipsAdd(TestCase):

@@ -40,8 +40,8 @@ PATH = lambda p: os.path.abspath(
 def env_init_iOS():
     desired_caps = {
         'platformName': 'iOS',
-        'platformVersion': '11.2.5',
-        'deviceName': '6s2050',
+        'platformVersion': '11.2.1',
+        'deviceName': 'iPadmini4',
         'bundleId': 'com.quvideo.XiaoYing',
         'app': '',
         'noReset': True,

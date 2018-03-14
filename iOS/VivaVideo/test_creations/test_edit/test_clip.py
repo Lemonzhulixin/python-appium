@@ -4,8 +4,6 @@ import time
 from unittest import TestCase
 from iOS import script_ultils as sc
 from selenium.common.exceptions import NoSuchElementException
-from appium.webdriver.common.touch_action import TouchAction
-from selenium.webdriver.support.ui import WebDriverWait
 
 
 class TestEditClip(TestCase):

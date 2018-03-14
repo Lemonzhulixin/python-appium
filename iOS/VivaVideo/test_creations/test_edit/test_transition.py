@@ -4,6 +4,7 @@ import time
 from unittest import TestCase
 from iOS import script_ultils as sc
 
+
 class TestEditTransition(TestCase):
     """转场的基本操作测试类."""
 

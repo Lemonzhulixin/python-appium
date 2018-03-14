@@ -33,7 +33,7 @@ def test_init():
     print('Test init begin!!!')
     local_time = time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime())
     #path_list = ['./Report/', local_time, '/']
-    path_list = ['/Users/zhulixin/Desktop/UItest/Report/', local_time, '/']
+    path_list = ['/Users/zhulixin/Desktop/UItest/iOS/Report/', local_time, '/']
 
     capture_list = path_list + ['screenshots/']
     log_list = path_list + ['logs/']

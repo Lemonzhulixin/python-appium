@@ -181,3 +181,9 @@ class TestPublishEdit(TestCase):
         except Exception as e:
             sc.logger.error('发布失败',e)
             return False
+
+        sc.logger.info('点击创作中心主按钮')
+        try:
+            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_n']").click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_f']").click()

@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from unittest import TestCase
 from iOS import script_ultils as sc
 
+
 class TestCreationTemplate(TestCase):
     """创作页面素材中心测试类.
     滤镜-下载："vivavideo material download2 n"

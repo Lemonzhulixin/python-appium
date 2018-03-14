@@ -18,17 +18,24 @@ class TestGallery(TestCase):
         time.sleep(5)
         sc.logger.info('点击创作中心主按钮')
         try:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_n']").click()
+            sc.driver.find_element_by_accessibility_id("camerta_n").click()
         except NoSuchElementException:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_f']").click()
+            sc.driver.find_element_by_accessibility_id("camerta_f").click()
 
         sc.logger.info('点击视频剪辑')
-        sc.driver.find_element_by_name("视频剪辑").click()
+        try:
+            sc.driver.find_element_by_name("视频剪辑").click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_name("剪辑").click()
+
         time.sleep(1)
         try:
             sc.driver.find_element_by_name("跳过").click()
             time.sleep(1)
-            sc.driver.find_element_by_name("视频剪辑").click()
+            try:
+                sc.driver.find_element_by_name("视频剪辑").click()
+            except NoSuchElementException:
+                sc.driver.find_element_by_name("剪辑").click()
         except NoSuchElementException:
             sc.logger.info('已跳过订阅页面')
 
@@ -81,7 +88,10 @@ class TestGallery(TestCase):
         fun_name = 'test_gallery_img'
 
         sc.logger.info('点击视频剪辑')
-        sc.driver.find_element_by_name("视频剪辑").click()
+        try:
+            sc.driver.find_element_by_name("视频剪辑").click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_name("剪辑").click()
         time.sleep(1)
 
         sc.logger.info('切换到图片')
@@ -121,7 +131,10 @@ class TestGallery(TestCase):
         fun_name = 'test_gallery_storyboard'
 
         sc.logger.info('点击视频剪辑')
-        sc.driver.find_element_by_name("视频剪辑").click()
+        try:
+            sc.driver.find_element_by_name("视频剪辑").click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_name("剪辑").click()
         time.sleep(1)
 
         sc.logger.info('添加多个视频')
@@ -157,7 +170,10 @@ class TestGallery(TestCase):
     def test_gallery_04_giveup():
         """相册-放弃操作"""
         sc.logger.info('点击视频剪辑')
-        sc.driver.find_element_by_name("视频剪辑").click()
+        try:
+            sc.driver.find_element_by_name("视频剪辑").click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_name("剪辑").click()
         time.sleep(1)
 
         sc.logger.info('取消添加视频')

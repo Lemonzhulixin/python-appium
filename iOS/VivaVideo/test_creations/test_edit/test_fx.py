@@ -4,7 +4,6 @@ import time
 from unittest import TestCase
 from iOS import script_ultils as sc
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException
 
 
 class TestEditFX(TestCase):

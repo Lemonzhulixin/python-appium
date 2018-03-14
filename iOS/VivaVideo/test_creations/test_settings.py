@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+"""设置页面测试用例."""
 from unittest import TestCase
 from iOS import script_ultils as sc
 import time
@@ -6,6 +7,7 @@ from selenium.common.exceptions import NoSuchElementException
 
 
 class Settings(TestCase):
+    """设置页面测试类."""
     # 获取屏幕尺寸
     width, height = sc.get_size()
     img_path = sc.path_lists[0]
@@ -170,20 +172,19 @@ class Settings(TestCase):
         sc.capture_screen(fun_name, self.img_path)
         sc.driver.find_element_by_name("取消").click()
 
-        sc.logger.info('推荐小影给好友')
-        sc.driver.find_element_by_name("推荐小影给好友").click()
-        sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_xpath("//XCUIElementTypeButton[@name='xiaoying sns icon small qq nor']").click()
-        time.sleep(2)
-        sc.driver.find_element_by_name("我的电脑").click()
-        sc.driver.find_element_by_name("发送").click()
-        time.sleep(2)
-        sc.driver.find_element_by_name("返回小影").click()
+        # sc.logger.info('推荐小影给好友')
+        # sc.driver.find_element_by_name("推荐小影给好友").click()
+        # sc.capture_screen(fun_name, self.img_path)
+        # sc.driver.find_element_by_xpath("//XCUIElementTypeButton[@name='xiaoying sns icon small qq nor']").click()
+        # time.sleep(2)
+        # sc.driver.find_element_by_name("我的电脑").click()
+        # sc.driver.find_element_by_name("发送").click()
+        # time.sleep(2)
+        # sc.driver.find_element_by_name("返回小影").click()
 
         sc.logger.info('清除缓存')
         sc.driver.find_element_by_name("清除缓存").click()
-        sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_name("取消").click()
+        sc.driver.find_element_by_name("清除缓存").click()
 
-        sc.driver.find_element_by_name("清除缓存").click()
-        sc.driver.find_element_by_name("清除缓存").click()
+        sc.logger.info('退出设置页面')
+        sc.driver.find_element_by_name("vivavideo com nav back n").click()

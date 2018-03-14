@@ -25,9 +25,9 @@ class TestCreationExport(TestCase):
         time.sleep(5)
         sc.logger.info('点击创作中心主按钮')
         try:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_n']").click()
+            sc.driver.find_element_by_accessibility_id("camerta_n").click()
         except NoSuchElementException:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_f']").click()
+            sc.driver.find_element_by_accessibility_id("camerta_f").click()
 
         sc.logger.info('点击"高清拍摄"按钮')
         try:

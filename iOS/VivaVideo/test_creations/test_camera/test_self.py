@@ -20,9 +20,9 @@ class TestCameraSelf(TestCase):
         time.sleep(1)
         sc.logger.info('点击创作中心主按钮')
         try:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_n']").click()
+            sc.driver.find_element_by_accessibility_id("camerta_n").click()
         except NoSuchElementException:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_f']").click()
+            sc.driver.find_element_by_accessibility_id("camerta_f").click()
 
         sc.logger.info('点击“美颜趣拍”')
         sc.driver.find_element_by_name("美颜趣拍").click()
@@ -33,6 +33,7 @@ class TestCameraSelf(TestCase):
             sc.driver.find_element_by_name("跳过").click()
             time.sleep(1)
             sc.driver.find_element_by_name("美颜趣拍").click()
+            time.sleep(1)
         except NoSuchElementException:
             sc.logger.info('已跳过订阅页面')
 

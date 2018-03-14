@@ -18,9 +18,9 @@ class TestHome(TestCase):
         time.sleep(5)
         sc.logger.info('点击创作中心主按钮')
         try:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_n']").click()
+            sc.driver.find_element_by_accessibility_id("camerta_n").click()
         except NoSuchElementException:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_f']").click()
+            sc.driver.find_element_by_accessibility_id("camerta_f").click()
 
         sc.logger.info('下拉刷新')
         start_x = self.width // 2
@@ -63,6 +63,15 @@ class TestHome(TestCase):
 
         sc.logger.info('相册MV')
         sc.driver.find_element_by_name("相册MV").click()
+
+        sc.logger.info("授权小影访问相册和媒体资料")
+        try:
+            sc.driver.find_element_by_name("好").click()  # 授权相册
+            time.sleep(2)
+            sc.driver.find_element_by_name("好").click()  # 授权媒体资料库
+        except NoSuchElementException:
+            sc.logger.info("已授权")
+
         el_imgs = sc.driver.find_elements_by_xpath("//*/XCUIElementTypeImage")
         i = 1  #第0个为顶部的下拉框
         while i < len(el_imgs):
@@ -166,7 +175,7 @@ class TestHome(TestCase):
         except NoSuchElementException:
             sc.logger.info('当前已是List view')
 
-        sc.logger.info('返回首页')
+        sc.logger.info('返回创作中心')
         sc.driver.find_element_by_name("vivavideo com nav back n").click()
 
     def test_home_04_other(self):
@@ -218,3 +227,14 @@ class TestHome(TestCase):
         sc.capture_screen(fun_name, self.img_path)
         sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.6, 1000)
         sc.driver.find_element_by_name("vivavideo common back n").click()
+
+        sc.logger.info('向下滑动，恢复创作页初始状态')
+        x_down = self.width // 2
+        y_down = self.height // 5
+        sc.swipe_by_ratio(x_down, y_down, 'down', 0.7, 800)
+        sc.capture_screen(fun_name, self.img_path)
+
+
+
+
+

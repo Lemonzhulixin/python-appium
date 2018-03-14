@@ -19,12 +19,15 @@ class TestCameraNormal(TestCase):
         time.sleep(5)
         sc.logger.info('点击创作中心主按钮')
         try:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_n']").click()
+            sc.driver.find_element_by_accessibility_id("camerta_n").click()
         except NoSuchElementException:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_f']").click()
+            sc.driver.find_element_by_accessibility_id("camerta_f").click()
 
         sc.logger.info('点击高清拍摄')
-        sc.driver.find_element_by_name("高清拍摄").click()
+        try:
+            sc.driver.find_element_by_name("高清拍摄").click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_name("拍摄").click()
         time.sleep(1)
         sc.capture_screen(fun_name, self.img_path)
 
@@ -32,7 +35,11 @@ class TestCameraNormal(TestCase):
         try:
             sc.driver.find_element_by_name("跳过").click()
             time.sleep(1)
-            sc.driver.find_element_by_name("高清拍摄").click()
+            try:
+                sc.driver.find_element_by_name("高清拍摄").click()
+            except NoSuchElementException:
+                sc.driver.find_element_by_name("拍摄").click()
+                time.sleep(1)
         except NoSuchElementException:
             sc.logger.info('已跳过订阅页面')
 
@@ -49,55 +56,21 @@ class TestCameraNormal(TestCase):
         sc.driver.find_element_by_name("vivavideo camera tool icon fil").click()
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('滤镜下载')
-        el_filter_download = sc.driver.find_element_by_accessibility_id("vivavideo_camera_tool_icon_download_nrm")
-
-        sc.logger.info('点击下载按钮')
+        sc.logger.info('滤镜下载-点击下载按钮')
         try:
+            el_filter_download = sc.driver.find_element_by_accessibility_id("vivavideo_camera_tool_icon_download_nrm")
             el_filter_download.click()
             sc.capture_screen(fun_name, self.img_path)
-            time.sleep(5)
+            time.sleep(10)
         except NoSuchElementException:
             sc.logger.info('当前页面滤镜已下载')
-
-        # try:
-        #     el_filter_download = sc.driver.find_element_by_accessibility_id("vivavideo_camera_tool_icon_download_nrm")
-        #     sc.logger.info('点击下载按钮')
-        #     el_filter_download.click()
-        #     sc.capture_screen(fun_name, self.img_path)
-        #     try:
-        #         WebDriverWait(sc.driver, 30).until(
-        #             lambda download_flt: download_flt.find_element_by_accessibility_id(
-        #                 "vivavideo_camera_tool_icon_revoke_nrm"))
-        #     except Exception as e:
-        #         sc.logger.error('滤镜下载失败', e)
-        # except NoSuchElementException:
-        #     sc.logger.info('当前页面滤镜已下载')
 
         sc.logger.info('下载更多')
         sc.driver.find_element_by_accessibility_id("vivavideo_camera_bg_filter_store").click()
         sc.capture_screen(fun_name, self.img_path)
 
-        # sc.logger.info('向上滑动')
-        # start_x = self.width // 2
-        # start_bottom = self.height - self.height // 5
-        # sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.6, 1000)
-
-        sc.logger.info("滤镜下载")
-        try:
-            el_filter_more = sc.driver.find_element_by_name("vivavideo material download2 n")
-            el_filter_more.click()
-            try:
-                WebDriverWait(sc.driver,30).until(
-                    lambda download_more:download_more.find_element_by_name('使用'))
-                sc.capture_screen(fun_name, self.img_path)
-                el_use = sc.driver.find_element_by_name('使用')
-                el_use.click()
-            except TimeoutError as t:
-                sc.logger.error('下载超时',t)
-                return False
-        except NoSuchElementException:
-            sc.logger.info('当前页面滤镜已下载')
+        sc.logger.info("使用滤镜")
+        sc.driver.find_element_by_name('使用').click()
 
         sc.logger.info('返回创作中心主界面')
         time.sleep(1)
@@ -107,8 +80,13 @@ class TestCameraNormal(TestCase):
         """拍摄-设置相关"""
         fun_name = 'test_normal_settings'
 
+        time.sleep(2)
         sc.logger.info('点击高清拍摄')
-        sc.driver.find_element_by_name("高清拍摄").click()
+        try:
+            sc.driver.find_element_by_name("高清拍摄").click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_name("拍摄").click()
+        time.sleep(1)
 
         sc.logger.info('点击设置按钮')
         sc.driver.find_element_by_name("vivavideo camera tool icon set").click()
@@ -173,7 +151,11 @@ class TestCameraNormal(TestCase):
         fun_name = 'test_normal_shot'
 
         sc.logger.info('点击高清拍摄')
-        sc.driver.find_element_by_name("高清拍摄").click()
+        try:
+            sc.driver.find_element_by_name("高清拍摄").click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_name("拍摄").click()
+        time.sleep(1)
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('视频尺寸,全屏切换到3:4')
