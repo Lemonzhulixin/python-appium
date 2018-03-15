@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 """设置页面的测试用例."""
 import time
+
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
 from Android import script_ultils as sc
 
 
@@ -16,14 +18,18 @@ class TestSettings(object):
         sc.logger.info('设置：默认UI遍历')
         fun_name = 'test_settings_ui'
 
-        time.sleep(3)
-        sc.logger.info('点击按钮“我”')
-        sc.driver.find_element_by_id(
-            'com.quvideo.xiaoying:id/img_studio').click()
+        sc.logger.info('点击个人中心主按钮')
+        p_btn = 'com.quvideo.xiaoying:id/img_studio'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda c_btn: c_btn.find_element_by_id(p_btn)).click()
+
         sc.logger.info('开始进入个人空间截图')
         sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_id(
-            'com.quvideo.xiaoying:id/btn_setting').click()
+
+        setting_btn = 'com.quvideo.xiaoying:id/btn_setting'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(setting_btn)).click()
+
         el_set_list = sc.driver.find_elements_by_class_name(
             'android.widget.TextView')
 
@@ -88,38 +94,6 @@ class TestSettings(object):
             'com.quvideo.xiaoying:id/img_back').click()
         sc.logger.info('网络设置相关测试完成')
 
-    def test_settings_live(self):
-        """设置：摄像头校正."""
-        sc.logger.info('设置：摄像头校正')
-        fun_name = 'test_settings_live'
-
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("摄像头校正")').click()
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("校正前置摄像头")').click()
-        time.sleep(3)
-        sc.logger.info('校正前置摄像头时截图')
-        sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_adjust_dialog_btn_rotate_left').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_adjust_dialog_btn_rotate_right').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_adjust_dialog_btn_flip_horizontal').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_adjust_dialog_btn_flip_vertical').click()
-        sc.driver.press_keycode(4)
-        time.sleep(3)
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("摄像头校正")').click()
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("校正后置摄像头")').click()
-        time.sleep(3)
-        sc.logger.info('校正后置摄像头时截图')
-        sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_adjust_dialog_btn_rotate_left').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_adjust_dialog_btn_rotate_right').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_adjust_dialog_btn_flip_horizontal').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_adjust_dialog_btn_flip_vertical').click()
-        sc.driver.press_keycode(4)
-        sc.logger.info('设置：摄像头校正测试完成')
-
     def test_settings_privacy(self):
         """设置：隐私设置."""
         sc.logger.info('设置：隐私设置')
@@ -128,14 +102,22 @@ class TestSettings(object):
         start_x = self.width // 2
         start_bottom = self.height - self.height // 10
 
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("私信权限")').click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'text("私信权限")')).click()
+
         sc.find_by_classes('android.widget.TextView', fun_name, self.img_path)
         sc.logger.info('隐私权限设置遍历完成')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_back').click()
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("隐私帐号")').click()
+
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(
+                'com.quvideo.xiaoying:id/img_back')).click()
+
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'new UiSelector().text("隐私帐号")')).click()
         time.sleep(1)
+
         try:
             sc.driver.find_element_by_android_uiautomator(
                 'new UiSelector().text("水印显示昵称")').click()
@@ -145,6 +127,73 @@ class TestSettings(object):
                 'new UiSelector().text("水印显示昵称")').click()
         sc.logger.info('设置：隐私设置测试完成')
 
+    def test_settings_live(self):
+        """设置：摄像头校正."""
+        sc.logger.info('设置：摄像头校正')
+        fun_name = 'test_settings_live'
+        start_x = self.width // 2
+        start_bottom = self.height - self.height // 10
+
+        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.3, 500)
+
+        sc.capture_screen(fun_name, self.img_path)
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'new UiSelector().text("摄像头校正")')).click()
+
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'new UiSelector().text("校正前置摄像头")')).click()
+
+        time.sleep(3)
+        sc.logger.info('校正前置摄像头时截图')
+        sc.capture_screen(fun_name, self.img_path)
+
+        left_btn = 'com.quvideo.xiaoying:id/cam_adjust_dialog_btn_rotate_left'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(left_btn)).click()
+
+        r_btn = 'com.quvideo.xiaoying:id/cam_adjust_dialog_btn_rotate_right'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(r_btn)).click()
+
+        h_btn = 'com.quvideo.xiaoying:id/cam_adjust_dialog_btn_flip_horizontal'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(h_btn)).click()
+
+        v_btn = 'com.quvideo.xiaoying:id/cam_adjust_dialog_btn_flip_vertical'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(v_btn)).click()
+
+        sc.driver.press_keycode(4)
+        time.sleep(3)
+        sc.driver.find_element_by_android_uiautomator(
+            'new UiSelector().text("摄像头校正")').click()
+        sc.driver.find_element_by_android_uiautomator(
+            'new UiSelector().text("校正后置摄像头")').click()
+        time.sleep(3)
+        sc.logger.info('校正后置摄像头时截图')
+        sc.capture_screen(fun_name, self.img_path)
+
+        left_btn = 'com.quvideo.xiaoying:id/cam_adjust_dialog_btn_rotate_left'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(left_btn)).click()
+
+        r_btn = 'com.quvideo.xiaoying:id/cam_adjust_dialog_btn_rotate_right'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(r_btn)).click()
+
+        h_btn = 'com.quvideo.xiaoying:id/cam_adjust_dialog_btn_flip_horizontal'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(h_btn)).click()
+
+        v_btn = 'com.quvideo.xiaoying:id/cam_adjust_dialog_btn_flip_vertical'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(v_btn)).click()
+
+        sc.driver.press_keycode(4)
+        sc.logger.info('设置：摄像头校正测试完成')
+
     def test_settings_feedback(self):
         """设置：意见反馈."""
         sc.logger.info('设置：意见反馈')
@@ -152,7 +201,8 @@ class TestSettings(object):
         start_x = self.width // 2
         start_bottom = self.height - self.height // 10
 
-        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.8, 500)
+        time.sleep(2)
+        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
         sc.driver.find_element_by_android_uiautomator(
             'new UiSelector().text("意见反馈")').click()
         try:
@@ -188,15 +238,19 @@ class TestSettings(object):
             'new UiSelector().text("提交")').click()
         time.sleep(2)
         sc.capture_screen(fun_name, self.img_path)
+
+        """
         sc.logger.info('查看反馈')
         el_feedback = sc.driver.find_element_by_id(
             'com.quvideo.xiaoying:id/feedback_layout_history_item')
         el_feedback.click()
         sc.capture_screen(fun_name, self.img_path)
         sc.driver.press_keycode(4)
-        time.sleep(1)
-        sc.driver.find_element_by_id(
-            'com.quvideo.xiaoying:id/feedback_left_icon').click()
+        """
+
+        left_icon = 'com.quvideo.xiaoying:id/feedback_left_icon'
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda el: el.find_element_by_id(left_icon)).click()
         sc.logger.info('意见反馈测试完成')
 
     def test_settings_senior(self):
@@ -204,28 +258,38 @@ class TestSettings(object):
         sc.logger.info('设置：高级设置和其他')
         fun_name = 'test_settings_senior'
 
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("视频处理硬件加速")').click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'new UiSelector().text("视频处理硬件加速")')).click()
+
         sc.driver.find_element_by_android_uiautomator(
             'new UiSelector().text("视频保存位置")').click()
         sc.driver.press_keycode(4)
-        time.sleep(1)
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("关于小影")').click()
+
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'new UiSelector().text("关于小影")')).click()
+
         sc.driver.find_element_by_id(
             'com.quvideo.xiaoying:id/img_back').click()
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("评价小影")').click()
+
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'new UiSelector().text("评价小影")')).click()
+
         sc.capture_screen(fun_name, self.img_path)
         sc.driver.press_keycode(4)
 
         time.sleep(1)
         sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("铂金会员")').click()
+            'new UiSelector().text("小影铂金会员")').click()
         sc.driver.find_element_by_id(
             'com.quvideo.xiaoying:id/img_back').click()
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("恢复购买")').click()
+
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'new UiSelector().text("恢复购买")')).click()
+        sc.capture_screen(fun_name, self.img_path)
         sc.logger.info('设置：高级设置和其他测试完成')
 
     def test_settings_recommend(self):
@@ -233,11 +297,13 @@ class TestSettings(object):
         sc.logger.info('设置：推荐小影给好友')
         fun_name = 'test_settings_recommend'
 
-        sc.driver.find_element_by_android_uiautomator(
-            'new UiSelector().text("推荐小影给好友")').click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'new UiSelector().text("推荐小影给好友")')).click()
+
         time.sleep(1)
         sc.capture_screen(fun_name, self.img_path)
         for i in range(3):
             sc.driver.press_keycode(4)
-            time.sleep(1)
+            time.sleep(2)
         sc.logger.info('推荐到微信好友测试完成')

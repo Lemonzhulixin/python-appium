@@ -19,36 +19,54 @@ class TestGallery(object):
         start_x = self.width // 2
         start_bottom = self.height - self.height // 4
 
-        time.sleep(1)
         sc.logger.info('点击创作中心主按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_creation').click()
+        c_btn = 'com.quvideo.xiaoying:id/img_creation'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(c_btn)).click()
+
         sc.logger.info('点击“剪辑”')
         sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon1').click()
         time.sleep(1)
         try:
             sc.driver.find_element_by_android_uiautomator('text("跳过")').click()
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon1').click()
+
+            first_icon = 'com.quvideo.xiaoying:id/icon1'
+            WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(first_icon)).click()
         except NoSuchElementException:
             sc.logger.info('已跳过订阅页面')
         sc.logger.info('点击“其它相册”')
         sc.driver.find_element_by_android_uiautomator('text("其他相册")').click()
         sc.capture_screen(fun_name, self.img_path)
         sc.driver.find_element_by_android_uiautomator('text("全部")').click()
+        time.sleep(1)
+
         sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
-        el_video = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_click_mask')
-        el_video.click()
+        mask_img = 'com.quvideo.xiaoying:id/img_click_mask'
+        WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(mask_img)).click()
         sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/imgbtn_ratate').click()
+
+        rotate_btn = 'com.quvideo.xiaoying:id/imgbtn_ratate'
+        WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(rotate_btn)).click()
+
         try:
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/imgbtn_crop').click()
+            crop_btn = 'com.quvideo.xiaoying:id/imgbtn_crop'
+            sc.driver.find_element_by_id(crop_btn).click()
         except NoSuchElementException:
             sc.logger.info('视频尺寸1:1，无此选项')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_start_trim').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/imgbtn_import').click()
+
+        trip_btn = 'com.quvideo.xiaoying:id/btn_start_trim'
+        sc.driver.find_element_by_id(trip_btn).click()
+
+        import_btn = 'com.quvideo.xiaoying:id/imgbtn_import'
+        WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(import_btn)).click()
         sc.capture_screen(fun_name, self.img_path)
         try:
             WebDriverWait(sc.driver, 60).until(
-                lambda V_improt: V_improt.find_element_by_android_uiautomator('text("下一步")'))
+                lambda x: x.find_element_by_android_uiautomator('text("下一步")'))
         except TimeoutError as t:
             sc.logger.error('导入视频超时', t)
             return False
@@ -59,7 +77,9 @@ class TestGallery(object):
         sc.capture_screen(fun_name, self.img_path)
 
         sc.driver.find_element_by_android_uiautomator('text("存草稿")').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+        left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
+        WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(left_btn)).click()
         sc.capture_screen(fun_name, self.img_path)
         sc.logger.info('相册-视频相关操作测试完成')
 
@@ -68,18 +88,32 @@ class TestGallery(object):
         sc.logger.info('相册-图片')
         fun_name = 'test_gallery_img'
 
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon1').click()
+        first_icon = 'com.quvideo.xiaoying:id/icon1'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(first_icon)).click()
+
+        # sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon1').click()
         sc.driver.find_element_by_android_uiautomator('text("视频")').click()
         sc.driver.find_element_by_android_uiautomator('text("图片")').click()
         sc.driver.find_element_by_android_uiautomator('text("其他相册")').click()
         sc.capture_screen(fun_name, self.img_path)
+
         sc.driver.find_element_by_android_uiautomator('text("全部")').click()
-        sc.find_by_ids('com.quvideo.xiaoying:id/img_click_mask', fun_name, self.img_path)
+        mask_img = 'com.quvideo.xiaoying:id/img_click_mask'
+        sc.find_by_ids(mask_img, fun_name, self.img_path)
+
         sc.driver.find_element_by_android_uiautomator('text("下一步")').click()
         sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/preview_layout_fake').click()
+
+        fake_layout = 'com.quvideo.xiaoying:id/preview_layout_fake'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(fake_layout)).click()
+
         sc.driver.find_element_by_android_uiautomator('text("存草稿")').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+
+        left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(left_btn)).click()
         sc.capture_screen(fun_name, self.img_path)
         sc.logger.info('相册-图片相关操作测试完成')
 
@@ -88,15 +122,21 @@ class TestGallery(object):
         sc.logger.info('相册-storyboard')
         fun_name = 'test_gallery_storyboard'
 
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon1').click()
-        el_video_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/img_click_mask')
+        first_icon = 'com.quvideo.xiaoying:id/icon1'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_id(first_icon)).click()
+
+        mask_img = 'com.quvideo.xiaoying:id/img_click_mask'
+        el_video_list = sc.driver.find_elements_by_id(mask_img)
 
         for i in range(3):
+            import_btn = 'com.quvideo.xiaoying:id/imgbtn_import'
             el_video_list[i].click()
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/imgbtn_import').click()
+            sc.driver.find_element_by_id(import_btn).click()
             try:
                 WebDriverWait(sc.driver, 60).until(
-                    lambda V_improt: V_improt.find_element_by_android_uiautomator('text("下一步")'))
+                    lambda el: el.find_element_by_android_uiautomator(
+                        'text("下一步")'))
             except TimeoutError as t:
                 sc.logger.error('导入视频超时', t)
                 return False
@@ -105,35 +145,57 @@ class TestGallery(object):
                 return False
         sc.driver.find_element_by_android_uiautomator('text("视频")').click()
         sc.driver.find_element_by_android_uiautomator('text("图片")').click()
-        sc.find_by_ids('com.quvideo.xiaoying:id/img_icon', fun_name, self.img_path)
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_expand').click()
-        el_storyboard_del = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_delete')
-        el_storyboard_del.click()
+
+        img_icon = 'com.quvideo.xiaoying:id/img_icon'
+        sc.find_by_ids(img_icon, fun_name, self.img_path)
+
+        expand_btn = 'com.quvideo.xiaoying:id/btn_expand'
+        sc.driver.find_element_by_id(expand_btn).click()
+
+        del_img = 'com.quvideo.xiaoying:id/img_delete'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(del_img)).click()
         sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+
+        left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
+        sc.driver.find_element_by_id(left_btn).click()
+
         sc.driver.find_element_by_android_uiautomator('text("保存")').click()
         sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(left_btn)).click()
         sc.logger.info('相册-storyboard相关操作测试完成')
 
     def test_gallery_giveup(self):
         """相册-放弃操作."""
         sc.logger.info('相册-放弃操作')
         fun_name = 'test_gallery_giveup'
-
         start_x = self.width // 2
         start_bottom = self.height - self.height // 4
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon1').click()
-        el_video = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_click_mask')
-        el_video.click()
+
+        first_icon = 'com.quvideo.xiaoying:id/icon1'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_id(first_icon)).click()
+
+        mask_img = 'com.quvideo.xiaoying:id/img_click_mask'
+        WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(mask_img)).click()
         sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+
+        left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
+        sc.driver.find_element_by_id(left_btn).click()
+
         sc.capture_screen(fun_name, self.img_path)
         sc.driver.find_element_by_android_uiautomator('text("视频")').click()
         sc.driver.find_element_by_android_uiautomator('text("图片")').click()
+
         sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
-        sc.find_by_ids('com.quvideo.xiaoying:id/img_icon', fun_name, self.img_path)
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+        img_icon = 'com.quvideo.xiaoying:id/img_icon'
+        sc.find_by_ids(img_icon, fun_name, self.img_path)
+
+        sc.driver.find_element_by_id(left_btn).click()
+
         sc.driver.find_element_by_android_uiautomator('text("丢弃")').click()
         sc.capture_screen(fun_name, self.img_path)
         sc.logger.info('相册-放弃操作相关操作测试完成')

@@ -5,14 +5,20 @@ import pytest
 from Android.script_params import driver
 
 
-@pytest.fixture(scope='session', autouse=True)
+@pytest.fixture(scope='module', autouse=True)
 def testcase_fixtrue(request):
     """初始化与销毁"""
+    sleep(1)
     print('\nTestcase begin!')
+    # driver.launch_app()
+    driver.start_activity('com.quvideo.xiaoying', '.XiaoYingActivity')
+    sleep(5)
 
     def testcase_teardown():
-        """webdriver 退出前，先等待10秒钟"""
-        sleep(10)
-        driver.quit()
+        """关闭app前，先等待2秒钟"""
+        sleep(2)
+        # driver.quit()
+        driver.close_app()
+
         print('\nTestcase end!')
     request.addfinalizer(testcase_teardown)

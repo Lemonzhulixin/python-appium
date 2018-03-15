@@ -17,18 +17,27 @@ class TestPreviewTheme(object):
         sc.logger.info('预览页-切换到主题页面')
         fun_name = 'test_theme_ui'
 
-        time.sleep(1)
         sc.logger.info('点击创作中心主按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_creation').click()
+        c_btn = 'com.quvideo.xiaoying:id/img_creation'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(c_btn)).click()
+
         sc.logger.info('点击“剪辑”')
         sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon1').click()
-        el_video = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_click_mask')
-        el_video.click()
+
+        click_mask = 'com.quvideo.xiaoying:id/img_click_mask'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(click_mask)).click()
+
         sc.logger.info('点击“添加”')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/imgbtn_import').click()
+        import_btn = 'com.quvideo.xiaoying:id/imgbtn_import'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(import_btn)).click()
+
         try:
             WebDriverWait(sc.driver, 60).until(
-                lambda V_improt: V_improt.find_element_by_android_uiautomator('text("下一步")'))
+                lambda el: el.find_element_by_android_uiautomator(
+                    'text("下一步")'))
         except TimeoutError as t:
             sc.logger.error('导入视频超时', t)
             return False
@@ -48,36 +57,46 @@ class TestPreviewTheme(object):
         start_x = self.width // 4
         start_bottom = self.height - self.height // 10
 
-        sc.swipe_by_ratio(start_x, start_bottom, 'right', 0.5, 500)
-        sc.logger.info('点击“下载更多”')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/imgview_get_more_thumbnail_bg').click()
         time.sleep(1)
+        sc.swipe_by_ratio(start_x, start_bottom, 'right', 0.5, 500)
+
+        sc.logger.info('点击“下载更多”')
+        thumb_bg = 'com.quvideo.xiaoying:id/imgview_get_more_thumbnail_bg'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(thumb_bg)).click()
+
         try:
-            el_theme_use = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/template_caption_grid_btn_update')
             sc.logger.info('点击“使用”按钮')
-            el_theme_use.click()
+            u_btn = 'com.quvideo.xiaoying:id/template_caption_grid_btn_update'
+            WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(u_btn)).click()
         except NoSuchElementException:
-            el_download_template = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/imgbtn_download')
             sc.logger.info('点击下载按钮')
-            el_download_template.click()
+            down_btn = 'com.quvideo.xiaoying:id/imgbtn_download'
+            WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(down_btn)).click()
+
             try:
                 WebDriverWait(sc.driver, 30).until(
-                    lambda download_theme: download_theme.find_element_by_android_uiautomator('text("使用")'))
-                sc.driver.find_element_by_android_uiautomator('text("使用")').click()
+                    lambda el: el.find_element_by_android_uiautomator(
+                        'text("使用")')).click()
             except TimeoutError as t:
                 sc.logger.error('素材下载超时', t)
                 sc.logger.info('返回创作中心主界面')
                 for i in range(4):
+                    time.sleep(1)
                     sc.driver.press_keycode(4)
                 return False
             except Exception as e:
                 sc.logger.info('返回创作中心主界面')
                 for i in range(4):
+                    time.sleep(2)
                     sc.driver.press_keycode(4)
                 sc.logger.error('素材下载失败', e)
                 return False
 
         sc.logger.info('返回创作中心主界面')
         for i in range(3):
+            time.sleep(2)
             sc.driver.press_keycode(4)
         sc.logger.info('预览页-主题测试完成')

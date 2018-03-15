@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 """camera音乐视频的基本操作测试用例."""
 import time
+
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
+from appium.webdriver.common.touch_action import TouchAction
 from Android import script_ultils as sc
 
 
@@ -10,6 +14,7 @@ class TestCameraMusic(object):
 
     width, height = sc.get_size()
     img_path = sc.path_lists[0]
+    c_btn = 'com.quvideo.xiaoying:id/img_creation'
 
     def test_music_shot(self):
         """拍摄-音乐视频(3:4)."""
@@ -18,53 +23,72 @@ class TestCameraMusic(object):
         start_x = self.width - self.width // 10
         start_bottom = self.height // 2
 
-        time.sleep(1)
         sc.logger.info('点击创作中心主按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_creation').click()
+        sc.first_step(self.c_btn)
 
+        time.sleep(2)
         sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 500)
         sc.logger.info('点击“音乐视频”')
-        sc.driver.find_element_by_android_uiautomator('text("音乐视频")').click()
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'text("音乐视频")')).click()
+        # sc.driver.find_element_by_android_uiautomator('text("音乐视频")').click()
         time.sleep(1)
         sc.logger.info('点击视频比例按钮，切换到3:4')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_btn_ratio').click()
+        ratio_btn = 'com.quvideo.xiaoying:id/cam_btn_ratio'
+        sc.driver.find_element_by_id(ratio_btn).click()
+
         sc.logger.info('切换摄像头')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_switch').click()
+        switch_btn = 'com.quvideo.xiaoying:id/img_switch'
+        sc.driver.find_element_by_id(switch_btn).click()
+
         time.sleep(2)
         sc.logger.info('点击“请选择音乐”按钮')
         sc.driver.find_element_by_android_uiautomator('text("请选择音乐")').click()
         time.sleep(2)
+
+        download_btn = 'com.quvideo.xiaoying:id/music_item_download'
         try:
-            el_download = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_download')
+            el_download = sc.driver.find_element_by_id(download_btn)
         except NoSuchElementException:
             sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.4, 500)
-            el_download = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_download')
+            el_download = sc.driver.find_element_by_id(download_btn)
         sc.logger.info('点击第一个下载按钮')
         el_download.click()
+
         time.sleep(5)
-        el_music_name = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_name')
+        music_row = 'com.quvideo.xiaoying:id/music_item_name'
+        el_music_name = sc.driver.find_element_by_id(music_row)
         sc.logger.info('点击第一首音乐名')
         el_music_name.click()
         sc.logger.info('点击播放/暂停按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_play_state').click()
+        play_btn = 'com.quvideo.xiaoying:id/music_item_play_state'
+        sc.driver.find_element_by_id(play_btn).click()
+
         sc.logger.info('点击“添加”按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_use').click()
-        el_capture = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
-        # 点拍5s
-        sc.logger.info('点击录制按钮')
-        el_capture.click()
-        time.sleep(5)
-        sc.logger.info('拍摄5s后点击录制按钮停止拍摄')
-        el_capture.click()
+        use_btn = 'com.quvideo.xiaoying:id/music_item_use'
+        sc.driver.find_element_by_id(use_btn).click()
+        el_cp = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
+
+        # 长按拍摄5s
+        sc.logger.info('长按拍摄5s')
+        actions = TouchAction(sc.driver)
+        actions.long_press(el_cp, None, None, 5000).release().perform()
+        sc.capture_screen(fun_name, self.img_path)
         try:
             sc.logger.info('点击确认按钮')
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_btn_next').click()
-        except NoSuchElementException:
+            n_btn = 'com.quvideo.xiaoying:id/cam_btn_next'
+            WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(n_btn)).click()
+        except TimeoutException:
             sc.logger.info('音乐时长较短，已自动跳转预览页')
         sc.capture_screen(fun_name, self.img_path)
+
         sc.logger.info('点击“存草稿”按钮')
         sc.driver.find_element_by_android_uiautomator('text("存草稿")').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+
+        left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
+        sc.driver.find_element_by_id(left_btn).click()
         sc.logger.info('拍摄-音乐视频(3:4)完成')
 
     def test_music_change(self):
@@ -73,66 +97,78 @@ class TestCameraMusic(object):
         fun_name = 'test_music_change'
         start_x = self.width - self.width // 10
         start_bottom = self.height // 2
+
+        time.sleep(2)
         sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 500)
 
         sc.logger.info('点击“音乐视频”')
         sc.driver.find_element_by_android_uiautomator('text("音乐视频")').click()
+
         sc.logger.info('点击“请选择音乐”')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon_tool_music_control_arrow').click()
+        music_ctr_btn = 'com.quvideo.xiaoying:id/icon_tool_music_control_arrow'
+        sc.driver.find_element_by_id(music_ctr_btn).click()
         # sc.driver.find_element_by_android_uiautomator('text("请选择音乐")').click()
-        el_music_name = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_name')
+        music_name_btn = 'com.quvideo.xiaoying:id/music_item_name'
+        el_music_name = sc.driver.find_element_by_id(music_name_btn)
         sc.logger.info('点击第一首音乐名')
         el_music_name.click()
+
         sc.logger.info('点击播放/暂停按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_play_state').click()
+        play_btn = 'com.quvideo.xiaoying:id/music_item_play_state'
+        sc.driver.find_element_by_id(play_btn).click()
+
         sc.logger.info('点击“添加”按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_use').click()
-        el_capture = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
-        # 点拍
-        sc.logger.info('点击录制按钮')
-        el_capture.click()
-        time.sleep(5)
-        sc.logger.info('拍摄5s后点击录制按钮停止拍摄')
-        el_capture.click()
+        use_btn = 'com.quvideo.xiaoying:id/music_item_use'
+        sc.driver.find_element_by_id(use_btn).click()
+        el_cp = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
+        # 长按拍摄5s
+        sc.logger.info('长按拍摄5s')
+        actions = TouchAction(sc.driver)
+        actions.long_press(el_cp, None, None, 5000).release().perform()
+        sc.capture_screen(fun_name, self.img_path)
+
         try:
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_btn_next').click()
+            next_btn = 'com.quvideo.xiaoying:id/cam_btn_next'
+            sc.driver.find_element_by_id(next_btn).click()
             sc.logger.info('点击确认按钮')
         except NoSuchElementException:
             sc.logger.info('音乐时长较短，已自动跳转预览页')
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击左上角返回按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+        left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
+        sc.driver.find_element_by_id(left_btn).click()
         sc.logger.info('点击音乐标题')
 
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon_tool_music_control_arrow').click()
+        sc.driver.find_element_by_id(music_ctr_btn).click()
         try:
-            sc.driver.find_element_by_android_uiautomator('text("更换音乐重录")').click()
+            sc.driver.find_element_by_android_uiautomator(
+                'text("更换音乐重录")').click()
         except NoSuchElementException:
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon_tool_music_control_arrow').click()
-            el_title_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
-            for el_title in el_title_list:
+            sc.driver.find_element_by_id(music_ctr_btn).click()
+            tl = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
+            for el_title in tl:
                 if el_title.text == '更换音乐重录':
                     sc.logger.info('点击“更换音乐重录”')
                     el_title.click()
 
         sc.logger.info('点击音乐名')
         time.sleep(2)
-        el_music_name = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_name')
+        el_music_name = sc.driver.find_element_by_id(music_name_btn)
         el_music_name.click()
         sc.logger.info('点击播放/暂停按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_play_state').click()
+        sc.driver.find_element_by_id(play_btn).click()
         sc.logger.info('点击“添加”按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_use').click()
-        el_capture = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
-        # 点拍
-        sc.logger.info('点击录制按钮')
-        el_capture.click()
-        time.sleep(5)
-        sc.logger.info('拍摄5s后点击录制按钮停止拍摄')
-        el_capture.click()
+        sc.driver.find_element_by_id(use_btn).click()
+        el_cp = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
+        # 长按拍摄5s
+        sc.logger.info('长按拍摄5s')
+        actions = TouchAction(sc.driver)
+        actions.long_press(el_cp, None, None, 5000).release().perform()
+        sc.capture_screen(fun_name, self.img_path)
+
         try:
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_btn_next').click()
+            sc.driver.find_element_by_id(next_btn).click()
             sc.logger.info('点击“确认”按钮')
         except NoSuchElementException:
             sc.logger.info('音乐时长较短，已自动跳转预览页')
@@ -141,7 +177,7 @@ class TestCameraMusic(object):
         sc.driver.find_element_by_android_uiautomator('text("存草稿")').click()
 
         sc.logger.info('点击左上角返回按钮返回创作中心主页面')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+        sc.driver.find_element_by_id(left_btn).click()
         sc.logger.info('拍摄-音乐视频-更换音乐重录完成')
 
     def test_music_redo(self):
@@ -149,50 +185,71 @@ class TestCameraMusic(object):
         sc.logger.info('拍摄-音乐视频-直接重录')
         fun_name = 'test_music_redo'
 
+        music_ctr_btn = 'com.quvideo.xiaoying:id/icon_tool_music_control_arrow'
+        music_name_btn = 'com.quvideo.xiaoying:id/music_item_name'
+        play_btn = 'com.quvideo.xiaoying:id/music_item_play_state'
+        use_btn = 'com.quvideo.xiaoying:id/music_item_use'
+        next_btn = 'com.quvideo.xiaoying:id/cam_btn_next'
+        left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
+
         sc.logger.info('点击“音乐视频”')
         sc.driver.find_element_by_android_uiautomator('text("音乐视频")').click()
         sc.logger.info('点击“请选择音乐”')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon_tool_music_control_arrow').click()
+        sc.driver.find_element_by_id(music_ctr_btn).click()
 
-        el_music_name = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_name')
+        el_music_name = sc.driver.find_element_by_id(music_name_btn)
         sc.logger.info('点击音乐标题')
         el_music_name.click()
         sc.logger.info('点击播放/暂停按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_play_state').click()
+        sc.driver.find_element_by_id(play_btn).click()
         sc.logger.info('点击“添加”按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/music_item_use').click()
-        el_capture = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
-        # 点拍5s
-        el_capture.click()
-        sc.logger.info('点击拍摄按钮')
-        time.sleep(5)
-        sc.logger.info('拍摄5s后点击录制按钮停止拍摄')
-        el_capture.click()
+        sc.driver.find_element_by_id(use_btn).click()
+        el_cp = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
+        # 长按拍摄5s
+        sc.logger.info('长按拍摄5s')
+        actions = TouchAction(sc.driver)
+        actions.long_press(el_cp, None, None, 5000).release().perform()
+        sc.capture_screen(fun_name, self.img_path)
+
         try:
             sc.logger.info('点击确认按钮')
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_btn_next').click()
+            sc.driver.find_element_by_id(next_btn).click()
         except NoSuchElementException:
             sc.logger.info('音乐时长较短，已自动跳转预览页')
         sc.logger.info('点击左上角返回按钮返回')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+        sc.driver.find_element_by_id(left_btn).click()
+
         sc.logger.info('点击音乐标题')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon_tool_music_control_arrow').click()
+        music_title = 'com.quvideo.xiaoying:id/music_title'
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda c_btn: c_btn.find_element_by_id(music_title)).click()
+        # sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon_tool_music_control_arrow').click()
         try:
-            sc.driver.find_element_by_android_uiautomator('text("直接重录")').click()
-        except NoSuchElementException:
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon_tool_music_control_arrow').click()
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                    'text("直接重录")')).click()
+            # sc.driver.find_element_by_android_uiautomator('text("直接重录")').click()
+        except Exception as err:
+            sc.driver.find_element_by_id(music_ctr_btn).click()
             sc.capture_screen(fun_name, self.img_path)
-            el_title_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
+            title_el = 'com.quvideo.xiaoying:id/title'
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda c_btn: c_btn.find_elements_by_id(title_el))
+            el_title_list = sc.driver.find_elements_by_id(title_el)
             for el_title in el_title_list:
                 if el_title.text == '直接重录':
                     sc.logger.info('直接重录')
                     el_title.click()
+                    break
 
         sc.capture_screen(fun_name, self.img_path)
 
         sc.driver.press_keycode(4)
         sc.capture_screen(fun_name, self.img_path)
+
         sc.logger.info('点击确认放弃操作')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/buttonDefaultPositive').click()
+        p_btn = 'com.quvideo.xiaoying:id/buttonDefaultPositive'
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda el: el.find_element_by_id(p_btn)).click()
         sc.driver.press_keycode(4)
         sc.logger.info('拍摄-音乐视频-直接重录完成')

@@ -1,8 +1,11 @@
 # -*- coding: utf-8 -*-
 """创作页面内导出视频相关的测试用例."""
 import time
+
 from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
+from appium.webdriver.common.touch_action import TouchAction
 from Android import script_ultils as sc
 
 
@@ -17,25 +20,55 @@ class TestCreationExport(object):
     width, height = sc.get_size()
     img_path = sc.path_lists[0]
 
+    @classmethod
+    def hardware_acceleration(cls):
+        """硬件加速设置."""
+        try:
+            sc.logger.info('尝试开启硬件加速')
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_android_uiautomator(
+                    'text("视频处理硬件加速")')).click()
+        except TimeoutException:
+            sc.logger.info('未找到硬件加速选项，上滑半屏尝试')
+            start_x = cls.width // 2
+            start_y = cls.height // 8
+            start_bottom = cls.height - start_y
+
+            sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.4, 600)
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_android_uiautomator(
+                    'text("视频处理硬件加速")')).click()
+        time.sleep(1)
+        sc.driver.press_keycode(4)
+
     def test_export_create(self):
         """导出-创建视频."""
         sc.logger.info('导出-创建视频')
         fun_name = 'test_export_create'
 
-        time.sleep(1)
         sc.logger.info('点击创作中心主按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_creation').click()
+        c_btn = 'com.quvideo.xiaoying:id/img_creation'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(c_btn)).click()
+
         sc.logger.info('点击“拍摄”')
         sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon2').click()
+
         sc.logger.info('点击录制按钮')
-        el_capture = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
-        # 点拍
-        el_capture.click()
-        time.sleep(5)
-        el_capture.click()
-        sc.logger.info('点击确认按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_btn_next').click()
+        el_cp = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
+
+        # 长按拍摄
+        sc.logger.info('长按拍摄5s')
+        actions = TouchAction(sc.driver)
+        actions.long_press(el_cp, None, None, 5000).release().perform()
         sc.capture_screen(fun_name, self.img_path)
+
+        sc.logger.info('点击确认按钮')
+        time.sleep(1)
+        next_btn = 'com.quvideo.xiaoying:id/cam_btn_next'
+        sc.driver.find_element_by_id(next_btn).click()
+        sc.capture_screen(fun_name, self.img_path)
+
         sc.driver.find_element_by_android_uiautomator('text("保存/上传")').click()
         sc.logger.info('导出-创建视频完成')
 
@@ -45,27 +78,34 @@ class TestCreationExport(object):
         fun_name = 'test_export_first'
 
         sc.logger.info('点击“保存到相册”')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_export').click()
-        sc.logger.info('点击“标清(480P)”')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/purchase_duration_limit_title').click()
-        try:
-            WebDriverWait(sc.driver, 60).until(
-                lambda V_exprot: V_exprot.find_element_by_android_uiautomator('text("工作室")'))
-            sc.capture_screen(fun_name, self.img_path)
-            sc.driver.press_keycode(4)
+        export_btn = 'com.quvideo.xiaoying:id/btn_export'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(export_btn)).click()
+        # sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_export').click()
 
-            # 等待不要删除视频提示消息消失
-            time.sleep(10)
-            sc.driver.press_keycode(4)
-        except NoSuchElementException:
-            sc.driver.find_element_by_android_uiautomator('text("感觉如何")')
+        try:
+            pos_btn = 'com.quvideo.xiaoying:id/buttonDefaultPositive'
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(pos_btn)).click()
+            TestCreationExport.hardware_acceleration()
+
+            WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(export_btn)).click()
+        except TimeoutException:
+            sc.logger.info('无需设置硬件加速')
+
+        sc.logger.info('点击“480P 清晰”')
+        limit_btn = 'com.quvideo.xiaoying:id/normal_layout'
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda el: el.find_element_by_id(limit_btn)).click()
+        try:
+            WebDriverWait(sc.driver, 30).until(
+                lambda x: x.find_element_by_android_uiautomator('text("工作室")'))
             sc.capture_screen(fun_name, self.img_path)
+        except TimeoutException:
             sc.driver.press_keycode(4)
-        except TimeoutError as t:
-            sc.logger.error('导出视频超时', t)
-            sc.capture_screen(fun_name, self.img_path)
-            sc.driver.press_keycode(4)
-            return False
+        time.sleep(2)
+        sc.driver.press_keycode(4)
         sc.logger.info('导出-保存到相册-480P-首次导出测试完成')
 
     def test_export_second(self):
@@ -74,31 +114,40 @@ class TestCreationExport(object):
         fun_name = 'test_export_second'
 
         sc.logger.info('点击“更多草稿”')
-        sc.driver.find_element_by_android_uiautomator('text("更多草稿")').click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'text("更多草稿")')).click()
+        # sc.driver.find_element_by_android_uiautomator('text("更多草稿")').click()
         sc.logger.info('点击第一个草稿封面')
-        el_draft = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb')
-        el_draft.click()
+        draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
 
         sc.logger.info('点击“保存/上传”')
         sc.driver.find_element_by_android_uiautomator('text("保存/上传")').click()
+
         sc.logger.info('点击“保存到相册”')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_export').click()
+        export_btn = 'com.quvideo.xiaoying:id/btn_export'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_id(export_btn)).click()
         try:
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/purchase_hd_title').click()
+            hd_title = 'com.quvideo.xiaoying:id/purchase_hd_title'
+            sc.driver.find_element_by_id(hd_title).click()
         except NoSuchElementException:
             sc.logger.info('当前设备不支持720P导出')
             sc.logger.info('返回创作中心主界面')
             for i in range(5):
-                time.sleep(1)
+                time.sleep(2)
                 sc.driver.press_keycode(4)
             return True
 
         try:
             WebDriverWait(sc.driver, 60).until(
-                lambda V_exprot: V_exprot.find_element_by_android_uiautomator('text("工作室")'))
+                lambda x: x.find_element_by_android_uiautomator('text("工作室")'))
             sc.capture_screen(fun_name, self.img_path)
+
             sc.driver.press_keycode(4)
-            time.sleep(1)
+            time.sleep(2)
             sc.driver.press_keycode(4)
         except NoSuchElementException:
             sc.driver.find_element_by_android_uiautomator('text("分享小影")')
@@ -114,25 +163,38 @@ class TestCreationExport(object):
         sc.logger.info('导出-保存到相册-1080P')
         fun_name = 'test_export_third'
 
-        sc.driver.find_element_by_android_uiautomator('text("更多草稿")').click()
-        el_draft = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb')
-        el_draft.click()
+        sc.logger.info('点击“更多草稿”')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'text("更多草稿")')).click()
+
+        sc.logger.info('点击第一个草稿封面')
+        draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
+
         sc.driver.find_element_by_android_uiautomator('text("保存/上传")').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_export').click()
+
+        export_btn = 'com.quvideo.xiaoying:id/btn_export'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(export_btn)).click()
         try:
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/purchase_hd_1080_title').click()
+            fhd_title = 'com.quvideo.xiaoying:id/purchase_hd_1080_title'
+            sc.driver.find_element_by_id(fhd_title).click()
         except NoSuchElementException:
             sc.logger.info('当前设备不支持1080P导出')
             sc.logger.info('返回创作中心主界面')
             for i in range(5):
-                time.sleep(1)
+                time.sleep(2)
                 sc.driver.press_keycode(4)
             return True
         try:
             WebDriverWait(sc.driver, 60).until(
-                lambda V_exprot: V_exprot.find_element_by_android_uiautomator('text("工作室")'))
+                lambda x: x.find_element_by_android_uiautomator('text("工作室")'))
             sc.capture_screen(fun_name, self.img_path)
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+
+            left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
+            sc.driver.find_element_by_id(left_btn).click()
         except TimeoutError as t:
             sc.logger.error('导出视频超时', t)
             return False
@@ -143,38 +205,57 @@ class TestCreationExport(object):
         sc.logger.info('导出-保存到相册-GIF')
         fun_name = 'test_export_gif'
 
-        time.sleep(1)
         sc.logger.info('点击“更多草稿”')
-        sc.driver.find_element_by_android_uiautomator('text("更多草稿")').click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'text("更多草稿")')).click()
+
         sc.logger.info('点击第一个草稿封面')
-        el_draft = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb')
-        el_draft.click()
+        sc.logger.info('点击第一个草稿封面')
+        draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
+
         sc.logger.info('点击“保存/上传”')
         sc.driver.find_element_by_android_uiautomator('text("保存/上传")').click()
+
         sc.logger.info('点击“保存到相册”')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_export').click()
+        export_btn = 'com.quvideo.xiaoying:id/btn_export'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_id(export_btn)).click()
+
         try:
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/gif_title').click()
             sc.logger.info('点击“GIF”')
+            gif_title = 'com.quvideo.xiaoying:id/gif_layout'
+            WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(gif_title)).click()
         except NoSuchElementException:
             sc.logger.info('当前版本不支持GIF导出')
             return True
-        time.sleep(1)
+
         sc.logger.info('点击“确认”按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/share_btn_share').click()
+        share_btn = 'com.quvideo.xiaoying:id/share_btn_share'
+        WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(share_btn)).click()
         try:
             WebDriverWait(sc.driver, 120).until(
-                lambda V_exprot: V_exprot.find_element_by_android_uiautomator('text("工作室")'))
+                lambda x: x.find_element_by_android_uiautomator('text("工作室")'))
             sc.capture_screen(fun_name, self.img_path)
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
+
+            left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
+            WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(left_btn)).click()
         except TimeoutError as t:
             sc.logger.error('导出视频超时', t)
             sc.driver.press_keycode(4)
             sc.capture_screen(fun_name, self.img_path)
-            sc.driver.find_element_by_id('com.quvideo.xiaoying:id/buttonDefaultPositive').click()
+
+            pos_btn = 'com.quvideo.xiaoying:id/buttonDefaultPositive'
+            WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(pos_btn)).click()
             sc.logger.info('返回创作中心主界面')
             for i in range(4):
-                time.sleep(1)
+                time.sleep(2)
                 sc.driver.press_keycode(4)
             return False
         sc.logger.info('导出-保存到相册-GIF测试完成')

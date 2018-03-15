@@ -18,16 +18,23 @@ class TestEditClip(object):
         sc.logger.info('剪辑-镜头编辑-功能遍历')
         fun_name = 'test_clip_edit_function'
 
-        time.sleep(1)
         sc.logger.info('点击创作中心主按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_creation').click()
+        c_btn = 'com.quvideo.xiaoying:id/img_creation'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(c_btn)).click()
+
         sc.logger.info('点击“更多草稿”')
         sc.driver.find_element_by_android_uiautomator('text("更多草稿")').click()
+
         sc.logger.info('点击第一个草稿封面')
-        el_draft = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb')
+        draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
+        el_draft = sc.driver.find_element_by_id(draft_img)
         el_draft.click()
         sc.logger.info('点击“剪辑”')
-        sc.driver.find_element_by_android_uiautomator('text("剪辑")').click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                'text("剪辑")')).click()
+
         sc.logger.info('点击“镜头编辑”')
         sc.driver.find_element_by_android_uiautomator('text("镜头编辑")').click()
 
@@ -64,7 +71,8 @@ class TestEditClip(object):
         sc.logger.info('剪辑-镜头编辑-调节速度')
         try:
             sc.logger.info('点击“调节速度”')
-            sc.driver.find_element_by_android_uiautomator('text("调节速度")').click()
+            sc.driver.find_element_by_android_uiautomator(
+                'text("调节速度")').click()
             sc.logger.info('点击“确认”')
             sc.driver.find_element_by_android_uiautomator('text("确认")').click()
         except NoSuchElementException:
@@ -90,7 +98,8 @@ class TestEditClip(object):
         sc.driver.find_element_by_android_uiautomator('text("倒放镜头")').click()
         try:
             WebDriverWait(sc.driver, 120).until(
-                lambda reverse: reverse.find_element_by_android_uiautomator('text("倒放镜头")'))
+                lambda reverse: reverse.find_element_by_android_uiautomator(
+                    'text("倒放镜头")'))
         except TimeoutError as t:
             sc.logger.error('倒放镜头超时', t)
             return False
@@ -104,6 +113,7 @@ class TestEditClip(object):
         sc.driver.press_keycode(4)
         sc.driver.find_element_by_android_uiautomator('text("确认")').click()
         for i in range(3):
+            time.sleep(2)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-镜头编辑-功能遍历完成')
 
@@ -115,52 +125,73 @@ class TestEditClip(object):
         start_x = self.width // 2
         start_bottom = self.height - self.height // 10
 
-        time.sleep(1)
         sc.logger.info('点击创作中心主按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_creation').click()
+        c_btn = 'com.quvideo.xiaoying:id/img_creation'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(c_btn)).click()
+
         sc.logger.info('点击“更多草稿”')
-        sc.driver.find_element_by_android_uiautomator('text("更多草稿")').click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'text("更多草稿")')).click()
+
         sc.logger.info('点击第一个草稿封面')
-        el_draft = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb')
+        draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
+        el_draft = sc.driver.find_element_by_id(draft_img)
         el_draft.click()
+        sc.capture_screen(fun_name, self.img_path)
         sc.logger.info('点击“剪辑”')
-        sc.driver.find_element_by_android_uiautomator('text("剪辑")').click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                'text("剪辑")')).click()
+
         sc.logger.info('点击“镜头编辑”')
         sc.driver.find_element_by_android_uiautomator('text("镜头编辑")').click()
 
         while True:
+            x = 'com.quvideo.xiaoying:id/xiaoying_ve_storyboard_item_add_btn'
             try:
-                sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_ve_storyboard_item_add_btn').click()
+                sc.driver.find_element_by_id(x).click()
                 sc.logger.info('点击添加镜头按钮')
                 break
             except NoSuchElementException:
                 sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.25, 500)
 
         sc.logger.info('点击拍摄按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_ve_preview_layout_captrue').click()
+        c_layout = 'com.quvideo.xiaoying:id/xiaoying_ve_preview_layout_captrue'
+        sc.driver.find_element_by_id(c_layout).click()
         sc.logger.info('点击录像按钮')
-        el_capture = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
+        el_cp = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
         # 长按拍摄
         sc.logger.info('长按拍摄5s')
         actions = TouchAction(sc.driver)
-        actions.long_press(el_capture, None, None, 5000).release().perform()
+        actions.long_press(el_cp, None, None, 5000).release().perform()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击确认按钮')
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/cam_btn_next').click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_storyboard_next_btn').click()
+        time.sleep(1)
+        next_btn = 'com.quvideo.xiaoying:id/cam_btn_next'
+        snext_btn = 'com.quvideo.xiaoying:id/xiaoying_com_storyboard_next_btn'
+        sc.capture_screen(fun_name, self.img_path)
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(next_btn)).click()
+        sc.driver.find_element_by_id(snext_btn).click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('镜头编辑-删除镜头')
-        el_del_clip = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_delete')
+        del_btn = 'com.quvideo.xiaoying:id/img_delete'
+        el_del_clip = sc.driver.find_element_by_id(del_btn)
         el_del_clip.click()
-        sc.driver.find_element_by_id('com.quvideo.xiaoying:id/buttonDefaultPositive').click()
+
+        pos_btn = 'com.quvideo.xiaoying:id/buttonDefaultPositive'
+        sc.driver.find_element_by_id(pos_btn).click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('返回创作中心主界面')
         sc.driver.press_keycode(4)
         sc.driver.find_element_by_android_uiautomator('text("确认")').click()
         for i in range(3):
+            time.sleep(1)
             sc.driver.press_keycode(4)
 
         sc.logger.info('剪辑-镜头编辑-添加镜头测试完成')

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """用户空间登录的测试用例."""
 import time
-import inspect
-from selenium.common.exceptions import NoSuchElementException
+
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait
 from Android import script_ultils as sc
 
 
@@ -11,27 +12,30 @@ class TestUserLogin(object):
 
     width, height = sc.get_size()
     img_path = sc.path_lists[0]
+    p_btn = 'com.quvideo.xiaoying:id/img_studio'
 
     def test_login_origin(self):
         """测试登录页面未登录时的初始状态."""
         sc.logger.info('登录页面初始状态检查测试开始')
         fun_name = 'test_login_origin'
 
-        time.sleep(2)
-        btn_home = 'com.quvideo.xiaoying:id/img_studio'
-        el_home = sc.driver.find_element_by_id(btn_home)
-        el_home.click()
-        time.sleep(.500)
-        sc.capture_screen(fun_name, self.img_path)
-        assert el_home is not None
+        sc.logger.info('点击个人中心主按钮')
+        if sc.first_step(self.p_btn) is True:
+            time.sleep(1)
+            sc.capture_screen(fun_name, self.img_path)
+            assert True
+        else:
+            assert False
 
     @staticmethod
     def login_judge():
         """判断是否已经登录."""
-        btn_login = 'com.quvideo.xiaoying:id/btn_v6_login'
+        login_btn = 'com.quvideo.xiaoying:id/btn_v6_login'
         try:
-            el_login_btn = sc.driver.find_element_by_id(btn_login)
-        except NoSuchElementException:
+            WebDriverWait(sc.driver, 5, 1).until(
+                          lambda el: el.find_element_by_id(login_btn))
+            el_login_btn = sc.driver.find_element_by_id(login_btn)
+        except TimeoutException:
             sc.logger.info('未找到“立即登录”按钮，用户已经登录')
             return True
         else:
@@ -42,12 +46,14 @@ class TestUserLogin(object):
     def qq_login(username, passwd):
         """使用qq登录."""
         sc.logger.info('跳转到QQ登录页面')
-        btn_qq = 'com.quvideo.xiaoying:id/btn_login_qq'
-        el_btn_qq = sc.driver.find_element_by_id(btn_qq)
-        el_btn_qq.click()
-        time.sleep(5)
+        qq_btn = 'com.quvideo.xiaoying:id/btn_login_qq'
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda c_btn: c_btn.find_element_by_id(qq_btn)).click()
 
+        """
         qq_login_id = 'com.tencent.mobileqq:id/name'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_id(qq_login_id)).click()
         el_qqlogin_list = sc.driver.find_elements_by_id(qq_login_id)
 
         for el_qq_login in el_qqlogin_list:
@@ -55,31 +61,51 @@ class TestUserLogin(object):
                 sc.logger.info('点击“添加帐号”按钮')
                 el_qq_login.click()
                 break
+        """
 
-        account_frame = 'com.tencent.mobileqq:id/account'
+        # 如果本地QQ未登录，会出现先登录QQ的界面，所以分两种情况处理
         passwd_frame = 'com.tencent.mobileqq:id/password'
-        time.sleep(5)
-        el_account = sc.driver.find_element_by_id(account_frame)
+
+        # 本地QQ已经登录的情况
+        try:
+            WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_android_uiautomator(
+                    'text("添加帐号")')).click()
+
+            account_frame = 'com.tencent.mobileqq:id/account'
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(account_frame))
+            el_account = sc.driver.find_element_by_id(account_frame)
+        # 本地QQ未登录的情况
+        except TimeoutException:
+            account_frame_n = 'android.widget.EditText'
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_class_name(account_frame_n))
+            el_account = sc.driver.find_element_by_class_name(account_frame_n)
+
         el_account.click()
+        el_account.clear()
         sc.logger.info('输入QQ账号：%s', username)
         el_account.send_keys(username)
 
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda c_btn: c_btn.find_element_by_id(passwd_frame))
         el_passwd = sc.driver.find_element_by_id(passwd_frame)
         el_passwd.click()
         sc.logger.info('输入QQ密码：%s', passwd)
         el_passwd.send_keys(passwd)
 
-        el_qqlogin_list = sc.driver.find_elements_by_id(qq_login_id)
+        qq_log_btn = 'android.widget.Button'
+        el_qqlogin_list = sc.driver.find_elements_by_class_name(qq_log_btn)
 
         for el_qq_login in el_qqlogin_list:
-            if el_qq_login.text == '登录':
+            if el_qq_login.text == '登录' or el_qq_login.text == '登 录':
                 sc.logger.info('点击“登录”按钮')
-                time.sleep(1)
                 el_qq_login.click()
-                activity_main = 'com.quvideo.xiaoying/.XiaoYingActivity'
-                sc.driver.wait_activity(activity_main, 10)
                 break
-        time.sleep(10)
+
+        activity_main = 'com.quvideo.xiaoying/.XiaoYingActivity'
+        sc.driver.wait_activity(activity_main, 10, 2)
 
         if TestUserLogin.login_judge() is True:
             return True
@@ -98,10 +124,11 @@ class TestUserLogin(object):
         else:
             return False
 
-    @staticmethod
-    def test_login_qq():
+    def test_login_qq(self):
         """国内用户测试使用qq登录."""
         sc.logger.info('登录页面QQ登录测试开始')
+        sc.first_step(self.p_btn)
+
         login_res = TestUserLogin.login_judge()
         if login_res is True:
             assert True

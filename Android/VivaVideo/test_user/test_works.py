@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 """用户空间作品的测试用例."""
-import inspect
 import time
+
 from selenium.common.exceptions import NoSuchElementException
+from selenium.webdriver.support.ui import WebDriverWait
 from Android import script_ultils as sc
 
 
@@ -17,11 +18,10 @@ class TestUserWorks(object):
         sc.logger.info('用户空间作品页面初始状态检查测试开始')
         fun_name = 'test_works_ui'
 
-        time.sleep(1)
-        btn_home = 'com.quvideo.xiaoying:id/img_studio'
-        el_home = sc.driver.find_element_by_id(btn_home)
-        el_home.click()
-        time.sleep(.500)
+        sc.logger.info('点击个人中心主按钮')
+        p_btn = 'com.quvideo.xiaoying:id/img_studio'
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda c_btn: c_btn.find_element_by_id(p_btn)).click()
 
         el_tab_list = sc.driver.find_elements_by_id(
             'com.quvideo.xiaoying:id/text_tab_title')
@@ -47,13 +47,13 @@ class TestUserWorks(object):
         # 先上滑
         sc.logger.info('上滑截图开始')
         result_up = sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 300)
-        time.sleep(.300)
+        time.sleep(1)
         sc.capture_screen(fun_name, self.img_path)
 
         # 再下滑，同理
         sc.logger.info('下滑截图开始')
         result_down = sc.swipe_by_ratio(start_x, start_y, 'down', 0.3, 300)
-        time.sleep(.300)
+        time.sleep(1)
         sc.capture_screen(fun_name, self.img_path)
 
         assert result_up and result_down is True
@@ -66,11 +66,13 @@ class TestUserWorks(object):
         start_x = self.width // 2
         start_bottom = self.height - self.height // 8
         try:
-            el_like_btn = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_like')
+            el_like_btn = sc.driver.find_element_by_id(
+                'com.quvideo.xiaoying:id/img_like')
         except NoSuchElementException:
             sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 300)
-            time.sleep(.300)
-            el_like_btn = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_like')
+            time.sleep(1)
+            el_like_btn = sc.driver.find_element_by_id(
+                'com.quvideo.xiaoying:id/img_like')
         # 操作前先截图记录
         sc.capture_screen(fun_name, self.img_path)
 
