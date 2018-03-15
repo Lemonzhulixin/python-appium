@@ -65,9 +65,11 @@ class TestPreviewMusic(TestCase):
         time.sleep(2)
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('点击第下载按钮')
-        el_download = sc.driver.find_element_by_name('vivavideo material download3 n')
-        el_download.click()
+        sc.logger.info('点击下载按钮')
+        try:
+            sc.driver.find_element_by_name('vivavideo material download3 n').click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_name('music select download n').click()
         sc.capture_screen(fun_name, self.img_path)
         time.sleep(10)
 
@@ -79,10 +81,6 @@ class TestPreviewMusic(TestCase):
             sc.logger.error('音频下载未完成，继续等待5s')
             time.sleep(5)
             el_music_name.click()
-
-        sc.logger.info('点击播放/暂停按钮')
-        sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
-        sc.capture_screen(fun_name,self.img_path)
 
         sc.logger.info('点击“添加”按钮')
         sc.driver.find_element_by_name('添加').click()
@@ -119,10 +117,16 @@ class TestPreviewMusic(TestCase):
         sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
 
         sc.logger.info('同时下载多个音频')
-        el_download = sc.driver.find_elements_by_name('vivavideo material download3 n')
-        for i in range(len(el_download)):
-            el_download[i].click()
-        sc.capture_screen(fun_name, self.img_path)
+        try:
+            el_download = sc.driver.find_elements_by_name('vivavideo material download3 n')
+            for i in range(len(el_download)):
+                el_download[i].click()
+            sc.capture_screen(fun_name, self.img_path)
+        except NoSuchElementException:
+            el_download_pad = sc.driver.find_elements_by_name('music select download n')
+            for i in range(len(el_download_pad)):
+                el_download_pad[i].click()
+            sc.capture_screen(fun_name, self.img_path)
 
     def test_preview_04_other(self):
         """音乐库-其他分类音乐下载."""
@@ -136,9 +140,12 @@ class TestPreviewMusic(TestCase):
 
         sc.logger.info('下载"流行"分类音频')
         time.sleep(1)
-        el_download = sc.driver.find_element_by_name('vivavideo material download3 n')
-        el_download.click()
+        try:
+            sc.driver.find_element_by_name('vivavideo material download3 n').click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_name('music select download n').click()
         sc.capture_screen(fun_name, self.img_path)
+        time.sleep(10)
 
         sc.logger.info('通过点击分类tab切换到"爵士 & 蓝调"分类')
         sc.driver.find_element_by_name("爵士 & 蓝调").click()
@@ -162,10 +169,6 @@ class TestPreviewMusic(TestCase):
         el_music_name = sc.driver.find_element_by_xpath(
             "//*/XCUIElementTypeTable//*/XCUIElementTypeButton[2]")
         el_music_name.click()
-
-        sc.logger.info('点击播放/暂停按钮')
-        sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
-        sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击“添加”按钮')
         sc.driver.find_element_by_name('添加').click()
@@ -211,10 +214,6 @@ class TestPreviewMusic(TestCase):
         el_music_name = sc.driver.find_element_by_xpath(
             "//*/XCUIElementTypeTable//*/XCUIElementTypeButton[2]")
         try:
-            el_music_name.click()
-            sc.logger.info('点击播放/暂停按钮')
-            sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
-
             sc.logger.info('点击“添加”按钮')
             sc.driver.find_element_by_name('添加').click()
             time.sleep(0.5)

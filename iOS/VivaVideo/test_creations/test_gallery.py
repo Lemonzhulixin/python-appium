@@ -192,7 +192,10 @@ class TestGallery(TestCase):
         el_edit_img[0].click()
         sc.driver.find_element_by_name("添加").click()
         sc.driver.find_element_by_xpath("//XCUIElementTypeButton[@name='vivavideo gallery back n']").click()
-        sc.driver.find_element_by_name("取消").click()
+        try:
+            sc.driver.find_element_by_name("取消").click()
+        except NoSuchElementException:
+            sc.logger.info('当前设备为iPad，无取消选项')
 
         sc.logger.info('放弃保存-丢弃')
         sc.driver.find_element_by_xpath("//XCUIElementTypeButton[@name='vivavideo gallery back n']").click()

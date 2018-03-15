@@ -1,0 +1,4 @@
+{
+  "test_gallery.py::TestGallery::test_gallery_04_giveup": true,
+  "test_home.py::TestHome::test_home_04_other": true
+}

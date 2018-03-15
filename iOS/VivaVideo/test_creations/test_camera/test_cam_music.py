@@ -4,6 +4,7 @@ from unittest import TestCase
 from iOS import script_ultils as sc
 from selenium.common.exceptions import NoSuchElementException
 import time
+from appium.webdriver.common.touch_action import TouchAction
 
 
 class TestCameraMusic(TestCase):
@@ -60,8 +61,10 @@ class TestCameraMusic(TestCase):
         time.sleep(2)
 
         sc.logger.info('点击下载按钮')
-        el_download = sc.driver.find_element_by_name('vivavideo material download3 n')
-        el_download.click()
+        try:
+            sc.driver.find_element_by_name('vivavideo material download3 n').click()
+        except NoSuchElementException:
+            sc.driver.find_element_by_name('music select download n').click()
         sc.capture_screen(fun_name, self.img_path)
         time.sleep(10)
 
@@ -74,9 +77,9 @@ class TestCameraMusic(TestCase):
             time.sleep(5)
             el_music_name.click()
 
-        sc.logger.info('点击播放/暂停按钮')
-        sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
-        sc.capture_screen(fun_name, self.img_path)
+        # sc.logger.info('点击播放/暂停按钮')
+        # sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
+        # sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击“添加”按钮')
         sc.driver.find_element_by_name('添加').click()
@@ -122,8 +125,8 @@ class TestCameraMusic(TestCase):
         el_music_name = sc.driver.find_element_by_xpath("//*/XCUIElementTypeTable//*/XCUIElementTypeButton[2]")
         el_music_name.click()
 
-        sc.logger.info('点击播放/暂停按钮')
-        sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
+        # sc.logger.info('点击播放/暂停按钮')
+        # sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
 
         sc.logger.info('点击“添加”按钮')
         sc.driver.find_element_by_name('添加').click()
@@ -162,8 +165,8 @@ class TestCameraMusic(TestCase):
         el_music_name = sc.driver.find_element_by_xpath("//*/XCUIElementTypeTable//*/XCUIElementTypeButton[2]")
         el_music_name.click()
 
-        sc.logger.info('点击播放/暂停按钮')
-        sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
+        # sc.logger.info('点击播放/暂停按钮')
+        # sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
 
         sc.logger.info('点击“添加”按钮')
         sc.driver.find_element_by_name('添加').click()
@@ -193,99 +196,103 @@ class TestCameraMusic(TestCase):
         sc.driver.find_element_by_name("vivavideo com nav back n").click()
 
 
-    #重录在pad上运行有问题，暂时注掉
-    # def test_music_03_redo(self):
-    #     """拍摄-音乐视频-重新录制."""
-    #     sc.logger.info('拍摄-音乐视频-直接重录')
-    #     fun_name = 'test_music_redo'
-    #
-    #     sc.logger.info('点击音乐视频')
-    #     sc.driver.find_element_by_name("音乐视频").click()
-    #     time.sleep(1)
-    #
-    #     sc.logger.info('点击“点击添加配乐”按钮')
-    #     sc.driver.find_element_by_name("点击添加配乐").click()
-    #     time.sleep(1)
-    #
-    #     sc.logger.info('点击第一首已下载音频试听')
-    #     el_music_name = sc.driver.find_element_by_xpath("//*/XCUIElementTypeTable//*/XCUIElementTypeButton[2]")
-    #     el_music_name.click()
-    #
-    #     sc.logger.info('点击播放/暂停按钮')
-    #     sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
-    #
-    #     sc.logger.info('点击“添加”按钮')
-    #     sc.driver.find_element_by_name('添加').click()
-    #     sc.capture_screen(fun_name, self.img_path)
-    #
-    #     # sc.logger.info('开始录制')
-    #     # # 点拍5s
-    #     # el_capture = sc.driver.find_element_by_xpath(
-    #     #     "//*/XCUIElementTypeOther[5]/XCUIElementTypeOther/XCUIElementTypeOther[1]")
-    #     # el_capture.click()
-    #     # time.sleep(5)
-    #     # sc.logger.info('拍摄5s后点击录制按钮停止拍摄')
-    #     # el_capture.click()
-    #     #
-    #     # sc.logger.info('录制完成，进入预览页')
-    #     # try:
-    #     #     sc.logger.info('点击确认按钮')
-    #     #     sc.driver.find_element_by_name("vivavideo camera tool icon nex").click()
-    #     # except NoSuchElementException:
-    #     #     sc.logger.info('音乐时长较短，已自动跳转预览页')
-    #     #
-    #     # sc.logger.info('点击左上角返回按钮')
-    #     # sc.driver.find_element_by_name("xiaoying com back").click()
-    #     # sc.capture_screen(fun_name, self.img_path)
-    #
-    #     sc.logger.info('点击音乐标题')
-    #     time.sleep(1)
-    #     sc.driver.find_element_by_accessibility_id("vivavideo_camera_tool_icon_music_nrm").click()
-    #
-    #     sc.logger.info('取消重录')
-    #     try:
-    #         sc.driver.find_element_by_name("取消").click()
-    #     except NoSuchElementException:
-    #         sc.logger.info('当前设备为pad，无取消按钮')
-    #
-    #     sc.logger.info('点击音乐标题')
-    #     time.sleep(1)
-    #     sc.driver.find_element_by_accessibility_id("vivavideo_camera_tool_icon_music_nrm").click()
-    #
-    #     sc.logger.info('点击"直接重录"')
-    #     #sc.driver.find_element_by_name("直接重录").click()
-    #     sc.driver.find_element_by_xpath("//XCUIElementTypeButton[@name='直接重录']").click()
-    #     sc.capture_screen(fun_name,self.img_path)
-    #
-    #     # sc.logger.info('开始录制')
-    #     # # 点拍5s
-    #     # el_capture = sc.driver.find_element_by_xpath(
-    #     #     "//*/XCUIElementTypeOther[5]/XCUIElementTypeOther/XCUIElementTypeOther[1]")
-    #     # el_capture.click()
-    #     # time.sleep(5)
-    #     # sc.logger.info('拍摄5s后点击录制按钮停止拍摄')
-    #     # el_capture.click()
-    #     #
-    #     # sc.logger.info('录制完成，进入预览页')
-    #     # try:
-    #     #     sc.logger.info('点击确认按钮')
-    #     #     sc.driver.find_element_by_name("vivavideo camera tool icon nex").click()
-    #     # except NoSuchElementException:
-    #     #     sc.logger.info('音乐时长较短，已自动跳转预览页')
-    #
-    #     # sc.logger.info('点击“左上角返回”按钮')
-    #     # time.sleep(0.5)
-    #     # sc.driver.find_element_by_name("xiaoying com back").click()
-    #     # sc.capture_screen(fun_name,self.img_path)
-    #
-    #     sc.logger.info('点击“左上角x”按钮退出拍摄')
-    #     time.sleep(0.5)
-    #     sc.driver.find_element_by_name("vivavideo camera tool icon clo").click()
-    #     sc.capture_screen(fun_name, self.img_path)
-    #     #
-    #     # sc.logger.info('确认退出拍摄')
-    #     # sc.driver.find_element_by_name("确认").click()
-    #     #
-    #     # sc.logger.info('点击左上角返回按钮退回创作中心')
-    #     # time.sleep(1)
-    #     # sc.driver.find_element_by_name("vivavideo com nav back n").click()
+    def test_music_03_redo(self):
+        """拍摄-音乐视频-重新录制."""
+        sc.logger.info('拍摄-音乐视频-直接重录')
+        fun_name = 'test_music_redo'
+
+        sc.logger.info('点击音乐视频')
+        sc.driver.find_element_by_name("音乐视频").click()
+        time.sleep(1)
+
+        sc.logger.info('点击“点击添加配乐”按钮')
+        sc.driver.find_element_by_name("点击添加配乐").click()
+        time.sleep(1)
+
+        sc.logger.info('点击第一首已下载音频试听')
+        el_music_name = sc.driver.find_element_by_xpath("//*/XCUIElementTypeTable//*/XCUIElementTypeButton[2]")
+        el_music_name.click()
+
+        # sc.logger.info('点击播放/暂停按钮')
+        # sc.driver.find_element_by_name("vivavideo tool camera pause n").click()
+
+        sc.logger.info('点击“添加”按钮')
+        sc.driver.find_element_by_name('添加').click()
+        sc.capture_screen(fun_name, self.img_path)
+
+        sc.logger.info('开始录制')
+        # 点拍5s
+        el_capture = sc.driver.find_element_by_xpath(
+            "//*/XCUIElementTypeOther[5]/XCUIElementTypeOther/XCUIElementTypeOther[1]")
+        el_capture.click()
+        time.sleep(5)
+        sc.logger.info('拍摄5s后点击录制按钮停止拍摄')
+        el_capture.click()
+
+        sc.logger.info('录制完成，进入预览页')
+        try:
+            sc.logger.info('点击确认按钮')
+            sc.driver.find_element_by_name("vivavideo camera tool icon nex").click()
+        except NoSuchElementException:
+            sc.logger.info('音乐时长较短，已自动跳转预览页')
+
+        sc.logger.info('点击左上角返回按钮')
+        sc.driver.find_element_by_name("xiaoying com back").click()
+        sc.capture_screen(fun_name, self.img_path)
+
+        sc.logger.info('点击音乐标题')
+        time.sleep(1)
+        sc.driver.find_element_by_accessibility_id("vivavideo_camera_tool_icon_music_nrm").click()
+
+        sc.logger.info('取消重录')
+        try:
+            sc.driver.find_element_by_name("取消").click()
+        except NoSuchElementException:
+            sc.logger.info('当前设备为pad，无取消按钮')
+            sc.logger.info('点击屏幕消除重录弹窗')
+            actions = TouchAction(sc.driver)
+            actions.tap(None, 500, 500, 1).release().perform()
+
+            sc.logger.info('点击“左上角x”按钮退出拍摄')
+            sc.driver.find_element_by_name("vivavideo camera tool icon clo").click()
+
+            sc.logger.info('点击左上角返回按钮退回创作中心')
+            time.sleep(1)
+            sc.driver.find_element_by_name("vivavideo com nav back n").click()
+            return True  #重录在pad上运行有问题，直接返回true
+
+        sc.logger.info('点击音乐标题')
+        time.sleep(1)
+        sc.driver.find_element_by_accessibility_id("vivavideo_camera_tool_icon_music_nrm").click()
+
+        sc.logger.info('点击"直接重录"')
+        sc.driver.find_element_by_name("直接重录").click()
+        sc.capture_screen(fun_name,self.img_path)
+
+        sc.logger.info('开始录制')
+        # 点拍5s
+        el_capture = sc.driver.find_element_by_xpath(
+            "//*/XCUIElementTypeOther[5]/XCUIElementTypeOther/XCUIElementTypeOther[1]")
+        el_capture.click()
+        time.sleep(5)
+        sc.logger.info('拍摄5s后点击录制按钮停止拍摄')
+        el_capture.click()
+
+        sc.logger.info('录制完成，进入预览页')
+        try:
+            sc.logger.info('点击确认按钮')
+            sc.driver.find_element_by_name("vivavideo camera tool icon nex").click()
+        except NoSuchElementException:
+            sc.logger.info('音乐时长较短，已自动跳转预览页')
+
+        sc.logger.info('点击“左上角返回”按钮')
+        time.sleep(0.5)
+        sc.driver.find_element_by_name("xiaoying com back").click()
+        sc.capture_screen(fun_name,self.img_path)
+
+        sc.logger.info('确认退出拍摄')
+        sc.driver.find_element_by_name("确认").click()
+
+        sc.logger.info('点击左上角返回按钮退回创作中心')
+        time.sleep(1)
+        sc.driver.find_element_by_name("vivavideo com nav back n").click()

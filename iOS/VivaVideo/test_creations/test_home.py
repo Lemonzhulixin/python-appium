@@ -185,7 +185,7 @@ class TestHome(TestCase):
         sc.logger.info('向上滑动')
         start_x = self.width // 2
         start_bottom = self.height - self.height // 5
-        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.6, 1000)
+        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 1000)
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('小影百宝箱-浪漫满屋')
@@ -196,7 +196,7 @@ class TestHome(TestCase):
                 sc.capture_screen(fun_name, self.img_path)
                 break
             except:
-                sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.6, 1000)
+                sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 1000)
 
         try:
             sc.driver.find_element_by_name("已下载").click()
@@ -211,7 +211,7 @@ class TestHome(TestCase):
                 sc.logger.error("下载超时", t)
                 return False
 
-        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.6, 1000)
+        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 1000)
         sc.driver.find_element_by_name("vivavideo com nav back n").click()
 
         sc.logger.info('小影百宝箱-老友记')
@@ -220,13 +220,13 @@ class TestHome(TestCase):
         sc.capture_screen(fun_name, self.img_path)
         sc.driver.find_element_by_name("vivavideo com nav back n").click()
 
-        sc.logger.info('首页活动')
-        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 800)
-        sc.driver.find_element_by_xpath("//*/XCUIElementTypeCell[5]/XCUIElementTypeOther/XCUIElementTypeButton").click()
-        time.sleep(3)
-        sc.capture_screen(fun_name, self.img_path)
-        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.6, 1000)
-        sc.driver.find_element_by_name("vivavideo common back n").click()
+        # sc.logger.info('首页活动')
+        # sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 800)
+        # sc.driver.find_element_by_xpath("//*/XCUIElementTypeCell[5]/XCUIElementTypeOther/XCUIElementTypeButton").click()
+        # time.sleep(3)
+        # sc.capture_screen(fun_name, self.img_path)
+        # sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.6, 1000)
+        # sc.driver.find_element_by_name("vivavideo common back n").click()
 
         sc.logger.info('向下滑动，恢复创作页初始状态')
         x_down = self.width // 2

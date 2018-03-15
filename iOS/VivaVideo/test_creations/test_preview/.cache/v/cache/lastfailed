@@ -1,0 +1,7 @@
+{
+  "test_pre_music.py::TestPreviewMusic::test_music_02_add": true,
+  "test_pre_music.py::TestPreviewMusic::test_preview_04_other": true,
+  "test_pre_music.py::TestPreviewMusic::test_preview_05_use": true,
+  "test_pre_music.py::TestPreviewMusic::test_preview_06_delete": true,
+  "test_pre_music.py::TestPreviewMusic::test_preview_07_local": true
+}
