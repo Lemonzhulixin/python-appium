@@ -5,7 +5,7 @@ import time
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.common.touch_action import TouchAction
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestCameraCollage(object):
@@ -128,17 +128,18 @@ class TestCameraCollage(object):
         gallery_btn = 'com.quvideo.xiaoying:id/xiaoying_cam_btn_pip_gallery'
         sc.driver.find_element_by_id(gallery_btn).click()
 
-        time.sleep(2)
         sc.logger.info('点击相册第一个视频')
-        mask_btn = 'com.quvideo.xiaoying:id/img_click_mask'
-        sc.driver.find_element_by_id(mask_btn).click()
+        mask_btn = 'com.quvideo.xiaoying:id/btn_item_status'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(mask_btn)).click()
         sc.logger.info('点击“添加”按钮')
-        import_btn = 'com.quvideo.xiaoying:id/imgbtn_import'
-        sc.driver.find_element_by_id(import_btn).click()
+        import_btn = 'com.quvideo.xiaoying:id/tv_next'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(import_btn)).click()
 
         rec_btn = 'com.quvideo.xiaoying:id/btn_rec'
         try:
-            WebDriverWait(sc.driver, 60).until(
+            el_capture = WebDriverWait(sc.driver, 60).until(
                 lambda V_improt: V_improt.find_element_by_id(rec_btn))
         except TimeoutError as t:
             sc.logger.error('导入视频超时', t)
@@ -148,7 +149,6 @@ class TestCameraCollage(object):
             return False
 
         sc.logger.info('添加第二段视频')
-        el_capture = sc.driver.find_element_by_id(rec_btn)
         # 点拍
         el_capture.click()
         try:
@@ -182,5 +182,5 @@ class TestCameraCollage(object):
         style_btn = 'com.quvideo.xiaoying:id/xiaoying_imagebtn_style_thumb'
         el_style_list = sc.driver.find_elements_by_id(style_btn)
         el_style_list[1].click()
-        sc.driver.press_keycode(4)
         sc.capture_screen(fun_name, self.img_path)
+        sc.driver.press_keycode(4)

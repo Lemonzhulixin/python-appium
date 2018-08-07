@@ -2,7 +2,7 @@
 """用户空间粉丝页面的测试用例"""
 import time
 from selenium.webdriver.support.ui import WebDriverWait
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestUserFans(object):

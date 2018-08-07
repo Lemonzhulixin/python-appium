@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 """脚本里用到的一些方法."""
 import os
-import time
 import logging
 import logging.config
-
+from iOS.script_params import driver
+import time
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
-from Android.script_params import driver
 
 
 def mkdir(path):
@@ -35,7 +34,8 @@ def test_init():
     """测试初始化."""
     print('Test init begin!!!')
     local_time = time.strftime('%Y_%m_%d_%H_%M_%S', time.localtime())
-    path_list = ['./Report/', local_time, '/']
+    #path_list = ['./Report/', local_time, '/']
+    path_list = ['/Users/zhulixin/Desktop/UItest/iOS/Report/', local_time, '/']
 
     capture_list = path_list + ['screenshots/']
     log_list = path_list + ['logs/']
@@ -130,7 +130,7 @@ def swipe_by_ratio(start_x, start_y, direction, ratio, duration=None):
     """
     direction_list = ['up', 'down', 'left', 'right']
     if direction not in direction_list:
-        logger.error('滑动方向%s不支持', direction)
+        logger.error(u'滑动方向%s不支持', direction)
 
     width, height = get_size()
 
@@ -138,7 +138,7 @@ def swipe_by_ratio(start_x, start_y, direction, ratio, duration=None):
         """上滑."""
         end_y = start_y - ratio * height
         if end_y < 0:
-            logger.warning('上滑距离过大')
+            logger.warning(u'上滑距离过大')
             return False
         else:
             driver.swipe(start_x, start_y, start_x, end_y, duration)
@@ -148,7 +148,7 @@ def swipe_by_ratio(start_x, start_y, direction, ratio, duration=None):
         """下滑."""
         end_y = start_y + ratio * height
         if end_y > height:
-            logger.warning('下滑距离过大')
+            logger.warning(u'下滑距离过大')
             return False
         else:
             driver.swipe(start_x, start_y, start_x, end_y, duration)
@@ -158,7 +158,7 @@ def swipe_by_ratio(start_x, start_y, direction, ratio, duration=None):
         """左滑."""
         end_x = start_x - ratio * width
         if end_x < 0:
-            logger.warning('左滑距离过大')
+            logger.warning(u'左滑距离过大')
             return False
         else:
             driver.swipe(start_x, start_y, end_x, start_y, duration)
@@ -168,7 +168,7 @@ def swipe_by_ratio(start_x, start_y, direction, ratio, duration=None):
         """右滑."""
         end_x = start_x + ratio * width
         if end_x > width:
-            logger.warning('右滑距离过大')
+            logger.warning(u'右滑距离过大')
             return False
         else:
             driver.swipe(start_x, start_y, end_x, start_y, duration)
@@ -178,52 +178,6 @@ def swipe_by_ratio(start_x, start_y, direction, ratio, duration=None):
                   'right': swipe_right}
     return swipe_dict[direction]()
 
-
-def find_by_classes(classname, fun, path):
-    """遍历classname，分步点击截图."""
-    element_list = driver.find_elements_by_class_name(classname)
-
-    for element_em in element_list:
-        element_em.click()
-        time.sleep(1)
-        capture_screen(fun, path)
-    return True
-
-
-def find_by_ids(resource_id, fun, path):
-    """遍历id，分步点击截图."""
-    element_list = driver.find_elements_by_id(resource_id)
-
-    for element_em in element_list:
-        element_em.click()
-        time.sleep(1)
-        capture_screen(fun, path)
-    return True
-
-
-def view_by_ids(resource_id, fun, path):
-    """遍历id，分步点击、截图、退出."""
-    element_list = driver.find_elements_by_id(resource_id)
-
-    for element_em in element_list:
-        element_em.click()
-        time.sleep(1)
-        capture_screen(fun, path)
-        driver.press_keycode(4)
-    return True
-
-
-def first_step(el, el_s=None, el_t=None):
-    """每个用例前的重复操作."""
-    for btn in [el, el_s, el_t]:
-        if btn:
-            try:
-                WebDriverWait(driver, 10, 1).until(
-                              lambda els: els.find_element_by_id(btn)).click()
-            except TimeoutException:
-                return False
-    return True
-
-
 path_lists = test_init()
 logger = logger_init()
+

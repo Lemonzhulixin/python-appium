@@ -1,164 +1,117 @@
 # -*- coding: utf-8 -*-
 """镜头添加相关操作的测试用例."""
+from iOS import script_ultils as sc
 import time
 from unittest import TestCase
-from iOS import script_ultils as sc
-
+from selenium.webdriver.support.ui import WebDriverWait
+from iOS import iOS_elements,base as ba
+from selenium.common.exceptions import TimeoutException
 
 class TestEditClipsAdd(TestCase):
     """镜头添加相关操作的测试类."""
 
+    # 获取屏幕尺寸
     width, height = sc.get_size()
     img_path = sc.path_lists[0]
 
-    def test_edit_add_01_clips(self):
+    @classmethod
+    def setUpClass(cls):
+        sc.driver.launch_app()
+        time.sleep(3)
+
+    @classmethod
+    def tearDownClass(cls):
+        time.sleep(3)
+        sc.driver.close_app()
+
+    def test_clips_add_01(self):
         """剪辑-添加镜头-相册添加."""
         sc.logger.info('剪辑-添加镜头-相册添加')
         fun_name = 'test_edit_add_clips'
 
-        time.sleep(5)
-        sc.logger.info('点击首页第一个草稿封面')
-        el_draft = sc.driver.find_element_by_xpath("//*/XCUIElementTypeOther[2]/*/XCUIElementTypeButton")
-        el_draft.click()
+        sc.logger.info('打开一个草稿视频')
+        ba.home_first_click('更多草稿')
 
-        sc.logger.info('点击"剪辑"')
-        time.sleep(0.5)
-        sc.driver.find_element_by_name("剪辑").click()
-
-        sc.logger.info('向左滑动')
-        start_x = self.width - self.width // 10
-        start_bottom = self.height - self.height // 5
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 800)
-
-        sc.logger.info('点击"添加镜头"')
-        el_sound = sc.driver.find_element_by_name('配音')
-        coord_x = el_sound.location.get('x')
-        coord_y = el_sound.location.get('y')
-        sc.swipe_by_ratio(coord_x, coord_y, 'left', 0.8, 800)
-        sc.driver.find_element_by_name("添加镜头").click()
+        sc.logger.info('点击草稿封面')
+        ba.open_draft(iOS_elements.el_studio_draft)
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('添加视频')
-        el_video = sc.driver.find_element_by_accessibility_id("vivavideo_tool_gallery_audio_type_video")
-        el_video.click()
-        sc.driver.find_element_by_name("添加 0").click()
-
-        sc.logger.info('切换到图片')
-        sc.driver.find_element_by_name("视频").click()
-        sc.driver.find_element_by_name("图片").click()
-
-        sc.logger.info('添加图片')
-        el_img = sc.driver.find_element_by_xpath("//*/XCUIElementTypeImage")
-        el_img.click()
+        sc.logger.info('点击“镜头编辑”')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name("镜头编辑")).click()
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('点击"下一步"')
-        sc.driver.find_element_by_name("下一步").click()
+        sc.logger.info('从相册添加')
+        ba.clip_add('相册')
+        sc.capture_screen(fun_name, self.img_path)
 
-    def test_edit_clips_02_shot(self):
+        sc.logger.info('退出预览页')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_xpath(iOS_elements.el_pre_clo)).click()
+        sc.logger.info('剪辑-添加镜头-相册添加测试完成')
+
+    def test_clips_add_02(self):
         """剪辑-添加镜头-拍摄添加."""
         sc.logger.info('剪辑-添加镜头-拍摄添加')
         fun_name = 'test_edit_clips_shot'
 
-        sc.logger.info('点击"添加镜头"')
-        time.sleep(1)
-        sc.driver.find_element_by_name("添加镜头").click()
-
-        sc.logger.info('点击右上角拍摄按钮')
-        sc.driver.find_element_by_name("vivavideo gallery create captu").click()
-        time.sleep(1)
+        sc.logger.info('点击草稿封面')
+        ba.open_draft(iOS_elements.el_home_draft)
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('开始录制')
-        el_capture = sc.driver.find_element_by_xpath(
-            "//*/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther[1]")
-        el_capture.click()
-        time.sleep(5)
-
-        sc.logger.info('录制5s后点击录制按钮停止录制')
-        el_capture.click()
+        sc.logger.info('点击“镜头编辑”')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name("镜头编辑")).click()
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('点击确认按钮')
-        sc.driver.find_element_by_name("vivavideo camera tool icon nex").click()
+        sc.logger.info('拍摄添加镜头')
+        ba.clip_add('拍摄')
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('点击"下一步"')
-        sc.driver.find_element_by_name("下一步").click()
+        sc.logger.info('退出预览页')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_xpath(iOS_elements.el_pre_clo)).click()
 
-    def test_edit_clips_03_cancel(self):
+        sc.logger.info('剪辑-添加镜头-拍摄添加测试完成')
+
+    def test_clips_add_03(self):
         """剪辑-添加镜头-放弃."""
         sc.logger.info('剪辑-添加镜头-放弃')
         fun_name = 'test_edit_clips_cancel'
 
-        sc.logger.info('点击"添加镜头"')
-        time.sleep(1)
-        sc.driver.find_element_by_name("添加镜头").click()
-
-        sc.logger.info('切换到图片')
-        sc.driver.find_element_by_name("视频").click()
-        sc.driver.find_element_by_name("图片").click()
-
-        sc.logger.info('添加图片')
-        el_img = sc.driver.find_elements_by_xpath("//*/XCUIElementTypeImage")
-        el_img[1].click()
+        sc.logger.info('点击草稿封面')
+        ba.open_draft(iOS_elements.el_home_draft)
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('点击“左上角按钮”取消')
-        sc.driver.find_element_by_name("vivavideo gallery back n").click()
+        sc.logger.info('点击“镜头编辑”')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name("镜头编辑")).click()
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('确认取消')
-        sc.driver.find_element_by_name("确认").click()
-        time.sleep(3)
-
-        sc.logger.info('存草稿并返回创作页首页')
-        sc.driver.find_element_by_name("存草稿").click()
-        time.sleep(1)
-        sc.driver.find_element_by_name("vivavideo com nav back n").click()
-
-    def test_edit_sort(self):
-        """剪辑-排序."""
-        sc.logger.info('剪辑-排序')
-        fun_name = 'test_edit_sort'
-
-        time.sleep(1)
-        sc.logger.info('点击首页第一个草稿封面')
-        el_draft = sc.driver.find_element_by_xpath("//*/XCUIElementTypeOther[2]/*/XCUIElementTypeButton")
-        el_draft.click()
-
-        sc.logger.info('点击"剪辑"')
-        time.sleep(0.5)
-        sc.driver.find_element_by_name("剪辑").click()
-
-        sc.logger.info('向左滑动')
-        time.sleep(1)
-        start_x = self.width - self.width // 10
-        start_bottom = self.height - self.height // 5
-        for i in range(3):
-            sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.8, 800)
-
-        sc.logger.info('点击"排序"')
-        sc.driver.find_element_by_name("排序").click()
+        sc.logger.info('点击"添加镜头"按钮')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name(iOS_elements.btn_clip_add)).click()
         sc.capture_screen(fun_name, self.img_path)
 
-        # #长按拖动还需要再调试
-        # sc.logger.info('把特效和动画贴纸位置互换')
-        # try:
-        #     el_fx = sc.driver.find_element_by_name("特效")
-        #     el_sticker = sc.driver.find_element_by_name("动画贴纸")
-        #     actions = TouchAction(sc.driver)
-        #     actions.long_press(el_fx,1000).move_to(el_sticker).release().perform()
-        #     sc.capture_screen(fun_name, self.img_path)
-        # except Exception as e:
-        #     sc.logger.error("排序失败",e)
-        #     return False
-
-        sc.logger.info('点击"完成"保存设置')
-        sc.driver.find_element_by_name("完成").click()
+        sc.logger.info('选择相册')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name('相册')).click()
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('存草稿并返回创作页首页')
-        sc.driver.find_element_by_name("存草稿").click()
-        time.sleep(1)
-        sc.driver.find_element_by_name("vivavideo com nav back n").click()
+        sc.logger.info('勾选镜头')
+        ba.gallery_clip_add('视频', 2)
+
+        sc.logger.info('左上角返回')
+        sc.driver.find_element_by_name(iOS_elements.el_gallery_back).click()
+        sc.capture_screen(fun_name, self.img_path)
+
+        sc.logger.info('确定放弃')
+        try:
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda x: x.find_element_by_name('确认')).click()
+            sc.capture_screen(fun_name, self.img_path)
+        except TimeoutException:
+            sc.logger.error('没有勾选中镜头，需要手动再验证！')
+            return False
+
+        sc.logger.info('剪辑-放弃添加镜头-测试完成')

@@ -3,7 +3,7 @@
 import time
 
 from selenium.webdriver.support.ui import WebDriverWait
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestPlanetNotify(object):
@@ -27,57 +27,34 @@ class TestPlanetNotify(object):
         WebDriverWait(sc.driver, 10, 1).until(
             lambda el: el.find_element_by_id(message_btn)).click()
 
-        time.sleep(5)
+        time.sleep(3)
         sc.logger.info('小影圈推荐页面初始状态截图开始')
         sc.capture_screen(fun_name, self.img_path)
-
-    def test_notify_activity(self):
-        """测试消息中心动态."""
-        sc.logger.info('开始测试消息中心动态')
-        fun_name = 'test_notify_activity'
-
-        time.sleep(3)
-        pager_tab = 'com.quvideo.xiaoying:id/text_viewpager_tab'
-        el_tab_list = sc.driver.find_elements_by_id(pager_tab)
-        for el_tab in el_tab_list:
-            if el_tab.text == '动态':
-                el_tab.click()
-                break
-        sc.logger.info('消息中心动态页截图')
-        sc.capture_screen(fun_name, self.img_path)
-        assert el_tab is not None
 
     def test_notify_info(self):
         """测试消息中心通知页."""
         sc.logger.info('开始测试消息中心通知页.')
         fun_name = 'test_notify_info'
+        start_x = self.width - self.width // 8
+        start_y = self.height // 2
 
         time.sleep(1)
-        pager_tab = 'com.quvideo.xiaoying:id/text_viewpager_tab'
-        el_tab_list = sc.driver.find_elements_by_id(pager_tab)
-        for el_tab in el_tab_list:
-            if el_tab.text == '通知':
-                el_tab.click()
-                break
+        sc.swipe_by_ratio(start_x, start_y, 'left', 0.7, 500)
         sc.logger.info('消息中心通知页截图')
         sc.capture_screen(fun_name, self.img_path)
-        assert el_tab is not None
 
     def test_notify_message(self):
         """测试消息中心动态."""
         sc.logger.info('开始测试消息中心私信.')
         fun_name = 'test_notify_message'
+        start_x = self.width - self.width // 8
+        start_y = self.height // 2
 
         time.sleep(1)
-        pager_tab = 'com.quvideo.xiaoying:id/text_viewpager_tab'
-        el_tab_list = sc.driver.find_elements_by_id(pager_tab)
-        for el_tab in el_tab_list:
-            if el_tab.text == '私信':
-                el_tab.click()
-                break
+        sc.swipe_by_ratio(start_x, start_y, 'left', 0.7, 500)
+
         sc.logger.info('消息中心私信页截图')
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('通知中心测试完成，返回主页')
         sc.driver.press_keycode(4)
-        assert el_tab is not None

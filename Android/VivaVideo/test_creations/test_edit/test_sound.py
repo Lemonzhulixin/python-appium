@@ -4,8 +4,7 @@ import time
 
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
-from appium.webdriver.common.touch_action import TouchAction
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestEditSound(object):
@@ -19,60 +18,60 @@ class TestEditSound(object):
         sc.logger.info('剪辑-配音-添加')
         fun_name = 'test_edit_sound_add'
 
-        start_x = self.width - self.width // 4
-        start_bottom = self.height - self.height // 10
-
         sc.logger.info('点击创作中心主按钮')
         c_btn = 'com.quvideo.xiaoying:id/img_creation'
         WebDriverWait(sc.driver, 10, 1).until(
             lambda el: el.find_element_by_id(c_btn)).click()
 
         sc.logger.info('点击“更多草稿”')
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda el: el.find_element_by_android_uiautomator(
-                'text("更多草稿")')).click()
+        sc.driver.find_element_by_android_uiautomator('text("更多草稿")').click()
 
         sc.logger.info('点击草稿封面')
         draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
-        sc.driver.find_element_by_id(draft_img).click()
-        sc.logger.info('点击“剪辑”')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
+
+        sc.logger.info('尝试点击“编辑该视频”')
+        edit_btn = 'com.quvideo.xiaoying:id/edit_this_video_text'
+        try:
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(edit_btn)).click()
+        except TimeoutException:
+            sc.logger.info('该视频已经在编辑页，跳过此步骤')
+
+        sc.logger.info('点击“效果”')
         WebDriverWait(sc.driver, 10, 1).until(
             lambda c_btn: c_btn.find_element_by_android_uiautomator(
-                'text("剪辑")')).click()
+                'text("效果")')).click()
 
-        time.sleep(1)
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.6, 500)
-        t_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
-        for el_item in t_list:
-            if el_item.text == '配音':
-                sc.logger.info('开始点击配音')
-                el_item.click()
-                break
-
-        record_btn = 'com.quvideo.xiaoying:id/dub_panel_audio_record_btn'
-        try:
-            WebDriverWait(sc.driver, 10, 1).until(
-                lambda c_btn: c_btn.find_element_by_id(record_btn))
-            el_record = sc.driver.find_element_by_id(record_btn)
-        except TimeoutException:
-            speed_close_btn = 'com.quvideo.xiaoying:id/imgbtn_speed_close'
-            WebDriverWait(sc.driver, 10, 1).until(
-                lambda el: el.find_element_by_id(speed_close_btn)).click()
-
-            del_dub_btn = 'com.quvideo.xiaoying:id/imgbtn_del_dub'
-            WebDriverWait(sc.driver, 10, 1).until(
-                lambda c_btn: c_btn.find_element_by_id(del_dub_btn)).click()
-
-            record_btn = 'com.quvideo.xiaoying:id/dub_panel_audio_record_btn'
-            WebDriverWait(sc.driver, 10, 1).until(
-                lambda c_btn: c_btn.find_element_by_id(record_btn))
-            el_record = sc.driver.find_element_by_id(record_btn)
-
-        # 长按录制
-        sc.logger.info('长按录制5s')
-        actions = TouchAction(sc.driver)
-        actions.long_press(el_record, None, None, 5000).release().perform()
+        sc.logger.info('开始点击配音和音效')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                'text("配音和音效")')).click()
         sc.capture_screen(fun_name, self.img_path)
+
+        sc.logger.info('开始录音')
+        record_btn = 'com.quvideo.xiaoying:id/ll_editor_audio_record_touch'
+
+        try:
+            sc.logger.info('点击录音按钮')
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                    'text("删除")')).click()
+        except TimeoutException:
+            el_record = WebDriverWait(sc.driver, 10, 1).until(
+                lambda c_btn: c_btn.find_element_by_id(record_btn))
+
+        co_x = el_record.location.get('x') + el_record.size.get('width') / 2
+        co_y = el_record.location.get('y') + el_record.size.get('height') / 2
+
+        sc.driver.tap([(co_x, co_y)], 3000)
+        sc.capture_screen(fun_name, self.img_path)
+
+        sc.logger.info('点击确认')
+        right_btn = 'com.quvideo.xiaoying:id/terminator_right'
+        WebDriverWait(sc.driver, 60, 1).until(
+            lambda el: el.find_element_by_id(right_btn)).click()
 
         """
         x = record.location.get('x')
@@ -93,13 +92,9 @@ class TestEditSound(object):
             lambda c_btn: c_btn.find_element_by_id(music_add_btn)).click()
         """
 
-        right_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_right'
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda c_btn: c_btn.find_element_by_id(right_btn)).click()
-
         sc.logger.info('返回创作中心主界面')
-        for i in range(3):
-            time.sleep(2)
+        for i in range(2):
+            time.sleep(1)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-配音-添加测试完成')
 
@@ -108,54 +103,57 @@ class TestEditSound(object):
         sc.logger.info('剪辑-配音-删除')
         fun_name = 'test_edit_sound_del'
 
-        start_x = self.width - self.width // 4
-        start_bottom = self.height - self.height // 10
-
         sc.logger.info('点击创作中心主按钮')
         c_btn = 'com.quvideo.xiaoying:id/img_creation'
         WebDriverWait(sc.driver, 10, 1).until(
             lambda el: el.find_element_by_id(c_btn)).click()
-        # sc.driver.find_element_by_id('com.quvideo.xiaoying:id/img_creation').click()
 
         sc.logger.info('点击“更多草稿”')
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda el: el.find_element_by_android_uiautomator(
-                'text("更多草稿")')).click()
+        sc.driver.find_element_by_android_uiautomator('text("更多草稿")').click()
 
         sc.logger.info('点击草稿封面')
         draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
-        sc.driver.find_element_by_id(draft_img).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
 
-        sc.logger.info('点击“剪辑”')
+        sc.logger.info('尝试点击“编辑该视频”')
+        edit_btn = 'com.quvideo.xiaoying:id/edit_this_video_text'
+        try:
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(edit_btn)).click()
+        except TimeoutException:
+            sc.logger.info('该视频已经在编辑页，跳过此步骤')
+
+        sc.logger.info('点击“效果”')
         WebDriverWait(sc.driver, 10, 1).until(
             lambda c_btn: c_btn.find_element_by_android_uiautomator(
-                'text("剪辑")')).click()
+                'text("效果")')).click()
 
-        time.sleep(1)
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.6, 500)
-        t_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
-        for el_item in t_list:
-            if el_item.text == '配音':
-                sc.logger.info('开始点击配音')
-                el_item.click()
-                break
-
-        speed_close_btn = 'com.quvideo.xiaoying:id/imgbtn_speed_close'
+        sc.logger.info('开始点击配音和音效')
         WebDriverWait(sc.driver, 10, 1).until(
-            lambda c_btn: c_btn.find_element_by_id(speed_close_btn)).click()
+            lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                'text("配音和音效")')).click()
+        sc.capture_screen(fun_name, self.img_path)
 
-        del_btn = 'com.quvideo.xiaoying:id/imgbtn_del_dub'
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda c_btn: c_btn.find_element_by_id(del_btn)).click()
+        sc.logger.info('删除原有音效')
+        try:
+            sc.capture_screen(fun_name, self.img_path)
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                    'text("删除")')).click()
+        except TimeoutException:
+            sc.logger.info('该视频没有添加音效，跳过')
 
-        right_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_right'
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda c_btn: c_btn.find_element_by_id(right_btn)).click()
+        sc.logger.info('点击确认')
+        right_btn = 'com.quvideo.xiaoying:id/terminator_right'
+        sc.capture_screen(fun_name, self.img_path)
+        WebDriverWait(sc.driver, 60, 1).until(
+            lambda el: el.find_element_by_id(right_btn)).click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('返回创作中心主界面')
-        for i in range(3):
-            time.sleep(2)
+        for i in range(2):
+            time.sleep(1)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-配音-删除测试完成')
 
@@ -163,8 +161,6 @@ class TestEditSound(object):
         """剪辑-配音-放弃."""
         sc.logger.info('剪辑-配音-放弃')
         fun_name = 'test_edit_sound_cancel'
-        start_x = self.width - self.width // 4
-        start_bottom = self.height - self.height // 10
 
         sc.logger.info('点击创作中心主按钮')
         c_btn = 'com.quvideo.xiaoying:id/img_creation'
@@ -172,48 +168,60 @@ class TestEditSound(object):
             lambda el: el.find_element_by_id(c_btn)).click()
 
         sc.logger.info('点击“更多草稿”')
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda el: el.find_element_by_android_uiautomator(
-                'text("更多草稿")')).click()
+        sc.driver.find_element_by_android_uiautomator('text("更多草稿")').click()
 
         sc.logger.info('点击草稿封面')
         draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
-        sc.driver.find_element_by_id(draft_img).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
 
-        sc.logger.info('点击“剪辑”')
+        sc.logger.info('尝试点击“编辑该视频”')
+        edit_btn = 'com.quvideo.xiaoying:id/edit_this_video_text'
+        try:
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(edit_btn)).click()
+        except TimeoutException:
+            sc.logger.info('该视频已经在编辑页，跳过此步骤')
+
+        sc.logger.info('点击“效果”')
         WebDriverWait(sc.driver, 10, 1).until(
             lambda c_btn: c_btn.find_element_by_android_uiautomator(
-                'text("剪辑")')).click()
+                'text("效果")')).click()
 
-        time.sleep(1)
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.6, 500)
-        t_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
-        for el_item in t_list:
-            if el_item.text == '配音':
-                sc.logger.info('开始点击配音')
-                el_item.click()
-                break
-
-        au_add_btn = 'com.quvideo.xiaoying:id/xiaoying_ve_imgbtn_add_audio_dub'
+        sc.logger.info('开始点击配音和音效')
         WebDriverWait(sc.driver, 10, 1).until(
-            lambda c_btn: c_btn.find_element_by_id(au_add_btn)).click()
-        time.sleep(2)
-
-        music_row = 'com.quvideo.xiaoying:id/musiclist_title'
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda c_btn: c_btn.find_element_by_id(music_row)).click()
-
-        music_add_btn = 'com.quvideo.xiaoying:id/btn_add_music'
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda c_btn: c_btn.find_element_by_id(music_add_btn)).click()
-        # sc.driver.find_element_by_id('com.quvideo.xiaoying:id/xiaoying_com_btn_left').click()
-        sc.driver.press_keycode(4)
-        time.sleep(1)
-        sc.driver.find_element_by_android_uiautomator('text("确认")').click()
+            lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                'text("配音和音效")')).click()
         sc.capture_screen(fun_name, self.img_path)
 
+        sc.logger.info('开始录音')
+        record_btn = 'com.quvideo.xiaoying:id/ll_editor_audio_record_touch'
+        try:
+            sc.logger.info('点击录音按钮')
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                    'text("删除")')).click()
+        except TimeoutException:
+            el_record = WebDriverWait(sc.driver, 10, 1).until(
+                lambda c_btn: c_btn.find_element_by_id(record_btn))
+
+        co_x = el_record.location.get('x') + el_record.size.get('width') / 2
+        co_y = el_record.location.get('y') + el_record.size.get('height') / 2
+
+        sc.driver.tap([(co_x, co_y)], 3000)
+        sc.capture_screen(fun_name, self.img_path)
+
+        sc.logger.info('点击确认')
+        left_btn = 'com.quvideo.xiaoying:id/terminator_left'
+        WebDriverWait(sc.driver, 60, 1).until(
+            lambda el: el.find_element_by_id(left_btn)).click()
+
+        pos_btn = 'com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive'
+        WebDriverWait(sc.driver, 60, 1).until(
+            lambda el: el.find_element_by_id(pos_btn)).click()
+
         sc.logger.info('返回创作中心主界面')
-        for i in range(4):
+        for i in range(2):
             time.sleep(1)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-配音-放弃测试完成')

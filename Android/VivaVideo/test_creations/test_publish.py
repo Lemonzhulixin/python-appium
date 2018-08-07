@@ -5,7 +5,7 @@ import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
 from appium.webdriver.common.touch_action import TouchAction
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestCreationShare(object):
@@ -49,7 +49,8 @@ class TestCreationShare(object):
 
         sc.logger.info('添加标题')
         text_input = 'com.quvideo.xiaoying:id/share_video_title_text'
-        el_title = sc.driver.find_element_by_id(text_input)
+        el_title = WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(text_input))
         el_title.clear()
         el_title.send_keys('video title test')
 
@@ -58,6 +59,7 @@ class TestCreationShare(object):
         WebDriverWait(sc.driver, 10, 1).until(
             lambda el: el.find_element_by_id(topic_btn)).click()
 
+        time.sleep(1)
         sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
 
         name_tag = 'com.quvideo.xiaoying:id/txtview_tag_name'
@@ -67,7 +69,8 @@ class TestCreationShare(object):
 
         sc.logger.info('隐私设置')
         privacy_btn = 'com.quvideo.xiaoying:id/share_btn_privacy'
-        sc.driver.find_element_by_id(privacy_btn).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(privacy_btn)).click()
 
         vis_btn = 'com.quvideo.xiaoying:id/private_setting_visible_btn'
         WebDriverWait(sc.driver, 10, 1).until(
@@ -92,6 +95,10 @@ class TestCreationShare(object):
             lambda el: el.find_element_by_id(share_btn)).click()
         sc.capture_screen(fun_name, self.img_path)
 
+        clear_btn = 'com.quvideo.xiaoying:id/normal_layout'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(clear_btn)).click()
+
         try:
             neg_btn = 'com.quvideo.xiaoying:id/buttonDefaultNegative'
             WebDriverWait(sc.driver, 5).until(
@@ -101,7 +108,7 @@ class TestCreationShare(object):
 
         try:
             qq_sns = 'com.quvideo.xiaoying:id/textview_id_sns_qqspace'
-            WebDriverWait(sc.driver, 180).until(
+            WebDriverWait(sc.driver, 120).until(
                 lambda el: el.find_element_by_id(qq_sns)).click()
             time.sleep(5)
             sc.capture_screen(fun_name, self.img_path)

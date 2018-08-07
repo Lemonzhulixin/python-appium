@@ -2,7 +2,7 @@
 """小影圈推荐页面的测试用例."""
 import time
 from selenium.webdriver.support.ui import WebDriverWait
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestPlanetRec(object):
@@ -21,17 +21,8 @@ class TestPlanetRec(object):
         WebDriverWait(sc.driver, 10, 1).until(
             lambda el: el.find_element_by_id(p_btn)).click()
 
-        time.sleep(1)
-        sc.logger.info('开始查找小影圈推荐tab')
-        el_tab_list = sc.driver.find_elements_by_id('android:id/text1')
-        for el_tab in el_tab_list:
-            if el_tab.text == '推荐':
-                sc.logger.info('点击“推荐”tab')
-                el_tab.click()
-                break
         sc.logger.info('小影圈推荐页面初始状态截图开始')
         sc.capture_screen(fun_name, self.img_path)
-        assert el_tab is not None
 
     def test_refresh(self):
         """测试下拉刷新."""
@@ -41,7 +32,7 @@ class TestPlanetRec(object):
         start_y = self.heigh // 8
 
         time.sleep(1)
-        result = sc.swipe_by_ratio(start_x, start_y, 'down', 0.6, 600)
+        result = sc.swipe_by_ratio(start_x, start_y, 'down', 0.6, 700)
 
         time.sleep(1)
         sc.logger.info('小影圈推荐页面下拉刷新截图开始')
@@ -59,12 +50,12 @@ class TestPlanetRec(object):
         # 先上滑
         sc.logger.info('上滑截图开始')
         time.sleep(1)
-        result_up = sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 300)
+        result_up = sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 500)
         sc.capture_screen(fun_name, self.img_path)
 
         # 再下滑，同理
         sc.logger.info('下滑截图开始')
-        result_down = sc.swipe_by_ratio(start_x, start_y, 'down', 0.3, 300)
+        result_down = sc.swipe_by_ratio(start_x, start_y, 'down', 0.3, 500)
         time.sleep(1)
         sc.capture_screen(fun_name, self.img_path)
         assert result_up and result_down is True
@@ -78,50 +69,44 @@ class TestPlanetRec(object):
 
         # 先上滑一点
         time.sleep(1)
-        result_up = sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.6, 500)
+        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.6, 500)
         sc.logger.info('小影圈推荐页面轻微上滑截图开始')
         sc.capture_screen(fun_name, self.img_path)
         # 再按推荐tab
         sc.logger.info('开始查找小影圈推荐tab')
-        el_tab_list = sc.driver.find_elements_by_id('android:id/text1')
-        for el_tab in el_tab_list:
-            if el_tab.text == '推荐':
-                sc.logger.info('点击“推荐”tab')
-                el_tab.click()
-                break
+        WebDriverWait(sc.driver, 30).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'text("推荐")')).click()
         time.sleep(1)
         sc.logger.info('小影圈推荐页面点击“推荐”tab截图开始')
         sc.capture_screen(fun_name, self.img_path)
-        assert result_up and el_tab is not None
 
     def test_recommend_video(self):
         """测试推荐页面的视频."""
         sc.logger.info('推荐页面视频检查开始')
         fun_name = 'test_recommend_video'
 
-        el_video = sc.driver.find_element_by_id(
-            'com.quvideo.xiaoying:id/img_video_thumb')
-        el_video.click()
+        thumb_img = 'com.quvideo.xiaoying:id/img_video_thumb'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(thumb_img)).click()
         time.sleep(1)
         sc.logger.info('小影圈推荐页面进入视频feed流截图开始')
         sc.capture_screen(fun_name, self.img_path)
         # sc.driver.back()
         sc.logger.info('点击返回键')
         sc.driver.press_keycode(4)
-        assert el_video is not None
 
     def test_recommend_user(self):
         """测试推荐页面的用户."""
         sc.logger.info('推荐页面用户检查开始')
         fun_name = 'test_recommend_user'
 
-        el_video = sc.driver.find_element_by_id(
-            'com.quvideo.xiaoying:id/img_owner_avatar')
-        el_video.click()
+        avatar_img = 'com.quvideo.xiaoying:id/img_owner_avatar'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(avatar_img)).click()
         time.sleep(1)
         sc.logger.info('小影圈推荐页面点击用户头像进入用户空间截图开始')
         sc.capture_screen(fun_name, self.img_path)
         # sc.driver.back()
         sc.logger.info('点击返回键')
         sc.driver.press_keycode(4)
-        assert el_video is not None

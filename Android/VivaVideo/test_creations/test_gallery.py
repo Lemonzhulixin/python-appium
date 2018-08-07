@@ -3,7 +3,7 @@
 import time
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestGallery(object):
@@ -18,6 +18,7 @@ class TestGallery(object):
         fun_name = 'test_gallery_video'
         start_x = self.width // 2
         start_bottom = self.height - self.height // 4
+        start_y = self.height // 3
 
         sc.logger.info('点击创作中心主按钮')
         c_btn = 'com.quvideo.xiaoying:id/img_creation'
@@ -65,16 +66,19 @@ class TestGallery(object):
                 lambda el: el.find_element_by_id(import_btn)).click()
         sc.capture_screen(fun_name, self.img_path)
         try:
+            n_btn = 'com.quvideo.xiaoying:id/xiaoying_com_storyboard_next_btn'
             WebDriverWait(sc.driver, 60).until(
-                lambda x: x.find_element_by_android_uiautomator('text("下一步")'))
+                lambda x: x.find_element_by_id(n_btn)).click()
         except TimeoutError as t:
             sc.logger.error('导入视频超时', t)
             return False
         except Exception as e:
             sc.logger.error('导入视频出错', e)
             return False
-        sc.driver.find_element_by_android_uiautomator('text("下一步")').click()
         sc.capture_screen(fun_name, self.img_path)
+
+        time.sleep(1)
+        sc.driver.swipe(start_x, start_y, start_x, start_y, 1000)
 
         sc.driver.find_element_by_android_uiautomator('text("存草稿")').click()
         left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
@@ -87,6 +91,8 @@ class TestGallery(object):
         """相册-图片."""
         sc.logger.info('相册-图片')
         fun_name = 'test_gallery_img'
+        start_x = self.width // 2
+        start_y = self.height // 3
 
         first_icon = 'com.quvideo.xiaoying:id/icon1'
         WebDriverWait(sc.driver, 10, 1).until(
@@ -100,14 +106,21 @@ class TestGallery(object):
 
         sc.driver.find_element_by_android_uiautomator('text("全部")').click()
         mask_img = 'com.quvideo.xiaoying:id/img_click_mask'
-        sc.find_by_ids(mask_img, fun_name, self.img_path)
+        element_list = sc.driver.find_elements_by_id(mask_img)
+
+        if len(element_list) >= 2:
+            element_list = element_list[:2]
+
+        for element_em in element_list:
+            element_em.click()
+            time.sleep(1)
+            sc.capture_screen(fun_name, self.img_path)
 
         sc.driver.find_element_by_android_uiautomator('text("下一步")').click()
         sc.capture_screen(fun_name, self.img_path)
 
-        fake_layout = 'com.quvideo.xiaoying:id/preview_layout_fake'
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda el: el.find_element_by_id(fake_layout)).click()
+        time.sleep(1)
+        sc.driver.swipe(start_x, start_y, start_x, start_y, 1000)
 
         sc.driver.find_element_by_android_uiautomator('text("存草稿")').click()
 
@@ -129,7 +142,7 @@ class TestGallery(object):
         mask_img = 'com.quvideo.xiaoying:id/img_click_mask'
         el_video_list = sc.driver.find_elements_by_id(mask_img)
 
-        for i in range(3):
+        for i in range(2):
             import_btn = 'com.quvideo.xiaoying:id/imgbtn_import'
             el_video_list[i].click()
             sc.driver.find_element_by_id(import_btn).click()
@@ -147,7 +160,15 @@ class TestGallery(object):
         sc.driver.find_element_by_android_uiautomator('text("图片")').click()
 
         img_icon = 'com.quvideo.xiaoying:id/img_icon'
-        sc.find_by_ids(img_icon, fun_name, self.img_path)
+        element_list = sc.driver.find_elements_by_id(img_icon)
+
+        if len(element_list) >= 2:
+            element_list = element_list[:2]
+
+        for element_em in element_list:
+            element_em.click()
+            time.sleep(1)
+            sc.capture_screen(fun_name, self.img_path)
 
         expand_btn = 'com.quvideo.xiaoying:id/btn_expand'
         sc.driver.find_element_by_id(expand_btn).click()
@@ -192,7 +213,15 @@ class TestGallery(object):
 
         sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
         img_icon = 'com.quvideo.xiaoying:id/img_icon'
-        sc.find_by_ids(img_icon, fun_name, self.img_path)
+        element_list = sc.driver.find_elements_by_id(img_icon)
+
+        if len(element_list) >= 2:
+            element_list = element_list[:2]
+
+        for element_em in element_list:
+            element_em.click()
+            time.sleep(1)
+            sc.capture_screen(fun_name, self.img_path)
 
         sc.driver.find_element_by_id(left_btn).click()
 

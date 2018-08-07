@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 """特效的基本操作测试用例."""
 import time
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestEditFX(object):
@@ -17,8 +17,8 @@ class TestEditFX(object):
         sc.logger.info('剪辑-特效-添加')
         fun_name = 'test_edit_fx'
 
-        start_x = self.width - self.width // 4
-        start_bottom = self.height - self.height // 10
+        startx = self.width // 2
+        starty = self.height // 3
 
         sc.logger.info('点击创作中心主按钮')
         c_btn = 'com.quvideo.xiaoying:id/img_creation'
@@ -30,47 +30,76 @@ class TestEditFX(object):
 
         sc.logger.info('点击草稿封面')
         draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
-        sc.driver.find_element_by_id(draft_img).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
 
-        sc.logger.info('点击“剪辑”')
+        sc.logger.info('尝试点击“编辑该视频”')
+        edit_btn = 'com.quvideo.xiaoying:id/edit_this_video_text'
+        try:
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(edit_btn)).click()
+        except TimeoutException:
+            sc.logger.info('该视频已经在编辑页，跳过此步骤')
+
+        sc.logger.info('点击“效果”')
         WebDriverWait(sc.driver, 10, 1).until(
             lambda c_btn: c_btn.find_element_by_android_uiautomator(
-                'text("剪辑")')).click()
-        # sc.driver.find_element_by_android_uiautomator('text("剪辑")').click()
-        time.sleep(1)
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.6, 500)
+                'text("效果")')).click()
 
-        t_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
-        for el_item in t_list:
-            if el_item.text == '特效':
-                sc.logger.info('开始点击“特效”按钮')
-                el_item.click()
-                break
-        time.sleep(1)
-        while True:
+        sc.logger.info('开始点击特效')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                'text("特效")')).click()
+
+        fx_op_btn = 'com.quvideo.xiaoying:id/ve_music_op_btn'
+        try:
+            sc.logger.info('查找下载更多')
+            fx_down_btn = 'com.quvideo.xiaoying:id/iv_download_more'
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(fx_down_btn))
+        except TimeoutException:
+            sc.logger.info('当前时间点已有fx，先删除')
+            sc.driver.swipe(startx, starty, startx, starty, 500)
             try:
-                sc.logger.info('开始点击“FX”按钮')
-                sub_add_btn = 'com.quvideo.xiaoying:id/imgbtn_add_subtitle'
-                sc.driver.find_element_by_id(sub_add_btn).click()
-                break
-            except NoSuchElementException:
-                sc.logger.info('该视频已经有特效，先删除特效')
-                sc.logger.info('开始点击特效编辑按钮')
-                speed_close_btn = 'com.quvideo.xiaoying:id/imgbtn_speed_close'
-                sc.driver.find_element_by_id(speed_close_btn).click()
-                sc.capture_screen(fun_name, self.img_path)
+                icon_btn = 'com.quvideo.xiaoying:id/select_item'
+                icon_list = sc.driver.find_elements_by_id(icon_btn)
+                for icon_el in icon_list:
+                    icon_el.click()
+                    try:
+                        WebDriverWait(sc.driver, 5, 1).until(
+                            lambda x: x.find_element_by_id(fx_op_btn)).click()
+                        break
+                    except TimeoutException:
+                        sc.driver.press_keycode(4)
+                        time.sleep(1)
+                        sc.driver.press_keycode(4)
+                        time.sleep(1)
+                        sc.driver.swipe(startx, starty, startx, starty, 500)
+            except TimeoutException:
+                WebDriverWait(sc.driver, 5, 1).until(
+                    lambda x: x.find_element_by_id(fx_op_btn)).click()
 
-                sc.logger.info('点击删除特效按钮')
-                sub_del_btn = 'com.quvideo.xiaoying:id/imgbtn_del_subtitle'
-                sc.driver.find_element_by_id(sub_del_btn).click()
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_id(fx_op_btn)).click()
 
+        sc.logger.info('点击第二个特效')
+        fx_cover = ('//android.support.v7.widget.RecyclerView/'
+                    'android.widget.RelativeLayout[2]')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_xpath(fx_cover)).click()
         sc.capture_screen(fun_name, self.img_path)
-        right_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_right'
-        sc.driver.find_element_by_id(right_btn).click()
-        sc.driver.find_element_by_id(right_btn).click()
+
+        right_btn = 'com.quvideo.xiaoying:id/terminator_right'
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_id(right_btn)).click()
+        time.sleep(1)
+        sc.driver.swipe(startx, starty, startx, starty, 1000)
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_id(right_btn)).click()
+        sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('返回创作中心主界面')
-        for i in range(4):
+        for i in range(2):
             time.sleep(1)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-特效-添加测试完成')
@@ -79,8 +108,8 @@ class TestEditFX(object):
         """剪辑-特效-删除."""
         sc.logger.info('剪辑-特效-删除')
         fun_name = 'test_edit_fx_del'
-        start_x = self.width - self.width // 4
-        start_bottom = self.height - self.height // 10
+        startx = self.width // 2
+        starty = self.height // 3
 
         sc.logger.info('点击创作中心主按钮')
         c_btn = 'com.quvideo.xiaoying:id/img_creation'
@@ -92,37 +121,62 @@ class TestEditFX(object):
 
         sc.logger.info('点击草稿封面')
         draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
-        el_draft = sc.driver.find_element_by_id(draft_img)
-        el_draft.click()
-        sc.logger.info('点击“剪辑”')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
+
+        sc.logger.info('尝试点击“编辑该视频”')
+        edit_btn = 'com.quvideo.xiaoying:id/edit_this_video_text'
+        try:
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(edit_btn)).click()
+        except TimeoutException:
+            sc.logger.info('该视频已经在编辑页，跳过此步骤')
+
+        sc.logger.info('点击“效果”')
         WebDriverWait(sc.driver, 10, 1).until(
             lambda c_btn: c_btn.find_element_by_android_uiautomator(
-                'text("剪辑")')).click()
+                'text("效果")')).click()
 
-        time.sleep(1)
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.6, 500)
+        sc.logger.info('开始点击特效')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                'text("特效")')).click()
 
-        t_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
-        for item in t_list:
-            if item.text == '特效':
-                sc.logger.info('开始点击“特效”按钮')
-                item.click()
-                break
-        sc.logger.info('开始点击特效编辑按钮')
-        speed_close_btn = 'com.quvideo.xiaoying:id/imgbtn_speed_close'
-        sc.driver.find_element_by_id(speed_close_btn).click()
+        fx_op_btn = 'com.quvideo.xiaoying:id/ve_music_op_btn'
+        try:
+            sc.logger.info('查找下载更多')
+            fx_down_btn = 'com.quvideo.xiaoying:id/iv_download_more'
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(fx_down_btn))
+        except TimeoutException:
+            sc.logger.info('当前时间点已有fx，先删除')
+            sc.driver.swipe(startx, starty, startx, starty, 500)
+            try:
+                icon_btn = 'com.quvideo.xiaoying:id/select_item'
+                icon_list = sc.driver.find_elements_by_id(icon_btn)
+                for icon_el in icon_list:
+                    icon_el.click()
+                    try:
+                        WebDriverWait(sc.driver, 5, 1).until(
+                            lambda x: x.find_element_by_id(fx_op_btn)).click()
+                        break
+                    except TimeoutException:
+                        sc.driver.press_keycode(4)
+                        time.sleep(1)
+                        sc.driver.press_keycode(4)
+                        time.sleep(1)
+                        sc.driver.swipe(startx, starty, startx, starty, 500)
+            except TimeoutException:
+                WebDriverWait(sc.driver, 5, 1).until(
+                    lambda x: x.find_element_by_id(fx_op_btn)).click()
+
+        right_btn = 'com.quvideo.xiaoying:id/terminator_right'
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_id(right_btn)).click()
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('点击删除特效按钮')
-        sub_del_btn = 'com.quvideo.xiaoying:id/imgbtn_del_subtitle'
-        sc.driver.find_element_by_id(sub_del_btn).click()
-
-        sc.logger.info('点击右上角确认按钮')
-        right_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_right'
-        sc.driver.find_element_by_id(right_btn).click()
-
-        for i in range(3):
-            time.sleep(2)
+        for i in range(2):
+            time.sleep(1)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-特效-删除测试完成')
 
@@ -130,8 +184,8 @@ class TestEditFX(object):
         """剪辑-特效-放弃."""
         sc.logger.info('剪辑-特效-放弃')
         fun_name = 'test_edit_fx_cancel'
-        start_x = self.width - self.width // 4
-        start_bottom = self.height - self.height // 10
+        startx = self.width // 2
+        starty = self.height // 3
 
         sc.logger.info('点击创作中心主按钮')
         c_btn = 'com.quvideo.xiaoying:id/img_creation'
@@ -143,49 +197,83 @@ class TestEditFX(object):
 
         sc.logger.info('点击草稿封面')
         draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
-        el_draft = sc.driver.find_element_by_id(draft_img)
-        el_draft.click()
-        sc.logger.info('点击“剪辑”')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
+
+        sc.logger.info('尝试点击“编辑该视频”')
+        edit_btn = 'com.quvideo.xiaoying:id/edit_this_video_text'
+        try:
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(edit_btn)).click()
+        except TimeoutException:
+            sc.logger.info('该视频已经在编辑页，跳过此步骤')
+
+        sc.logger.info('点击“效果”')
         WebDriverWait(sc.driver, 10, 1).until(
             lambda c_btn: c_btn.find_element_by_android_uiautomator(
-                'text("剪辑")')).click()
+                'text("效果")')).click()
 
-        time.sleep(1)
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.6, 500)
+        sc.logger.info('开始点击特效')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda c_btn: c_btn.find_element_by_android_uiautomator(
+                'text("特效")')).click()
 
-        t_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
-        for el_item in t_list:
-            if el_item.text == '特效':
-                sc.logger.info('开始点击“特效”按钮')
-                el_item.click()
-                break
-
-        sc.logger.info('开始点击“FX”按钮')
-        sub_add_btn = 'com.quvideo.xiaoying:id/imgbtn_add_subtitle'
-        sc.driver.find_element_by_id(sub_add_btn).click()
-        x_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/icon')
+        fx_op_btn = 'com.quvideo.xiaoying:id/ve_music_op_btn'
         try:
-            x_list[1].click()
-            sc.logger.info('点击第二个特效')
-        except Exception:
-            flag_img = 'com.quvideo.xiaoying:id/img_lock_flag'
-            fx_down_list = sc.driver.find_elements_by_id(flag_img)
-            fx_down_list[0].click()
-            time.sleep(5)
-            x_list[1].click()
+            sc.logger.info('查找下载更多')
+            fx_down_btn = 'com.quvideo.xiaoying:id/iv_download_more'
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(fx_down_btn))
+        except TimeoutException:
+            sc.logger.info('当前时间点已有fx，先删除')
+            sc.driver.swipe(startx, starty, startx, starty, 500)
+            try:
+                icon_btn = 'com.quvideo.xiaoying:id/select_item'
+                icon_list = sc.driver.find_elements_by_id(icon_btn)
+                for icon_el in icon_list:
+                    icon_el.click()
+                    try:
+                        WebDriverWait(sc.driver, 5, 1).until(
+                            lambda x: x.find_element_by_id(fx_op_btn)).click()
+                        break
+                    except TimeoutException:
+                        sc.driver.press_keycode(4)
+                        time.sleep(1)
+                        sc.driver.press_keycode(4)
+                        time.sleep(1)
+                        sc.driver.swipe(startx, starty, startx, starty, 500)
+            except TimeoutException:
+                WebDriverWait(sc.driver, 5, 1).until(
+                    lambda x: x.find_element_by_id(fx_op_btn)).click()
 
-        sc.logger.info('点击右上角确认按钮')
-        right_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_right'
-        sc.driver.find_element_by_id(right_btn).click()
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_id(fx_op_btn)).click()
 
-        sc.logger.info('点击左上角放弃按钮')
-        left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
-        sc.driver.find_element_by_id(left_btn).click()
-        sc.logger.info('确认放弃操作')
-        sc.driver.find_element_by_android_uiautomator('text("确认")').click()
+        sc.logger.info('点击第二个特效')
+        fx_cover = ('//android.support.v7.widget.RecyclerView/'
+                    'android.widget.RelativeLayout[2]')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_xpath(fx_cover)).click()
         sc.capture_screen(fun_name, self.img_path)
 
-        for i in range(4):
+        right_btn = 'com.quvideo.xiaoying:id/terminator_right'
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_id(right_btn)).click()
+        time.sleep(1)
+        sc.driver.swipe(startx, starty, startx, starty, 1000)
+
+        sc.logger.info('放弃之前的操作')
+        left_btn = 'com.quvideo.xiaoying:id/terminator_left'
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_id(left_btn)).click()
+
+        sc.logger.info('确认放弃')
+        confirm_btn = 'com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive'
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_id(confirm_btn)).click()
+        sc.capture_screen(fun_name, self.img_path)
+
+        for i in range(2):
             time.sleep(1)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-特效-放弃测试完成')

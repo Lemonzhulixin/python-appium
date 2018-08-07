@@ -2,7 +2,7 @@
 """camera取消操作相关的测试用例."""
 from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.common.touch_action import TouchAction
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestCameraCancel(object):
@@ -23,7 +23,8 @@ class TestCameraCancel(object):
         sc.logger.info('点击“拍摄”按钮')
         sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon2').click()
 
-        el_cp = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
+        el_cp = WebDriverWait(sc.driver, 10, 1).until(
+            lambda x: x.find_element_by_id('com.quvideo.xiaoying:id/btn_rec'))
         # 长按拍摄5s
         sc.logger.info('长按拍摄5s')
         actions = TouchAction(sc.driver)
@@ -38,9 +39,13 @@ class TestCameraCancel(object):
             sc.logger.error('拍摄完成但未找到返回按钮', e)
             return False
         sc.logger.info('点击左上角取消按钮')
-        sc.driver.find_element_by_id(cancel_btn).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(cancel_btn)).click()
+
         sc.logger.info('点击“丢弃”按钮')
-        sc.driver.find_element_by_android_uiautomator('text("丢弃")').click()
+        WebDriverWait(sc.driver, 60).until(
+            lambda x: x.find_element_by_android_uiautomator(
+                'text("丢弃")')).click()
         sc.logger.info('拍摄-拍摄页放弃测试完成')
 
     def test_cancel_save(self):
@@ -52,7 +57,8 @@ class TestCameraCancel(object):
         sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon2').click()
 
         rec_btn = 'com.quvideo.xiaoying:id/btn_rec'
-        el_cp = sc.driver.find_element_by_id(rec_btn)
+        el_cp = WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(rec_btn))
         # 长按拍摄5s
         sc.logger.info('长按拍摄5s')
         actions = TouchAction(sc.driver)
@@ -68,11 +74,17 @@ class TestCameraCancel(object):
             sc.logger.error('拍摄完成但未找到返回按钮', e)
             return False
         sc.logger.info('点击左上角取消按钮')
-        sc.driver.find_element_by_id(cancel_btn).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(cancel_btn)).click()
+
         sc.logger.info('点击“保存”按钮')
-        sc.driver.find_element_by_android_uiautomator('text("保存")').click()
+        WebDriverWait(sc.driver, 60).until(
+            lambda x: x.find_element_by_android_uiautomator(
+                'text("保存")')).click()
+
         sc.logger.info('点击左上角返回按钮退回主页面')
-        sc.driver.find_element_by_id(left_btn).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(left_btn)).click()
         sc.logger.info('拍摄-拍摄页保存测试完成')
 
     def test_cancel_preview(self):
@@ -82,7 +94,9 @@ class TestCameraCancel(object):
 
         sc.logger.info('点击创作中心“拍摄”按钮')
         sc.driver.find_element_by_id('com.quvideo.xiaoying:id/icon2').click()
-        el_cp = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
+        el_cp = WebDriverWait(sc.driver, 10, 1).until(
+            lambda x: x.find_element_by_id('com.quvideo.xiaoying:id/btn_rec'))
+
         # 长按拍摄5s
         sc.logger.info('长按拍摄5s')
         actions = TouchAction(sc.driver)
@@ -90,7 +104,7 @@ class TestCameraCancel(object):
         sc.capture_screen(fun_name, self.img_path)
 
         next_btn = 'com.quvideo.xiaoying:id/cam_btn_next'
-        left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
+        left_btn = 'com.quvideo.xiaoying:id/editor_back_btn'
         cancel_btn = 'com.quvideo.xiaoying:id/cam_btn_cancel'
         try:
             WebDriverWait(sc.driver, 60).until(
@@ -99,12 +113,16 @@ class TestCameraCancel(object):
             sc.logger.error('拍摄完成但未找到返回按钮', e)
             return False
         sc.logger.info('录制完成后点击确认按钮')
-        sc.driver.find_element_by_id(next_btn).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(next_btn)).click()
         sc.capture_screen(fun_name, self.img_path)
+
         sc.logger.info('点击左上角返回按钮')
-        sc.driver.find_element_by_id(left_btn).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(left_btn)).click()
+
         sc.logger.info('点击左上角取消按钮')
-        sc.driver.find_element_by_id(cancel_btn).click()
-        sc.logger.info('点击左上角返回按钮退回主页面')
-        sc.driver.find_element_by_id(left_btn).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(cancel_btn)).click()
+
         sc.logger.info('拍摄-预览页放弃测试完成')

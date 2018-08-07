@@ -1,230 +1,180 @@
 # -*- coding: utf-8 -*-
 """预览页面的music测试用例."""
-from unittest import TestCase
 from iOS import script_ultils as sc
-from selenium.common.exceptions import NoSuchElementException
 import time
+from unittest import TestCase
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
+from iOS import iOS_elements,base as ba
 
 class TestPreviewMusic(TestCase):
     """预览页面的music测试类."""
 
+    # 获取屏幕尺寸
     width, height = sc.get_size()
     img_path = sc.path_lists[0]
 
-    @staticmethod
-    def test_music_01_create():
-        """导出-创建视频."""
-        sc.logger.info('分享-创建视频')
+    @classmethod
+    def setUpClass(cls):
+        sc.driver.launch_app()
+        time.sleep(3)
 
-        time.sleep(5)
-        sc.logger.info('点击创作中心主按钮')
-        try:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_n']").click()
-        except NoSuchElementException:
-            sc.driver.find_element_by_xpath("//XCUIElementTypeImage[@name='camerta_f']").click()
+    @classmethod
+    def tearDownClass(cls):
+        time.sleep(3)
+        sc.driver.close_app()
 
-        sc.logger.info('点击高清拍摄')
-        sc.driver.find_element_by_name("高清拍摄").click()
-
-        # 点拍
-        sc.logger.info('开始录制')
-        el_capture = sc.driver.find_element_by_xpath(
-            "//*/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther[1]")
-        el_capture.click()
-        time.sleep(10)
-
-        sc.logger.info('录制10s后点击录制按钮停止录制')
-        el_capture.click()
-
-        sc.logger.info('点击确认按钮进入预览页')
-        sc.driver.find_element_by_name("vivavideo camera tool icon nex").click()
-
-        sc.logger.info('点击“存草稿”按钮')
-        sc.driver.find_element_by_name("存草稿").click()
-
-        sc.logger.info('返回创作中心主界面')
-        time.sleep(1)
-        sc.driver.find_element_by_name("vivavideo com nav back n").click()
-
-    def test_music_02_add(self):
+    def test_music_01_add(self):
         """预览页-配乐."""
-        sc.logger.info('预览页-配乐')
+        sc.logger.info('配乐操作相关')
         fun_name = 'test_music_add'
 
-        time.sleep(1)
-        sc.logger.info('点击第一个草稿封面')
-        el_draft = sc.driver.find_element_by_xpath("//*/XCUIElementTypeOther[2]/*/XCUIElementTypeButton")
-        el_draft.click()
+        sc.logger.info('打开一个草稿视频')
+        ba.home_first_click('更多草稿')
 
-        sc.logger.info('点击“配乐”按钮')
-        sc.driver.find_element_by_name("vivavideo tool preview music n").click()
+        sc.logger.info('点击草稿封面')
+        ba.open_draft(iOS_elements.el_studio_draft)
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('点击“点击添加配乐”按钮')
-        sc.driver.find_element_by_name("点击添加配乐").click()
-        time.sleep(2)
+        sc.logger.info('点击“主题”')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name("主题")).click()
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('点击下载按钮')
-        try:
-            sc.driver.find_element_by_name('vivavideo material download3 n').click()
-        except NoSuchElementException:
-            sc.driver.find_element_by_name('music select download n').click()
+        sc.logger.info('配乐相关操作')
+        ba.preview_music()
         sc.capture_screen(fun_name, self.img_path)
-        time.sleep(10)
+        sc.logger.info('预览页-配乐测试完成')
 
-        sc.logger.info('点击第一首已下载音频试听')
-        el_music_name = sc.driver.find_element_by_xpath("//*/XCUIElementTypeTable//*/XCUIElementTypeButton[2]")
-        try:
-            el_music_name.click()
-        except NoSuchElementException:
-            sc.logger.error('音频下载未完成，继续等待5s')
-            time.sleep(5)
-            el_music_name.click()
-
-        sc.logger.info('点击“添加”按钮')
-        sc.driver.find_element_by_name('添加').click()
-        time.sleep(0.5)
-        sc.capture_screen(fun_name,self.img_path)
-
-        sc.logger.info('关闭视频原声')
-        sc.driver.find_element_by_name("vivavideo tool preview sound n").click()
-        sc.capture_screen(fun_name, self.img_path)
-
-        sc.logger.info('关闭配乐')
-        sc.driver.find_element_by_name("vivavideo tool grid moremusic ").click()
-        sc.capture_screen(fun_name, self.img_path)
-
-        sc.logger.info('删除配乐')
-        sc.driver.find_element_by_name("vivavideo tool preview delete2").click()
-        sc.capture_screen(fun_name,self.img_path)
-
-    def test_preview_03_recommend(self):
+    def test_music_02_recommend(self):
         """音乐库-推荐音乐下载."""
         sc.logger.info('音乐库-推荐音乐下载')
         fun_name = 'test_preview_recommend'
 
-        sc.logger.info('点击“点击添加配乐”按钮')
-        sc.driver.find_element_by_name("点击添加配乐").click()
-        time.sleep(1)
+        sc.logger.info('点击“添加配乐”按钮')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name("添加配乐")).click()
 
-        sc.logger.info('点击“推荐”tab')
-        sc.driver.find_element_by_name("推荐").click()
-
-        sc.logger.info('向上滑动“推荐”音频列表')
+        # 推荐音乐下载
+        sc.logger.info('向上滑动')
         start_x = self.width // 2
-        start_bottom = self.height - self.height // 4
-        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
+        start_y = self.height // 8
+        start_bottom = self.height - start_y
+        for i in range(2):
+            sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 300)
 
-        sc.logger.info('同时下载多个音频')
-        try:
-            el_download = sc.driver.find_elements_by_name('vivavideo material download3 n')
-            for i in range(len(el_download)):
-                el_download[i].click()
-            sc.capture_screen(fun_name, self.img_path)
-        except NoSuchElementException:
-            el_download_pad = sc.driver.find_elements_by_name('music select download n')
-            for i in range(len(el_download_pad)):
-                el_download_pad[i].click()
-            sc.capture_screen(fun_name, self.img_path)
+        sc.logger.info('下载音乐')
+        music_list = sc.driver.find_elements_by_name(iOS_elements.el_mus_download)
+        if len(music_list) >= 3:
+            music_list = music_list[:3]
+        for el_music in music_list:
+            el_music.click()
 
-    def test_preview_04_other(self):
+        sc.capture_screen(fun_name, self.img_path)
+        sc.logger.info('音乐库-推荐音乐下载测试完成')
+
+    def test_music_03_other(self):
         """音乐库-其他分类音乐下载."""
         sc.logger.info('音乐库-其他分类音乐下载')
         fun_name = 'test_preview_other'
 
-        sc.logger.info('通过滑动屏幕切换到"流行"分类')
-        start_x = self.width - self.width // 5
-        start_bottom = self.height // 2
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.7, 500)
-
-        sc.logger.info('下载"流行"分类音频')
-        time.sleep(1)
-        try:
-            sc.driver.find_element_by_name('vivavideo material download3 n').click()
-        except NoSuchElementException:
-            sc.driver.find_element_by_name('music select download n').click()
-        sc.capture_screen(fun_name, self.img_path)
-        time.sleep(10)
-
-        sc.logger.info('通过点击分类tab切换到"爵士 & 蓝调"分类')
-        sc.driver.find_element_by_name("爵士 & 蓝调").click()
-
-        sc.logger.info('下载"爵士 & 蓝调"分类音频')
-        time.sleep(1)
-        el_download = sc.driver.find_element_by_name('vivavideo material download3 n')
-        el_download.click()
+        # 切换到其他分类
+        sc.logger.info('点击“中国风”分类')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name('中国风')).click()
         sc.capture_screen(fun_name, self.img_path)
 
-    def test_preview_05_use(self):
+        sc.logger.info('下载音乐')
+        music_list = sc.driver.find_elements_by_name(iOS_elements.el_mus_download)
+        if len(music_list) >= 3:
+            music_list = music_list[:3]
+        for el_music in music_list:
+            el_music.click()
+
+        sc.capture_screen(fun_name, self.img_path)
+        sc.logger.info('音乐库-其他分类音乐下载测试完成')
+
+    def test_music_04_use(self):
         """音乐库-使用已下载音乐."""
         sc.logger.info('音乐库-使用已下载音乐')
         fun_name = 'test_preview_use'
 
         sc.logger.info('点击“已下载”tab')
-        sc.driver.find_element_by_name("已下载").click()
-        sc.capture_screen(fun_name,self.img_path)
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name('已下载')).click()
+        sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('选择一首已下载音频试听')
-        el_music_name = sc.driver.find_element_by_xpath(
-            "//*/XCUIElementTypeTable//*/XCUIElementTypeButton[2]")
-        el_music_name.click()
+        sc.logger.info('添加音乐')
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_xpath(iOS_elements.el_mus_play)).click()
+        sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击“添加”按钮')
         sc.driver.find_element_by_name('添加').click()
-        time.sleep(0.5)
 
-        sc.logger.info('再次进入音乐库')
-        sc.driver.find_element_by_xpath('//XCUIElementTypeImage[@name="vivavideo_tool_preview_next_n"]').click()
-        time.sleep(0.5)
+        sc.logger.info('暂停播放')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda x: x.find_element_by_name(iOS_elements.btn_stop)).click()
 
-        sc.logger.info('切换到“其它”分类')
-        sc.driver.find_element_by_name("其它").click()
-        sc.capture_screen(fun_name,self.img_path)
+        sc.logger.info('删除配乐')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda x: x.find_element_by_name(iOS_elements.btn_music_del)).click()
 
-    def test_preview_06_delete(self):
+        sc.logger.info('点击添加配乐')
+        WebDriverWait(sc.driver, 3, 1).until(
+            lambda x: x.find_element_by_name('点击添加配乐')).click()
+
+        sc.capture_screen(fun_name, self.img_path)
+        sc.logger.info('音乐库-使用已下载音乐测试完成')
+
+    def test_music_05_delete(self):
         """音乐库-删除已下载音乐."""
         sc.logger.info('音乐库-删除已下载音乐')
         fun_name = 'test_preview_delete'
 
         sc.logger.info('点击删除按钮')
-        sc.driver.find_element_by_name("vivavideo music delete n").click()
-        time.sleep(0.5)
-        sc.capture_screen(fun_name, self.img_path)
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name(iOS_elements.el_mus_del)).click()
 
-        sc.logger.info('选择任意一首音频')
-        sc.driver.find_element_by_name("vivavideo music choose n").click()
-        time.sleep(0.5)
-        sc.capture_screen(fun_name, self.img_path)
+        sc.logger.info('选择一首已下载音乐')
+        el_check = sc.driver.find_elements_by_name(iOS_elements.el_mus_cho)
+        el_check[0].click()
 
         sc.logger.info('再次点击删除按钮')
-        sc.driver.find_element_by_name("vivavideo music delete h").click()
-        sc.capture_screen(fun_name,self.img_path)
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name(iOS_elements.el_mus_del2)).click()
+        sc.capture_screen(fun_name, self.img_path)
+        sc.logger.info('音乐库-删除已下载音乐测试完成')
 
-    def test_preview_07_local(self):
+    def test_music_06_local(self):
         """音乐库-使用本地音乐."""
         sc.logger.info('音乐库-使用本地音乐')
         fun_name = 'test_preview_local'
 
-        sc.logger.info('切换到“本地”分类')
-        sc.driver.find_element_by_name("本地").click()
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda x: x.find_element_by_name('本地')).click()
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('选择一首本地音频试听')
-        el_music_name = sc.driver.find_element_by_xpath(
-            "//*/XCUIElementTypeTable//*/XCUIElementTypeButton[2]")
+        sc.logger.info('添加音乐')
         try:
-            sc.logger.info('点击“添加”按钮')
-            sc.driver.find_element_by_name('添加').click()
-            time.sleep(0.5)
-        except NoSuchElementException:
-            sc.logger.info('本地音乐不存在,返回预览页！')
-            sc.driver.find_element_by_name("xiaoying com back").click()
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda x: x.find_element_by_xpath(iOS_elements.el_mus_play)).click()
+        except TimeoutException:
+            sc.logger.info('本地音乐不存在！')
+            return True
+
+        sc.logger.info('点击“添加”按钮')
+        sc.driver.find_element_by_name('添加').click()
+
+        sc.logger.info('暂停播放')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda x: x.find_element_by_name(iOS_elements.btn_stop)).click()
+
+        sc.logger.info('确定')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda x: x.find_element_by_accessibility_id(iOS_elements.btn_music_confirm)).click()
 
         sc.logger.info('点击“存草稿”按钮')
-        time.sleep(0.5)
-        sc.driver.find_element_by_name("存草稿").click()
-
-        sc.logger.info('点击左上角返回按钮退回创作中心')
-        time.sleep(1)
-        sc.driver.find_element_by_name("vivavideo com nav back n").click()
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda el: el.find_element_by_name("存草稿")).click()
+        sc.logger.info('音乐库-使用本地音乐测试完成')

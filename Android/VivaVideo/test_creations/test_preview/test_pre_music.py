@@ -6,7 +6,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.common.touch_action import TouchAction
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestPreviewMusic(object):
@@ -50,6 +50,8 @@ class TestPreviewMusic(object):
     def test_music_add(self):
         """预览页-配乐."""
         sc.logger.info('预览页-配乐')
+        start_x = self.width // 2
+        start_y = self.height // 3
         fun_name = 'test_music_add'
 
         sc.logger.info('点击草稿封面')
@@ -60,8 +62,14 @@ class TestPreviewMusic(object):
         sc.driver.find_element_by_android_uiautomator('text("配乐")').click()
         sc.capture_screen(fun_name, self.img_path)
         sc.logger.info('点击添加配乐')
-        bgm_row = 'com.quvideo.xiaoying:id/txtview_bgm_name'
-        sc.driver.find_element_by_id(bgm_row).click()
+        try:
+            del_icon = 'com.quvideo.xiaoying:id/imgbtn_del_music'
+            WebDriverWait(sc.driver, 10, 1).until(
+                lambda el: el.find_element_by_id(del_icon)).click()
+            sc.capture_screen(fun_name, self.img_path)
+        except TimeoutException:
+            bgm_row = 'com.quvideo.xiaoying:id/txtview_bgm_name'
+            sc.driver.find_element_by_id(bgm_row).click()
 
         sc.logger.info('下载音乐')
         music_item_download = 'com.quvideo.xiaoying:id/music_item_download'
@@ -69,6 +77,7 @@ class TestPreviewMusic(object):
             lambda el: el.find_element_by_id(music_item_download)).click()
 
         sc.logger.info('添加音乐')
+        time.sleep(5)
         music_item_name = 'com.quvideo.xiaoying:id/music_item_name'
         WebDriverWait(sc.driver, 10, 1).until(
             lambda el: el.find_element_by_id(music_item_name)).click()
@@ -81,16 +90,16 @@ class TestPreviewMusic(object):
                 sc.logger.info('点击播放状态')
                 break
             except TimeoutException:
-                time.sleep(5)
+                WebDriverWait(sc.driver, 10, 1).until(
+                    lambda el: el.find_element_by_id(music_item_name)).click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('使用音乐')
         use_btn = 'com.quvideo.xiaoying:id/music_item_use'
         sc.driver.find_element_by_id(use_btn).click()
 
-        fake_layout = 'com.quvideo.xiaoying:id/preview_layout_fake'
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda el: el.find_element_by_id(fake_layout)).click()
+        time.sleep(1)
+        sc.driver.swipe(start_x, start_y, start_x, start_y, 1000)
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击声音按钮')
@@ -107,6 +116,10 @@ class TestPreviewMusic(object):
         del_icon = 'com.quvideo.xiaoying:id/imgbtn_del_music'
         WebDriverWait(sc.driver, 10, 1).until(
             lambda el: el.find_element_by_id(del_icon)).click()
+
+        time.sleep(1)
+        sc.driver.swipe(start_x, start_y, start_x, start_y, 1000)
+
         sc.capture_screen(fun_name, self.img_path)
         sc.logger.info('预览页-配乐测试完成')
 
@@ -122,10 +135,6 @@ class TestPreviewMusic(object):
         WebDriverWait(sc.driver, 10, 1).until(
             lambda c_btn: c_btn.find_element_by_id(b_btn)).click()
 
-        # sc.driver.find_element_by_id('com.quvideo.xiaoying:id/txtview_bgm_name').click()
-        sc.logger.info('点击“推荐”tab')
-        sc.driver.find_element_by_android_uiautomator('text("推荐")').click()
-
         # 推荐音乐下载
         while True:
             try:
@@ -133,7 +142,7 @@ class TestPreviewMusic(object):
                     'text("没有更多了…")').click()
                 break
             except NoSuchElementException:
-                sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
+                sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 600)
 
         sc.logger.info('下载音乐')
         music_item_download = 'com.quvideo.xiaoying:id/music_item_download'
@@ -167,6 +176,8 @@ class TestPreviewMusic(object):
     def test_preview_use(self):
         """音乐库-使用已下载音乐."""
         sc.logger.info('音乐库-使用已下载音乐')
+        start_x = self.width // 2
+        start_y = self.height // 3
         fun_name = 'test_preview_use'
 
         sc.logger.info('点击“已下载”tab')
@@ -186,11 +197,9 @@ class TestPreviewMusic(object):
         sc.driver.find_element_by_android_uiautomator(
             'text("添加")').click()
 
-        fake_layout = 'com.quvideo.xiaoying:id/preview_layout_fake'
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda el: el.find_element_by_id(fake_layout)).click()
-        sc.capture_screen(fun_name, self.img_path)
         time.sleep(1)
+        sc.driver.swipe(start_x, start_y, start_x, start_y, 1000)
+        sc.capture_screen(fun_name, self.img_path)
         sc.logger.info('音乐库-使用已下载音乐测试完成')
 
     def test_preview_delete(self):
@@ -220,7 +229,10 @@ class TestPreviewMusic(object):
     def test_preview_local(self):
         """音乐库-使用本地音乐."""
         sc.logger.info('音乐库-使用本地音乐')
+        start_x = self.width // 2
+        start_y = self.height // 3
         fun_name = 'test_preview_local'
+
         sc.driver.find_element_by_android_uiautomator('text("本地")').click()
         sc.capture_screen(fun_name, self.img_path)
 
@@ -231,7 +243,7 @@ class TestPreviewMusic(object):
         except Exception:
             sc.logger.info('本地音乐不存在！返回创作中心主界面。')
             for i in range(4):
-                time.sleep(2)
+                time.sleep(1)
                 sc.driver.press_keycode(4)
             return True
 
@@ -243,9 +255,8 @@ class TestPreviewMusic(object):
         sc.driver.find_element_by_android_uiautomator(
             'text("添加")').click()
 
-        fake_layout = 'com.quvideo.xiaoying:id/preview_layout_fake'
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda el: el.find_element_by_id(fake_layout)).click()
+        time.sleep(1)
+        sc.driver.swipe(start_x, start_y, start_x, start_y, 1000)
 
         sc.driver.find_element_by_android_uiautomator('text("存草稿")').click()
 
@@ -258,6 +269,8 @@ class TestPreviewMusic(object):
         """预览页-时长."""
         sc.logger.info('预览页-时长')
         fun_name = 'test_preview_time'
+        start_x = self.width // 2
+        start_y = self.height // 3
 
         sc.capture_screen(fun_name, self.img_path)
 
@@ -268,14 +281,21 @@ class TestPreviewMusic(object):
 
         sc.logger.info('添加图片')
         click_mask = 'com.quvideo.xiaoying:id/img_click_mask'
-        sc.find_by_ids(click_mask, fun_name, self.img_path)
+        element_list = sc.driver.find_elements_by_id(click_mask)
+
+        if len(element_list) >= 2:
+            element_list = element_list[:2]
+
+        for element_em in element_list:
+            element_em.click()
+            time.sleep(1)
+            sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('点击“下一步”')
         sc.driver.find_element_by_android_uiautomator('text("下一步")').click()
 
-        fake_layout = 'com.quvideo.xiaoying:id/preview_layout_fake'
-        WebDriverWait(sc.driver, 10, 1).until(
-            lambda el: el.find_element_by_id(fake_layout)).click()
+        time.sleep(1)
+        sc.driver.swipe(start_x, start_y, start_x, start_y, 1000)
 
         sc.logger.info('点击“时长”')
         sc.driver.find_element_by_android_uiautomator('text("时长")').click()

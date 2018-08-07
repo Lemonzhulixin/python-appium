@@ -2,7 +2,7 @@
 """编辑页面画中画的基本操作测试用例."""
 import time
 from selenium.webdriver.support.ui import WebDriverWait
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestEditCollage(object):
@@ -61,6 +61,8 @@ class TestEditCollage(object):
         sc.logger.info('再次点击确认按钮回到预览页')
         WebDriverWait(sc.driver, 5, 1).until(
             lambda el: el.find_element_by_id(right_btn)).click()
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda el: el.find_element_by_id(right_btn)).click()
 
         sc.logger.info('返回创作中心主界面')
         for i in range(3):
@@ -104,7 +106,7 @@ class TestEditCollage(object):
         sc.driver.find_element_by_id(gif_add_btn).click()
 
         sc.logger.info('点击上方"gif" tab')
-        gif_tab = 'com.quvideo.xiaoying:id/video_editor_title_gif_choose_gif'
+        gif_tab = 'com.quvideo.xiaoying:id/rl_gif'
         sc.driver.find_element_by_id(gif_tab).click()
 
         try:
@@ -129,10 +131,12 @@ class TestEditCollage(object):
         sc.logger.info('再次点击确认按钮回到预览页')
         WebDriverWait(sc.driver, 5, 1).until(
             lambda el: el.find_element_by_id(right_btn)).click()
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda el: el.find_element_by_id(right_btn)).click()
 
         sc.logger.info('返回创作中心主界面')
         for i in range(3):
-            time.sleep(2)
+            time.sleep(1)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-画中画-GIF添加测试完成')
 
@@ -172,7 +176,7 @@ class TestEditCollage(object):
         sc.driver.find_element_by_id(gif_add_btn).click()
 
         sc.logger.info('点击上方"gif"tab')
-        gif_tab = 'com.quvideo.xiaoying:id/video_editor_title_gif_choose_gif'
+        gif_tab = 'com.quvideo.xiaoying:id/rl_gif'
         sc.driver.find_element_by_id(gif_tab).click()
 
         git_search_btn = 'com.quvideo.xiaoying:id/btn_search_gif'
@@ -204,10 +208,12 @@ class TestEditCollage(object):
         sc.logger.info('再次点击确认按钮回到预览页')
         WebDriverWait(sc.driver, 5, 1).until(
             lambda el: el.find_element_by_id(right_btn)).click()
+        WebDriverWait(sc.driver, 5, 1).until(
+            lambda el: el.find_element_by_id(right_btn)).click()
 
         sc.logger.info('返回创作中心主界面')
         for i in range(3):
-            time.sleep(2)
+            time.sleep(1)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-画中画-GIF搜索测试完成')
 
@@ -269,6 +275,6 @@ class TestEditCollage(object):
 
         sc.logger.info('返回创作中心主界面')
         for i in range(3):
-            time.sleep(2)
+            time.sleep(1)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-画中画-放弃测试完成')

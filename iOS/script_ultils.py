@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 """脚本里用到的一些方法."""
 import os
-import time
 import logging
 import logging.config
 from iOS.script_params import driver
+import time
 
 
 def mkdir(path):
@@ -27,7 +27,6 @@ def mkdir(path):
         return True
     return False
 
-
 def test_init():
     """测试初始化."""
     print('Test init begin!!!')
@@ -48,7 +47,6 @@ def test_init():
     mkdir(report_dir)
 
     return capture_dir, log_dir, report_dir
-
 
 # 日志格式
 def logger_init():
@@ -89,7 +87,6 @@ def logger_init():
     loggers = logging.getLogger('simple')
     return loggers
 
-
 def capture_screen(fun, path):
     """用appium client截屏."""
     if path.endswith('/') or path.endswith('\\'):
@@ -108,12 +105,10 @@ def capture_screen(fun, path):
         return False
     return True
 
-
 def get_size():
     """获取屏幕分辨率."""
     rect = driver.get_window_size()
     return rect['width'], rect['height']
-
 
 def swipe_by_ratio(start_x, start_y, direction, ratio, duration=None):
     """
@@ -178,3 +173,4 @@ def swipe_by_ratio(start_x, start_y, direction, ratio, duration=None):
 
 path_lists = test_init()
 logger = logger_init()
+

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """camera美颜趣拍的测试用例."""
 from appium.webdriver.common.touch_action import TouchAction
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestCameraSelf(object):

@@ -4,7 +4,7 @@ import time
 
 from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support.ui import WebDriverWait
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestCircleSearch(object):
@@ -37,7 +37,9 @@ class TestCircleSearch(object):
         sc.driver.press_keycode(29)
         sc.logger.info('小影圈搜索框输入文字"a"截图开始')
         sc.capture_screen(fun_name, self.img_path)
+        # sc.driver.hide_keyboard()
 
+        # sc.driver.press_keycode(4)
         sc.logger.info('开始查找输入框补全内容')
         keyword_frame = 'com.quvideo.xiaoying:id/textview_keyword'
         sc.logger.info('点击第一条自动联想内容')
@@ -47,20 +49,21 @@ class TestCircleSearch(object):
         time.sleep(2)
         sc.logger.info('开始查找搜索结果中的用户')
         res_user_id = 'com.quvideo.xiaoying:id/img_simple_user_avatar_click'
-        el_res_user = sc.driver.find_element_by_id(res_user_id)
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(res_user_id))
 
         sc.logger.info('开始查找搜索结果中的视频')
         res_video_id = 'com.quvideo.xiaoying:id/xiaoying_com_img_video_thumb'
-        el_res_video = sc.driver.find_element_by_id(res_video_id)
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(res_video_id)).click()
 
         sc.logger.info('小影圈搜索结果截图')
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 300)
         sc.logger.info('小影圈搜索结果下滑截图')
+        time.sleep(1)
+        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 500)
         sc.capture_screen(fun_name, self.img_path)
-
-        assert el_res_user and el_res_video is not None
 
     def test_search_result(self):
         """小影圈搜索结果测试，为了简化流程，请与上一条连起来用."""
@@ -72,34 +75,35 @@ class TestCircleSearch(object):
         # 左滑一次
         sc.logger.info('开始左滑至“视频”页面')
         time.sleep(1)
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.7, 300)
+        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.7, 500)
         time.sleep(1)
         sc.logger.info('开始查找搜索结果视频页面中的视频')
         res_video_id = 'com.quvideo.xiaoying:id/xiaoying_com_img_video_thumb'
-        el_res_videos = sc.driver.find_element_by_id(res_video_id)
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(res_video_id)).click()
         sc.logger.info('小影圈搜索结果视频页面截图')
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.3, 300)
+        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.4, 500)
         time.sleep(1)
         sc.logger.info('小影圈搜索结果视频页面下滑截图')
         sc.capture_screen(fun_name, self.img_path)
 
         # 再左滑一次
         sc.logger.info('开始滑动至“用户”页面')
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.7, 300)
-        time.sleep(1)
+        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.7, 500)
+
         sc.logger.info('开始查找搜索结果用户页面中的第一个用户')
         res_user_id = 'com.quvideo.xiaoying:id/fans_name'
-        el_res_users = sc.driver.find_element_by_id(res_user_id)
+        WebDriverWait(sc.driver, 10, 1).until(
+                      lambda el: el.find_element_by_id(res_user_id))
         sc.logger.info('小影圈搜索结果用户页面截图')
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.3, 300)
+        time.sleep(1)
+        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.3, 500)
         sc.logger.info('小影圈搜索结果用户界面下滑截图')
         sc.capture_screen(fun_name, self.img_path)
-
-        assert el_res_videos and el_res_users is not None
 
     def test_search_follow(self):
         """小影圈搜索结果中的关注测试，为了简化流程，请与上一条连起来用."""
@@ -111,60 +115,28 @@ class TestCircleSearch(object):
         # 查找用户关注按钮
         time.sleep(1)
         sc.logger.info('开始查找搜索结果用户页面中的第一个用户关注按钮')
-        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.3, 300)
+        sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.3, 500)
 
-        state_btn = 'com.quvideo.xiaoying:id/btn_follow_state'
-        el_fol_list = sc.driver.find_elements_by_id(state_btn)
-        for el_res_fol in el_fol_list:
-            if el_res_fol.text == '关注':
-                sc.logger.info('开始点击关注')
-                el_res_fol.click()
-                break
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'text("关注")')).click()
 
-        res_fol = sc.driver.find_element_by_android_uiautomator('text("已关注")')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_android_uiautomator(
+                'text("已关注")')).click()
+
         sc.logger.info('小影圈搜索结果，用户页面关注情况截图')
         sc.capture_screen(fun_name, self.img_path)
 
         # 取消关注
-        time.sleep(1)
         sc.logger.info('开始取消关注')
-        res_fol.click()
 
         pos_btn = 'com.quvideo.xiaoying:id/buttonDefaultPositive'
         WebDriverWait(sc.driver, 10, 1).until(
             lambda el: el.find_element_by_id(pos_btn)).click()
 
-        fol_tab = sc.driver.find_element_by_android_uiautomator('text("关注")')
         sc.logger.info('小影圈搜索结果，用户页面取消关注后情况截图')
         sc.capture_screen(fun_name, self.img_path)
-
-        # 切换到视频页面
-        sc.logger.info('开始滑动至“视频”页面')
-        sc.swipe_by_ratio(start_x, start_bottom, 'right', 0.7, 300)
-
-        # 查找关注按钮
-        time.sleep(1)
-        sc.logger.info('开始查找搜索结果视频页面中的第一个关注按钮')
-
-        el_follow = 'com.quvideo.xiaoying:id/btn_follow_state'
-        while sc.driver.find_elements_by_id(el_follow) is None:
-            sc.swipe_by_ratio(start_x, start_bottom, 'up', 0.3, 300)
-            sc.driver.find_elements_by_id(el_follow)
-
-        follow_state = 'com.quvideo.xiaoying:id/btn_follow_state'
-        el_vf_list = sc.driver.find_elements_by_id(follow_state)
-        fl_flag = True
-        for el_res_vf in el_vf_list:
-            if el_res_vf.text == '关注':
-                sc.logger.info('开始点击关注')
-                el_res_vf.click()
-                fl_flag = True if el_res_vf.text == '已关注' else False
-                break
-
-        sc.logger.info('小影圈搜索结果，视频页面关注情况截图')
-        sc.capture_screen(fun_name, self.img_path)
-
-        assert fol_tab and fl_flag is not None
 
     def test_search_history(self):
         """小影圈搜索页面历史记录搜索测试，为了简化流程，请与上一条连起来用."""

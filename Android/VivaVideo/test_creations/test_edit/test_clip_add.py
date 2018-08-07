@@ -2,8 +2,9 @@
 """镜头添加相关操作的测试用例."""
 import time
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.common.exceptions import TimeoutException
 from appium.webdriver.common.touch_action import TouchAction
-from Android import script_ultils as sc
+from Android_old import script_ultils as sc
 
 
 class TestEditClipsAdd(object):
@@ -17,9 +18,6 @@ class TestEditClipsAdd(object):
         sc.logger.info('剪辑-添加镜头-相册添加')
         fun_name = 'test_edit_add_clips'
 
-        start_x = self.width - self.width // 4
-        start_bottom = self.height - self.height // 10
-
         sc.logger.info('点击创作中心主按钮')
         c_btn = 'com.quvideo.xiaoying:id/img_creation'
         WebDriverWait(sc.driver, 10, 1).until(
@@ -30,35 +28,54 @@ class TestEditClipsAdd(object):
 
         sc.logger.info('点击草稿封面')
         draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
-        el_draft = sc.driver.find_element_by_id(draft_img)
-        el_draft.click()
-        sc.logger.info('点击“剪辑”')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
+
+        sc.logger.info('尝试点击“编辑该视频”')
+        edit_btn = 'com.quvideo.xiaoying:id/edit_this_video_text'
+        try:
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(edit_btn)).click()
+        except TimeoutException:
+            sc.logger.info('该视频已经在编辑页，跳过此步骤')
+
+        sc.logger.info('点击“镜头编辑”')
         WebDriverWait(sc.driver, 10, 1).until(
             lambda c_btn: c_btn.find_element_by_android_uiautomator(
-                'text("剪辑")')).click()
+                'text("镜头编辑")')).click()
 
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.6, 500)
-        time.sleep(1)
+        sc.logger.info('点击添加镜头的加号标识')
+        clip_add_btn = 'com.quvideo.xiaoying:id/clipedit_add_btn'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(clip_add_btn)).click()
 
-        t_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
-        for el_item in t_list:
-            if el_item.text == '添加镜头':
-                sc.logger.info('开始点击“添加镜头”')
-                el_item.click()
-                break
+        sc.logger.info('点击相册图标')
+        gallary_btn = 'com.quvideo.xiaoying:id/layout_move_gallery'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(gallary_btn)).click()
+
         sc.logger.info('点击“视频”下拉按钮')
         sc.driver.find_element_by_android_uiautomator('text("视频")').click()
         sc.logger.info('点击“图片”')
         sc.driver.find_element_by_android_uiautomator('text("图片")').click()
 
         mask_img = 'com.quvideo.xiaoying:id/img_click_mask'
-        sc.find_by_ids(mask_img, fun_name, self.img_path)
+        element_list = sc.driver.find_elements_by_id(mask_img)
+
+        if len(element_list) >= 2:
+            element_list = element_list[:2]
+
+        for element_em in element_list:
+            element_em.click()
+            time.sleep(1)
+            sc.capture_screen(fun_name, self.img_path)
+
         sc.driver.find_element_by_android_uiautomator('text("下一步")').click()
         sc.capture_screen(fun_name, self.img_path)
 
         sc.logger.info('返回创作中心主界面')
-        for i in range(3):
-            time.sleep(2)
+        for i in range(2):
+            time.sleep(1)
             sc.driver.press_keycode(4)
 
         sc.logger.info('剪辑-添加镜头-相册添加测试完成')
@@ -68,9 +85,6 @@ class TestEditClipsAdd(object):
         sc.logger.info('剪辑-添加镜头-拍摄添加')
         fun_name = 'test_edit_clips_shot'
 
-        start_x = self.width - self.width // 4
-        start_bottom = self.height - self.height // 10
-
         sc.logger.info('点击创作中心主按钮')
         c_btn = 'com.quvideo.xiaoying:id/img_creation'
         WebDriverWait(sc.driver, 10, 1).until(
@@ -81,27 +95,34 @@ class TestEditClipsAdd(object):
 
         sc.logger.info('点击草稿封面')
         draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
-        el_draft = sc.driver.find_element_by_id(draft_img)
-        el_draft.click()
-        sc.logger.info('点击“剪辑”')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
+
+        sc.logger.info('尝试点击“编辑该视频”')
+        edit_btn = 'com.quvideo.xiaoying:id/edit_this_video_text'
+        try:
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(edit_btn)).click()
+        except TimeoutException:
+            sc.logger.info('该视频已经在编辑页，跳过此步骤')
+
+        sc.logger.info('点击“镜头编辑”')
         WebDriverWait(sc.driver, 10, 1).until(
             lambda c_btn: c_btn.find_element_by_android_uiautomator(
-                'text("剪辑")')).click()
+                'text("镜头编辑")')).click()
 
-        time.sleep(1)
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.6, 500)
+        sc.logger.info('点击添加镜头的加号标识')
+        clip_add_btn = 'com.quvideo.xiaoying:id/clipedit_add_btn'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(clip_add_btn)).click()
 
-        t_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
-        for el_item in t_list:
-            if el_item.text == '添加镜头':
-                sc.logger.info('开始点击“添加镜头”')
-                el_item.click()
-                break
+        camera_btn = 'com.quvideo.xiaoying:id/layout_move_camera'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(camera_btn)).click()
 
-        c_layout = 'com.quvideo.xiaoying:id/xiaoying_ve_preview_layout_captrue'
-        sc.driver.find_element_by_id(c_layout).click()
-
-        el_cp = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
+        rec_btn = 'com.quvideo.xiaoying:id/btn_rec'
+        el_cp = WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(rec_btn))
         # 长按拍摄
         sc.logger.info('长按拍摄5s')
         actions = TouchAction(sc.driver)
@@ -112,10 +133,9 @@ class TestEditClipsAdd(object):
         next_btn = 'com.quvideo.xiaoying:id/cam_btn_next'
         sc.driver.find_element_by_id(next_btn).click()
         sc.capture_screen(fun_name, self.img_path)
-        sc.driver.find_element_by_android_uiautomator('text("下一步")').click()
 
         sc.logger.info('返回创作中心主界面')
-        for i in range(3):
+        for i in range(2):
             time.sleep(1)
             sc.driver.press_keycode(4)
         sc.logger.info('剪辑-添加镜头-拍摄添加测试完成')
@@ -124,9 +144,6 @@ class TestEditClipsAdd(object):
         """剪辑-添加镜头-放弃."""
         sc.logger.info('剪辑-添加镜头-放弃')
         fun_name = 'test_edit_clips_cancel'
-
-        start_x = self.width - self.width // 4
-        start_bottom = self.height - self.height // 10
 
         sc.logger.info('点击创作中心主按钮')
         c_btn = 'com.quvideo.xiaoying:id/img_creation'
@@ -138,26 +155,34 @@ class TestEditClipsAdd(object):
 
         sc.logger.info('点击草稿封面')
         draft_img = 'com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb'
-        el_draft = sc.driver.find_element_by_id(draft_img)
-        el_draft.click()
-        sc.logger.info('点击“剪辑”')
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(draft_img)).click()
+
+        sc.logger.info('尝试点击“编辑该视频”')
+        edit_btn = 'com.quvideo.xiaoying:id/edit_this_video_text'
+        try:
+            WebDriverWait(sc.driver, 5, 1).until(
+                lambda el: el.find_element_by_id(edit_btn)).click()
+        except TimeoutException:
+            sc.logger.info('该视频已经在编辑页，跳过此步骤')
+
+        sc.logger.info('点击“镜头编辑”')
         WebDriverWait(sc.driver, 10, 1).until(
             lambda c_btn: c_btn.find_element_by_android_uiautomator(
-                'text("剪辑")')).click()
-        # sc.driver.find_element_by_android_uiautomator('text("剪辑")').click()
-        time.sleep(1)
-        sc.swipe_by_ratio(start_x, start_bottom, 'left', 0.6, 500)
+                'text("镜头编辑")')).click()
 
-        t_list = sc.driver.find_elements_by_id('com.quvideo.xiaoying:id/title')
-        for el_item in t_list:
-            if el_item.text == '添加镜头':
-                sc.logger.info('开始点击“添加镜头”')
-                el_item.click()
-                break
+        sc.logger.info('点击添加镜头的加号标识')
+        clip_add_btn = 'com.quvideo.xiaoying:id/clipedit_add_btn'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(clip_add_btn)).click()
 
-        c_layout = 'com.quvideo.xiaoying:id/xiaoying_ve_preview_layout_captrue'
-        sc.driver.find_element_by_id(c_layout).click()
-        el_cp = sc.driver.find_element_by_id('com.quvideo.xiaoying:id/btn_rec')
+        camera_btn = 'com.quvideo.xiaoying:id/layout_move_camera'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(camera_btn)).click()
+
+        rec_btn = 'com.quvideo.xiaoying:id/btn_rec'
+        el_cp = WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(rec_btn))
         # 长按拍摄
         sc.logger.info('长按拍摄5s')
         actions = TouchAction(sc.driver)
@@ -165,16 +190,12 @@ class TestEditClipsAdd(object):
         sc.capture_screen(fun_name, self.img_path)
 
         next_btn = 'com.quvideo.xiaoying:id/cam_btn_next'
-        sc.driver.find_element_by_id(next_btn).click()
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(next_btn)).click()
 
-        left_btn = 'com.quvideo.xiaoying:id/xiaoying_com_btn_left'
-        time.sleep(1)
-        sc.driver.find_element_by_id(left_btn).click()
-        sc.driver.find_element_by_android_uiautomator('text("排序")').click()
+        left_btn = 'com.quvideo.xiaoying:id/editor_back_btn'
+        WebDriverWait(sc.driver, 10, 1).until(
+            lambda el: el.find_element_by_id(left_btn)).click()
         sc.capture_screen(fun_name, self.img_path)
 
-        sc.logger.info('返回创作中心主界面')
-        for i in range(3):
-            time.sleep(1)
-            sc.driver.press_keycode(4)
         sc.logger.info('剪辑-添加镜头-测试完成')
