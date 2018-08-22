@@ -1,0 +1,17 @@
+2018-08-22 11:46:22,972  - INFO - ----  home_test_001_启动app并进入gallery_com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive_click          ----
+2018-08-22 11:46:24,358  - INFO - ----  home_test_001_启动app并进入gallery_com.android.packageinstaller:id/permission_allow_button_click          ----
+2018-08-22 11:46:25,100  - INFO - ----  home_test_001_启动app并进入gallery_com.android.packageinstaller:id/permission_allow_button_click          ----
+2018-08-22 11:46:34,343  - INFO - ----  home_test_001_启动app并进入gallery_com.quvideo.xiaoying:id/wel_skip_click          ----
+2018-08-22 11:46:39,295  - INFO - ----  home_test_001_启动app并进入gallery_com.quvideo.xiaoying:id/layout_fragment_creation_click          ----
+2018-08-22 11:46:46,971  - INFO - ----  home_test_001_启动app并进入gallery_com.quvideo.xiaoying:id/icon1_click          ----
+2018-08-22 11:46:48,355  - INFO - ----  home_test_001_启动app并进入gallery_text("跳过")_click          ----
+2018-08-22 11:46:51,620  - INFO - ----  home_test_001_启动app并进入gallery_com.quvideo.xiaoying:id/icon1_click          ----
+2018-08-22 11:46:53,638  - INFO - ----  home_test_001_启动app并进入gallery_text("其他相册")_           ----
+2018-08-22 11:46:53,702  - INFO - [CheckPoint_1]: testFirstOpen_ : OK
+2018-08-22 11:47:09,722  - INFO - ----  home_test_002_进入拍摄页面_com.quvideo.xiaoying:id/img_creation_click          ----
+2018-08-22 11:47:11,494  - INFO - ----  home_test_002_进入拍摄页面_com.quvideo.xiaoying:id/icon2_click          ----
+2018-08-22 11:47:12,459  - INFO - ----  home_test_002_进入拍摄页面_text("允许")_click          ----
+2018-08-22 11:47:13,967  - INFO - ----  home_test_002_进入拍摄页面_text("总是允许")_click          ----
+2018-08-22 11:47:15,080  - INFO - ----  home_test_002_进入拍摄页面_text("总是允许")_click          ----
+2018-08-22 11:47:17,862  - INFO - ----  home_test_002_进入拍摄页面_text("高清相机")_           ----
+2018-08-22 11:47:17,936  - INFO - [CheckPoint_2]: testSecondOpen_ : OK
