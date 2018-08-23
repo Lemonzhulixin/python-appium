@@ -13,13 +13,13 @@ UI AutoTest，采用python3+appium1.8，基于PageObject框架的UI自动化测�
 
 ## 目录结构
 
-###1.app
+### 1.app
 ```
  待测apk/ipa 安装包路径
  uiautomator2等安装包路径
 ```
 
-###2.Base
+### 2.Base
  ```
 Android 测试相关：
 BaseAdb.py
@@ -53,20 +53,20 @@ BaseError.py
 BaseEmail.py
 ```
 
-###3.Log
+### 3.Log
 ```
 设备日志及持久化数据
 操作日志，失败截图
 crash解析结果
 ```
 
-###4.PageObject
+### 4.PageObject
 ```
 操作的封装及测试结果统计
 测试用例模块分级
 ```
 
-###5.其他
+### 5.其他
 ```
 ../Report       =====测试报告
 ../Runner       =====执行文件
@@ -74,9 +74,9 @@ crash解析结果
 ../yamls        =====用例管理
 ```
 
-##主要功能
+## 主要功能
 
-###1.基础测试类及方法
+### 1.基础测试类及方法
   * 获取apk/ipa安装包信息
   * 获取Android/iOS设备信息
   * 自动分配端口并启动appiumserver
@@ -89,7 +89,7 @@ crash解析结果
   * 常用操作封装
   * 其他
 
-###2.ymal用例demo
+### 2.ymal用例demo
 ```buildoutcfg
 测试用例yaml编写的说明文档
 
@@ -142,7 +142,7 @@ testcase: 用例的执行步骤
   - info: 查找是否存在历史记录
 
 ```
-###3.yaml实例
+### 3.yaml实例
 
 ```buildoutcfg
 
@@ -189,7 +189,7 @@ check:
       info: 进入'Gallery'页面成功
 ```
 
-###4.某个用例的page层
+### 4.某个用例的page层
 
 ```buildoutcfg
 from PageObject import Pages
@@ -207,7 +207,7 @@ class PageOperate:
         self.page.checkPoint()
 ```
 
-###5.testcase层调用page层
+### 5.testcase层调用page层
 
 ```buildoutcfg
 class HomeTest(ParametrizedTestCase):
@@ -241,7 +241,7 @@ class HomeTest(ParametrizedTestCase):
         super(HomeTest, cls).tearDownClass()
 ```
 
-###6.Case入口
+### 6.Case入口
 ```buildoutcfg
 def runnerCaseApp(devices):
     starttime = datetime.now()
@@ -253,7 +253,7 @@ def runnerCaseApp(devices):
     countDate(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), str((endtime - starttime).seconds) + "秒")
 ```
 
-###7.实时日志展示
+### 7.实时日志展示
 
 ```buildoutcfg
 testFirstOpen (TestCase.HomeTest.HomeTest) ... ==操作步骤：com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive_click  ==
@@ -271,7 +271,7 @@ Device: 4ed397ac
 ok
 ```
 
-###8.操作日志输出展示
+### 8.操作日志输出展示
 
 ```buildoutcfg
 2018-08-23 11:51:08,390  - INFO - ----  home_test_001_启动app并进入gallery_com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive_click          ----
@@ -294,7 +294,7 @@ ok
 
 ```
 
-###9.crash解析-android
+### 9.crash解析-android
 
 ```
 
@@ -367,26 +367,26 @@ ok
 
 ```
 
-###10.报告输出
+### 10.报告输出
 ```
 路径：../Report
 ```
 
-##运行环境
+## 运行环境
 
 1. Windows 7及以上 / OSX
 2. Android SDK的执行环境
 3. python3.x
 4. Appium 1.7.x及以上
 
-##代码获取
+## 代码获取
 
 最新的稳定代码会推送到lemon分支上，直接clone即可使用。
 ```
 git clone git@192.168.1.33:QAGroup/UItest.git
 ```
 
-##执行注意事项
+## 执行注意事项
 1.安装包路径指定：Base.BaseInit
 ```
 apkPath = PATH("../app/VivaVideo_7.2.5.apk")  # 测试的app路径
@@ -401,7 +401,7 @@ Android执行: python3 runner.py
 iOS执:python3 runner_iOS.py
 ```
 
-##目前的遗留问题
+## 目前的遗留问题
 
 - 因为初始化log路径的问题，暂时未解决crashlog路径获取
 - email邮件发送尚未调试
@@ -410,7 +410,7 @@ iOS执:python3 runner_iOS.py
 - 多设备执行还有点问题
 - 当遇到有些用例比较麻烦，必须单独写page层
 
-##后续计划
+## 后续计划
 
 - 测试数据DB存储
 - 结果集分析
