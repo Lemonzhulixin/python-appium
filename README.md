@@ -383,7 +383,7 @@ ok
 
 最新的稳定代码会推送到lemon分支上，直接clone即可使用。
 ```
-git clone git@192.168.1.33:QAGroup/UItest.git
+git@github.com:Lemonzhulixin/python-appium.git
 ```
 
 ## 执行注意事项
