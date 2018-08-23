@@ -379,7 +379,7 @@ ok
 
 ## 代码获取
 
-最新的稳定代码会推送到lemon分支上，直接clone即可使用。
+最新的稳定代码会推送到github上，直接clone即可使用。
 ```
 git@github.com:Lemonzhulixin/python-appium.git
 ```
