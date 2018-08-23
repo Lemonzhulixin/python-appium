@@ -89,10 +89,8 @@ crash解析结果
   * 常用操作封装
   * 其他
 
-#### 2.ymal用例demo
+#### 2.yaml编写说明
 ```buildoutcfg
-测试用例yaml编写的说明文档
-
 testinfo: 表示用例介绍
     - id: 用例id
     - title: 用例标题
