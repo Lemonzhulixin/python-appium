@@ -108,7 +108,7 @@ testcase: 用例的执行步骤
         - ios_id
         - predicate
 
-    - operate_type: click4 操作
+    - operate_type: click 操作
         - click
         - swipe_down
         - swipe_up
