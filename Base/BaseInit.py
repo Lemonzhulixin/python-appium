@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 from Base.BaseElements import Element
 from Base.BasePickle import *
 from Base.BaseFile import *

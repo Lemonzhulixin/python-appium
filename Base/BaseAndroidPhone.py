@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 import os
-import re
-import math
-from math import ceil
 import subprocess
+
+
+
 # 得到手机信息
 def getPhoneInfo(devices):
     cmd = "adb -s " + devices +" shell cat /system/build.prop "
@@ -60,5 +60,7 @@ def get_app_pix(devices):
     result = os.popen("adb -s " + devices+ " shell wm size", "r")
     return result.readline().split("Physical size:")[1]
 
+
 if __name__=="__main__":
-    getPhoneInfo("4ed397ac")
+    pass
+    # getPhoneInfo("4ed397ac")

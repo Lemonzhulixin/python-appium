@@ -167,8 +167,6 @@ def set_row(worksheet, num, height):
     worksheet.set_row(num, height)
 
     # 生成饼形图
-
-
 def pie(workbook, worksheet):
     chart1 = workbook.add_chart({'type': 'pie'})
     chart1.add_series({

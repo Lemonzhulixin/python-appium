@@ -12,11 +12,11 @@ from multiprocessing import Pool
 import unittest
 from Base.BaseInit import init, mk_file
 from Base.BaseStatistics import countDate, writeExcel
-from Base.BasePickle import *
 from datetime import datetime
 from Base.BaseApk import ApkInfo
 import random
 from Base import BaseInit
+from Base.BaseLogcat import *
 
 
 PATH = lambda p: os.path.abspath(
@@ -92,5 +92,11 @@ if __name__ == '__main__':
         runnerPool(l_devices)
         writeExcel()
         appium_server.stop_server(l_devices)
+        path = getCrashText().read_path()
+        count = getCrashText().Count_crash(path)
+        print('Crash 次数: %d' % count)
+        #中断logcat
+        # kill_adb()
+
     else:
         print("没有可用的安卓设备")

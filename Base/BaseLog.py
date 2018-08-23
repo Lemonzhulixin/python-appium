@@ -1,13 +1,17 @@
+# -*- coding: utf-8 -*-
+
 import logging
 import time
 import threading
 from Base.BaseAndroidPhone import getPhoneInfo
 from Base.BaseRunner import *
 import os
+import subprocess
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
+
 
 class Log:
     def __init__(self, devices):
@@ -16,7 +20,9 @@ class Log:
         global logger, resultPath, logPath
         resultPath = PATH("../Log/")
         logPath = os.path.join(resultPath, (phone_name + "_" + time.strftime('%Y%m%d%H%M%S', time.localtime())))
-
+        with open(resultPath + "/logpath.txt", "w") as w:
+            w.write(logPath)
+            w.close()
         if not os.path.exists(logPath):
             os.makedirs(logPath)
         self.checkNo = 0
@@ -30,6 +36,16 @@ class Log:
         fh.setFormatter(formatter)
 
         self.logger.addHandler(fh)
+
+        """logcat日志"""
+        # 运行之前先清除log
+        clear_cmd = 'adb -s ' + devices + ' logcat -c'
+        subprocess.run(clear_cmd, shell=True)
+
+        # 重新记录log
+        logcat_log = os.path.join(logPath,"logcat.log")
+        cmd_logcat = "adb -s " + devices + " logcat > %s" % (logcat_log)
+        os.popen(cmd_logcat)
 
     def getMyLogger(self):
         """get the logger
@@ -116,7 +132,6 @@ class Log:
 
         # wait for animations to complete before taking screenshot
         time.sleep(1)
-        # driver.get_screenshot_as_file(os.path.join(screenshotPath, screenshotName))
         driver.get_screenshot_as_file(os.path.join(screenshotPath + screenshotName))
 
     def screenshotNG(self, driver, caseName):
@@ -165,7 +180,9 @@ class myLog:
             myLog.mutex.release()
         return myLog.log
 
-# if __name__ == "__main__":
-#     logTest = myLog.getLog("1", "devices")
-#     # logger = logTest.getMyLogger()
-#     logTest.buildStartLine("11111111111111111111111")
+if __name__ == "__main__":
+    logTest = myLog.getLog('4ed397ac')
+    # logger = logTest.getMyLogger()
+    # time.sleep(2)
+    # os.popen("killall adb")
+    # logTest.buildStartLine("11111111111111111111111")
