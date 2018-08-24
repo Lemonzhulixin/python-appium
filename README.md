@@ -396,7 +396,7 @@ ipaPath = PATH("../app/xiaoying.ipa")  # 测试的app路径
 ```
 Android执行: python3 runner.py
 
-iOS执:python3 runner_iOS.py
+iOS执行:python3 runner_iOS.py
 ```
 
 ## 目前的遗留问题
