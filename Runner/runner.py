@@ -92,11 +92,11 @@ if __name__ == '__main__':
         runnerPool(l_devices)
         writeExcel()
         appium_server.stop_server(l_devices)
-        path = getCrashText().read_path()
+        #log路径及解析
+        path = PATH("../Log/CrashInfo/Android/")
         count = getCrashText().Count_crash(path)
-        print('Crash 次数: %d' % count)
+        print('crashlog解析完成，crash次数: %d' % count)
         #中断logcat
         # kill_adb()
-
     else:
         print("没有可用的安卓设备")

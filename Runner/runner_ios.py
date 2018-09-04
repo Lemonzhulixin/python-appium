@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import sys
 import random
+import shutil
 
 sys.path.append("..")
 from Base.BaseIosPhone import *
@@ -15,6 +16,7 @@ from Base.BasePickle import *
 from datetime import datetime
 from Base.BaseIpa import *
 from Base import BaseInit
+from iOSCrashAnalysis import FileOperate
 
 PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
@@ -76,10 +78,50 @@ if __name__ == '__main__':
             app["app"] = BaseInit.ipaPath
             l_devices.append(app)
 
-        appium_server = AppiumServer(l_devices)
-        appium_server.start_server()
-        runnerPool(l_devices)
-        writeExcel()
-        appium_server.stop_server(l_devices)
+        # appium_server = AppiumServer(l_devices)
+        # appium_server.start_server()
+        # runnerPool(l_devices)
+        # writeExcel()
+        # appium_server.stop_server(l_devices)
+
+        print("============开始导出crashreport==========")
+        find_str = 'XiaoYing-'  # 待测app crashreport文件关键字
+        file_format1 = [".ips"] # 导出的cras文件后缀
+        file_format2 = [".crash"] # 解析后的crash文件后缀
+
+        reportPath = PATH("../Log/CrashInfo/iOS/")
+        beforePath = os.path.join(reportPath + '/Before')
+        if not os.path.exists(beforePath):
+            os.makedirs(beforePath)
+
+        afterPath = os.path.join(reportPath + '/After')
+        if not os.path.exists(afterPath):
+            os.makedirs(afterPath)
+        #导出设备中的所有crash文件
+        for i in range(0, len(l_devices)):
+            udid = l_devices[i]["devices"]
+            exportReport = 'idevicecrashreport -u ' + udid + ' ' + beforePath + '/'
+            print(exportReport)
+            os.system(exportReport) #导出设备中的crash
+
+        print("============开始解析待测app相关crashreport==========")
+        f = FileOperate.FileFilt()
+        f.FindFile(find_str, file_format1, beforePath)
+        for file in f.fileList:
+            inputFile = os.path.abspath(file)  # 绝对路径
+            # print(inputFile)
+            analysisPath = PATH("../iOSCrashAnalysis/")
+            cmd_export = 'export DEVELOPER_DIR="/Applications/XCode.app/Contents/Developer"'
+            cmd_analysis = 'python3 ' + analysisPath + '/BaseIosCrash.py' + ' -i ' + inputFile
+            # print(cmd_analysis)
+            os.system(cmd_analysis)
+
+        #移动解析完成的crashreport到新的文件夹
+        f.MoveFile(find_str, file_format2, beforePath, afterPath)
+        print("============crashreport解析完成==========")
+
+        # 删除所有解析之前的crash文件，若不想删除，注掉即可
+        print("============删除所有解析之前的crash文件==========")
+        f.DelFolder(beforePath)
     else:
         print("没有可用的iOS设备")
