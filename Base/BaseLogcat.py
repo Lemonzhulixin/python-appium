@@ -6,13 +6,6 @@ PATH = lambda p: os.path.abspath(
 )
 
 class getCrashText:
-
-    # def read_path(self):
-    #     with open(PATH("../Log/logpath.txt"), 'rt') as l:
-    #         logcat_logPath = l.readlines(1)[0]
-    #         l.close()
-    #     return logcat_logPath
-
     def Count_crash(self, path):
         # 分析logcat日志
         count = 0
