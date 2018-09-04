@@ -20,9 +20,9 @@ class Log:
         global logger, resultPath, logPath
         resultPath = PATH("../Log/")
         logPath = os.path.join(resultPath, (phone_name + "_" + time.strftime('%Y%m%d%H%M%S', time.localtime())))
-        with open(resultPath + "/logpath.txt", "w") as w:
-            w.write(logPath)
-            w.close()
+        # with open(resultPath + "/logpath.txt", "w") as w:
+        #     w.write(logPath)
+        #     w.close()
         if not os.path.exists(logPath):
             os.makedirs(logPath)
         self.checkNo = 0
@@ -43,7 +43,7 @@ class Log:
         subprocess.run(clear_cmd, shell=True)
 
         # 重新记录log
-        logcat_log = os.path.join(logPath,"logcat.log")
+        logcat_log = os.path.join(PATH("../Log/CrashInfo/Android/"), "logcat.log")
         cmd_logcat = "adb -s " + devices + " logcat > %s" % (logcat_log)
         os.popen(cmd_logcat)
 
