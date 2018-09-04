@@ -3,7 +3,11 @@
 import re
 import sys, getopt
 import subprocess
+import os
 
+PATH = lambda p: os.path.abspath(
+    os.path.join(os.path.dirname(__file__), p)
+)
 
 def getUUID(text):
     uuid = re.findall('<(.*)>', text)[0].upper()
@@ -24,8 +28,11 @@ def analyzeCrashLog(inputfile, outputfile):
 
     path = "'" + path + "'"
     print(path)
+    analysisPath = PATH("../iOSCrashAnalysis/")
+    outname = os.path.splitext(inputfile)[0]
+
     ttt = subprocess.getoutput(
-        '/Users/zhulixin/Desktop/CrashAnalysis/symbolicatecrash ' + inputfile + ' -d ' + path + ' -o XiaoYing-IOS-Crash.crash')
+        analysisPath + '/symbolicatecrash ' + inputfile + ' -d ' + path + ' -o ' + outname + '.crash')
     print(ttt)
 
 
