@@ -20,9 +20,6 @@ class Log:
         global logger, resultPath, logPath
         resultPath = PATH("../Log/")
         logPath = os.path.join(resultPath, (phone_name + "_" + time.strftime('%Y%m%d%H%M%S', time.localtime())))
-        # with open(resultPath + "/logpath.txt", "w") as w:
-        #     w.write(logPath)
-        #     w.close()
         if not os.path.exists(logPath):
             os.makedirs(logPath)
         self.checkNo = 0
