@@ -485,6 +485,14 @@ iOS执行:python3 ../Runner/runner_iOS.py
 ```buildoutcfg
 find_str = 'XiaoYing-'  # 待测app crashreport文件关键字
 ```
+
+4.过滤待测app系统日志，修改待测app关键字，如此处的'XiaoYing'
+```buildoutcfg
+#获取系统日志，过滤当前app的log，如不需要获取系统日志，注掉即可
+syslog_path = os.path.join(PATH("../Log/CrashInfo/iOS/"), "syslog.log")
+sys_cmd = 'idevicesyslog -u ' + get_phone["udid"] + " |grep 'XiaoYing' > %s" % (syslog_path)
+os.popen(sys_cmd)
+```
  
 
 ## 目前的遗留问题
