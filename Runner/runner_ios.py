@@ -78,11 +78,11 @@ if __name__ == '__main__':
             app["app"] = BaseInit.ipaPath
             l_devices.append(app)
 
-        # appium_server = AppiumServer(l_devices)
-        # appium_server.start_server()
-        # runnerPool(l_devices)
-        # writeExcel()
-        # appium_server.stop_server(l_devices)
+        appium_server = AppiumServer(l_devices)
+        appium_server.start_server()
+        runnerPool(l_devices)
+        writeExcel()
+        appium_server.stop_server(l_devices)
 
         print("============开始导出crashreport==========")
         find_str = 'XiaoYing-'  # 待测app crashreport文件关键字
