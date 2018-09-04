@@ -1,7 +1,0 @@
-2018-08-22 11:31:25,924  - INFO - ----  home_test_001_启动app并进入gallery_camerta_n_click　          ----
-2018-08-22 11:31:36,360  - INFO - ----  testFirstOpen_失败重连        ----
-2018-08-22 11:31:52,075  - INFO - [CheckPoint_1]: testFirstOpen_用例失败并重连过一次，失败原因:执行失败，请检查该元素是否存在://XCUIElementTypeStaticText[@name="剪辑"], 
-执行失败，请检查该元素是否存在:camerta_n, : NG
-2018-08-22 11:32:07,894  - INFO - ----  testSecondOpen_失败重连        ----
-2018-08-22 11:32:22,858  - INFO - [CheckPoint_2]: testSecondOpen_用例失败并重连过一次，失败原因:执行失败，请检查该元素是否存在:camerta_n, 
-执行失败，请检查该元素是否存在:camerta_n, : NG
