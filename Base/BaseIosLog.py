@@ -16,9 +16,7 @@ class iOSLog:
         global logger, resultPath, logPath
         resultPath = PATH("../Log/")
         logPath = os.path.join(resultPath, (phone_name + "_" + time.strftime('%Y%m%d%H%M%S', time.localtime())))
-        # with open(resultPath + "/reportpath.txt", "w") as w:
-        #     w.write(logPath)
-        #     w.close()
+
         if not os.path.exists(logPath):
             os.makedirs(logPath)
         self.checkNo = 0
@@ -33,7 +31,7 @@ class iOSLog:
 
         self.logger.addHandler(fh)
 
-        #获取系统日志，过滤当前app的log
+        # 获取系统日志，过滤当前app的log，如不需要获取系统日志，注掉即可
         syslog_path = os.path.join(PATH("../Log/CrashInfo/iOS/"), "syslog.log")
         sys_cmd = 'idevicesyslog -u ' + get_phone["udid"] + " |grep 'XiaoYing' > %s" % (syslog_path)
         os.popen(sys_cmd)
