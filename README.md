@@ -1,8 +1,16 @@
-# UI自动化框架（支持Android&iOS）
+## 0904 UPDATE
+* 优化Android log及crsahinfo相关输出路径
+* 新增iOS crashreport解析
+
+## 新增内容：
+* 适配iOS
+* 提取android crash信息
+* 优化report(增加自动填充包名，app名称，版本，bundleId等信息)
 
 ## 简介
 
-UI AutoTest，采用python3+appium1.8，基于PageObject框架的UI自动化测试持续集成。
+采用python3+appium1.8，基于PageObject框架的UI自动化测试持续集成。
+
 * unittest参数化
 * PageObject分层管理
 * 用例编写基于yaml配置多关键字驱动
@@ -53,20 +61,28 @@ BaseError.py
 BaseEmail.py
 ```
 
-#### 3.Log
+#### 3. iOSCrashAnalysis
+```
+iOS crash report  解析相关:
+BaseIosCrash.py 解析脚本
+FileOperate.py 文件操作相关
+symbolicatecrash  xCode自带的解析工具，获取方式：find /Applications/Xcode.app -name symbolicatecrash -type f，复制过来就行了
+```
+
+#### 4.Log
 ```
 设备日志及持久化数据
 操作日志，失败截图
 crash解析结果
 ```
 
-#### 4.PageObject
+#### 5.PageObject
 ```
 操作的封装及测试结果统计
 测试用例模块分级
 ```
 
-#### 5.其他
+#### 6.其他
 ```
 ../Report       =====测试报告
 ../Runner       =====执行文件
@@ -141,7 +157,6 @@ testcase: 用例的执行步骤
 
 ```
 #### 3.yaml实例
-
 ```buildoutcfg
 
 ==========================================================
@@ -188,7 +203,6 @@ check:
 ```
 
 #### 4.某个用例的page层
-
 ```buildoutcfg
 from PageObject import Pages
 
@@ -206,7 +220,6 @@ class PageOperate:
 ```
 
 #### 5.testcase层调用page层
-
 ```buildoutcfg
 class HomeTest(ParametrizedTestCase):
     def testFirstOpen(self):
@@ -252,7 +265,6 @@ def runnerCaseApp(devices):
 ```
 
 #### 7.实时日志展示
-
 ```buildoutcfg
 testFirstOpen (TestCase.HomeTest.HomeTest) ... ==操作步骤：com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive_click  ==
 ==操作步骤：com.android.packageinstaller:id/permission_allow_button_click  ==
@@ -270,7 +282,6 @@ ok
 ```
 
 #### 8.操作日志输出展示
-
 ```buildoutcfg
 2018-08-23 11:51:08,390  - INFO - ----  home_test_001_启动app并进入gallery_com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive_click          ----
 2018-08-23 11:51:09,711  - INFO - ----  home_test_001_启动app并进入gallery_com.android.packageinstaller:id/permission_allow_button_click          ----
@@ -293,8 +304,7 @@ ok
 ```
 
 #### 9.crash解析-android
-
-```
+```buildoutcfg
 
 =========================crash================================
 06-20 13:41:06.165  7638  7638 E AndroidRuntime: Process: com.quvideo.xiaoying, PID: 7638
@@ -364,10 +374,83 @@ ok
 06-20 13:41:07.958  1157  1182 I chatty  : uid=1000(system) android.display expire 1 line
 
 ```
+#### 10. crash解析-iOS
+```buildoutcfg
 
-#### 10.报告输出
+============开始导出crashreport==========
+idevicecrashreport -u 5214866ccb9342f87f4c2aab093c25f7e252fd85 /Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/
+Move: WiFi/WiFiManager/wifi-buf-05-23-2018__18:35:55.107.log
+Move: WiFi/WiFiManager/wifi-buf-08-12-2018__02:40:07.213.log
+Move: WiFi/WiFiManager/wifi-buf-05-06-2018__21:15:54.957.log
+Move: WiFi/WiFiManager/wifi-buf-06-19-2018__05:16:04.564.log
+Move: WiFi/WiFiManager/wifi-buf-06-16-2018__10:05:31.097.log
+Move: WiFi/WiFiManager/wifi-buf-11-04-2017__14:36:48.log
+Move: WiFi/WiFiManager/wifi-buf-12-03-2017__14:31:53.log
+Move: WiFi/WiFiManager/wifi-buf-11-14-2017__22:41:35.log
+Move: WiFi/WiFiManager/wifi-buf-05-13-2018__23:07:34.084.log
+Move: WiFi/WiFiManager/wifi-buf-06-19-2018__08:05:54.196.log
+Move: WiFi/WiFiManager/wifi-buf-01-23-2018__23:50:53.018.log
+Move: WiFi/WiFiManager/wifi-buf-12-03-2017__15:54:45.log
+Move: WiFi/WiFiManager/wifi-buf-04-10-2018__14:33:15.105.log
+Move: WiFi/WiFiManager/wifi-buf-08-12-2018__20:34:03.165.log
+Move: WiFi/WiFiManager/wifi-buf-08-24-2018__02:50:49.140.log
+.....
+.....
+
+Move: XiaoYing-2018-07-30-114612.ips
+Move: XiaoYing-2018-07-30-162434.ips
+Move: XiaoYing-2018-07-28-123234.ips
+Move: XiaoYing-2018-09-04-102545.ips
+Move: XiaoYing-2018-07-31-095526.ips
+Move: XiaoYing-2018-07-31-151350.ips
+Move: XiaoYing-2018-09-04-102545.ips
+Move: XiaoYing-2018-07-30-113126.ips
+Move: XiaoYing-2018-07-30-114612.ips
+Move: com.apple.appstored/appstored.log
+Done.
+============开始解析待测app相关crashreport==========
+输入的文件为： /Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/XiaoYing-2018-07-30-114612.ips
+输出的文件为： 
+0x100c24000 - 0x102ff3fff XiaoYing arm64  <2deaa9887c173bb0a9f4b051e47f04a3> /var/containers/Bundle/Application/170BDC50-F0D3-4973-9781-D414532E21CD/XiaoYing.app/XiaoYing
+2DEAA988-7C17-3BB0-A9F4-B051E47F04A3
+'/dSYMs/XiaoYing.app.dSYM'
+
+输入的文件为： /Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/XiaoYing-2018-07-30-162434.ips
+输出的文件为： 
+0x100290000 - 0x10265ffff XiaoYing arm64  <2deaa9887c173bb0a9f4b051e47f04a3> /var/containers/Bundle/Application/C5855F55-13D0-49FE-ADC2-7C82565237D0/XiaoYing.app/XiaoYing
+2DEAA988-7C17-3BB0-A9F4-B051E47F04A3
+'/dSYMs/XiaoYing.app.dSYM'
+
+......
+......
+============crashreport解析完成==========
+
+============删除所有解析之前的crash文件==========
+/Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/JetsamEvent-2018-09-04-104135.ips was removed!
+Directory: /Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/JetsamEvent-2018-09-04-104135.ips was removed!
+Directory: /Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/WiFi was removed!
+/Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/XiaoYing-2018-07-30-114612.ips was removed!
+Directory: /Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/XiaoYing-2018-07-30-114612.ips was removed!
+/Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/XiaoYing-2018-07-30-162434.ips was removed!
+Directory: /Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/XiaoYing-2018-07-30-162434.ips was removed!
+/Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/XiaoYing-2018-09-04-102545.ips was removed!
+Directory: /Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/XiaoYing-2018-09-04-102545.ips was removed!
+Directory: /Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/com.apple.appstored was removed!
+/Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/XiaoYing-2018-07-30-184609.ips was removed!
+......
+......
+
+Process finished with exit code 0
 ```
-路径：../Report
+#### 11.最终log输出信息及路径
+
+```buildoutcfg
+../Log/
+```
+
+#### 12.报告输出
+```buildoutcfg
+../Report/
 ```
 
 ## 运行环境
@@ -391,26 +474,25 @@ apkPath = PATH("../app/VivaVideo_7.2.5.apk")  # 测试的app路径
 ipaPath = PATH("../app/xiaoying.ipa")  # 测试的app路径
 ```
 
-2.为了避免同一台PC上同时连接android和iOS设备时，获取设备问题，将runner文件
-两个平台分开处理
+2.为了避免同一台PC上同时连接android和iOS设备时，获取设备问题，将runner文件两个平台分开处理
 ```
-Android执行: python3 runner.py
+Android执行: python3 ../Runner/runner.py
 
-iOS执行:python3 runner_iOS.py
+iOS执行:python3 ../Runner/runner_iOS.py
 ```
+
+3.在过滤待测app crashreport时，记得在runner_iOS.py中修改待测app crashreport文件关键字
+```buildoutcfg
+find_str = 'XiaoYing-'  # 待测app crashreport文件关键字
+```
+ 
 
 ## 目前的遗留问题
-
-- 因为初始化log路径的问题，暂时未解决crashlog路径获取
 - email邮件发送尚未调试
-- iOS crashlog分析
 - 控件集参数化
 - 多设备执行还有点问题
 - 当遇到有些用例比较麻烦，必须单独写page层
 
 ## 后续计划
-
 - 测试数据DB存储
 - 结果集分析
-
-
