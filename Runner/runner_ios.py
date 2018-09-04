@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
         print("============开始导出crashreport==========")
         find_str = 'XiaoYing-'  # 待测app crashreport文件关键字
-        file_format1 = [".ips"] # 导出的cras文件后缀
+        file_format1 = [".ips"] # 导出的crash文件后缀
         file_format2 = [".crash"] # 解析后的crash文件后缀
 
         reportPath = PATH("../Log/CrashInfo/iOS/")
@@ -104,7 +104,7 @@ if __name__ == '__main__':
             print(exportReport)
             os.system(exportReport) #导出设备中的crash
 
-        print("============开始解析待测app相关crashreport==========")
+        print("============开始过滤并解析待测app相关crashreport==========")
         f = FileOperate.FileFilt()
         f.FindFile(find_str, file_format1, beforePath)
         for file in f.fileList:
