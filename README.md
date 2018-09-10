@@ -1,3 +1,7 @@
+## 0910 UPDATE
+* 新增控件集参数化，相同测试步骤的Android/iOS可共用一份测试用例
+* 不同测试步骤的用例还需要单独写
+
 ## 0904 UPDATE
 * 优化Android log及crsahinfo相关输出路径
 * 新增iOS crashreport解析
@@ -48,6 +52,7 @@ BaseFile.py
 BasePickle.py
 BaseYaml.py
 BaseOperate.py
+BaseReplace.py
 
 测试执行相关：
 BaseAppiumServer.py
@@ -67,6 +72,7 @@ iOS crash report  解析相关:
 BaseIosCrash.py 解析脚本
 FileOperate.py 文件操作相关
 symbolicatecrash  xCode自带的解析工具，获取方式：find /Applications/Xcode.app -name symbolicatecrash -type f，复制过来就行了
+
 ```
 
 #### 4.Log
@@ -221,35 +227,38 @@ class PageOperate:
 
 #### 5.testcase层调用page层
 ```buildoutcfg
-class HomeTest(ParametrizedTestCase):
-    def testFirstOpen(self):
-        app = {"logTest": self.logTest, "driver": self.driver, "path": PATH("../yamls/Android/home/firstOpen.yaml"),
-               "device": self.udid, "platformName":self.platformName, "caseName": sys._getframe().f_code.co_name}
+tc_temp = PATH("../yamls/temp.yaml")
+el_android = PATH("../yamls/el_android.yaml")
+el_iOS = PATH("../yamls/el_iOS.yaml")
 
-        iOSapp = {"logTest": self.logTest, "driver": self.driver, "path": PATH("../yamls/iOS/home/firstOpen.yaml"),
-               "device": self.udid, "platformName":self.platformName, "caseName": sys._getframe().f_code.co_name}
+class HomeTest(ParametrizedTestCase):
+
+    def repalce(self, tc, tc_temp):#用了最笨的替换字符串方法，输出一个临时temp.yaml文件，测试完成后再删除
+        if self.platformName == 'android':
+            ReplaceYaml(tc, tc_temp, el_android)
+        elif self.platformName == 'iOS':
+            ReplaceYaml(tc, tc_temp, el_iOS)
+
+    def testFirstOpen(self):
+        tc = PATH("../yamls/home/firstOpen.yaml")
+        self.repalce(tc, tc_temp)
+        app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
+               "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
+
         page = PageOperate(app)
         page.operate()
         page.checkPoint()
 
     def testSecondOpen(self):
-        app = {"logTest": self.logTest, "driver": self.driver, "path": PATH("../yamls/Android/home/secondOpen.yaml"),
-               "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
+        tc = PATH("../yamls/home/secondOpen.yaml")
+        self.repalce(tc, tc_temp)
 
-        iOSapp = {"logTest": self.logTest, "driver": self.driver, "path": PATH("../yamls/iOS/home/secondOpen.yaml"),
-                  "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
+        app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
+               "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
 
         page = PageOperate(app)
         page.operate()
         page.checkPoint()
-
-    @classmethod
-    def setUpClass(cls):
-        super(HomeTest, cls).setUpClass()
-
-    @classmethod
-    def tearDownClass(cls):
-        super(HomeTest, cls).tearDownClass()
 ```
 
 #### 6.Case入口
@@ -443,15 +452,17 @@ Directory: /Users/zhulixin/Desktop/python-appium/Log/CrashInfo/iOS/Before/com.ap
 Process finished with exit code 0
 ```
 #### 11.最终log输出信息及路径
-
-```buildoutcfg
-../Log/
-```
+![](/uploads/photo/2018/ffcbafc0-06ff-4613-84a7-7f32bd70c82d.png!large)
 
 #### 12.报告输出
-```buildoutcfg
-../Report/
-```
+
+1.Android
+![](/uploads/photo/2018/5d9c8027-a3cb-429e-8d6a-3dee68aa97d1.png!large)
+![](/uploads/photo/2018/9754aa6e-19d4-4ed7-a1b8-482a5f2b740c.png!large)
+
+2.iOS
+![](/uploads/photo/2018/02ae6200-e724-4d50-9ec9-9b9eb5f901be.png!large)
+![](/uploads/photo/2018/9bc957b3-cd10-43c2-b174-e96749a5d884.png!large)
 
 ## 运行环境
 
@@ -477,7 +488,6 @@ ipaPath = PATH("../app/xiaoying.ipa")  # 测试的app路径
 2.为了避免同一台PC上同时连接android和iOS设备时，获取设备问题，将runner文件两个平台分开处理
 ```
 Android执行: python3 ../Runner/runner.py
-
 iOS执行:python3 ../Runner/runner_iOS.py
 ```
 
@@ -485,7 +495,6 @@ iOS执行:python3 ../Runner/runner_iOS.py
 ```buildoutcfg
 find_str = 'XiaoYing-'  # 待测app crashreport文件关键字
 ```
-
 4.过滤待测app系统日志，修改待测app关键字，如此处的'XiaoYing'
 ```buildoutcfg
 #获取系统日志，过滤当前app的log，如不需要获取系统日志，注掉即可
@@ -493,14 +502,15 @@ syslog_path = os.path.join(PATH("../Log/CrashInfo/iOS/"), "syslog.log")
 sys_cmd = 'idevicesyslog -u ' + get_phone["udid"] + " |grep 'XiaoYing' > %s" % (syslog_path)
 os.popen(sys_cmd)
 ```
- 
 
 ## 目前的遗留问题
 - email邮件发送尚未调试
-- 控件集参数化
 - 多设备执行还有点问题
 - 当遇到有些用例比较麻烦，必须单独写page层
+- 因为对python的map方法不是很懂，所以控件集参数化用了最原始，最笨的字符串替换，输出一个临时temp.yaml文件，测试完成后再删除；如果有对map熟悉的同学，欢迎帮忙写个方法来处理，感谢！
 
 ## 后续计划
 - 测试数据DB存储
 - 结果集分析
+
+
