@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
 import random
-import shutil
 
 sys.path.append("..")
 from Base.BaseIosPhone import *
@@ -10,7 +9,7 @@ from TestCase.HomeTest import HomeTest
 from Base.BaseAppiumServer import AppiumServer
 from multiprocessing import Pool
 import unittest
-from Base.BaseInit import mk_file
+from Base.BaseInit import mk_file, remove_file
 from Base.BaseStatistics import countDate, writeExcel
 from Base.BasePickle import *
 from datetime import datetime
@@ -83,6 +82,9 @@ if __name__ == '__main__':
         runnerPool(l_devices)
         writeExcel()
         appium_server.stop_server(l_devices)
+
+        # 删除temp文件
+        remove_file(PATH("../yamls/temp.yaml"))
 
         print("============开始导出crashreport==========")
         find_str = 'XiaoYing-'  # 待测app crashreport文件关键字

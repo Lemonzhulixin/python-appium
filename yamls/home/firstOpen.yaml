@@ -1,0 +1,52 @@
+testinfo:
+    - id: home_test_001
+      title: 启动app并进入gallery
+      info: 打开app并点击高级编辑
+testcase:
+    - element_info: $el_alert
+      find_type: $id
+      operate_type: click
+      info: 授权存储
+
+    - element_info: $el_allow
+      find_type: $id
+      operate_type: click
+      info: 授权相册
+
+    - element_info: $el_allow
+      find_type: $id
+      operate_type: click
+      info: 授权其他
+
+    - element_info: $el_skip
+      find_type: $id
+      operate_type: click
+      info: 跳过闪屏视频
+
+    - element_info: $el_creation
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $el_edit
+      find_type: $id
+      operate_type: click
+      info: 点击'剪辑'
+
+    - element_info: $el_jump
+      find_type: text
+      operate_type: click
+      info: 点击'跳过'
+
+    - element_info: $el_edit
+      find_type: $id
+      operate_type: click
+      info: 再次点击'剪辑'
+
+check:
+    - element_info: $el_check1
+      find_type: text
+      check: default_check
+      info: 进入'Gallery'页面成功
+
+

@@ -10,7 +10,7 @@ from TestCase.HomeTest import HomeTest
 from Base.BaseAppiumServer import AppiumServer
 from multiprocessing import Pool
 import unittest
-from Base.BaseInit import init, mk_file
+from Base.BaseInit import init, mk_file,remove_file
 from Base.BaseStatistics import countDate, writeExcel
 from datetime import datetime
 from Base.BaseApk import ApkInfo
@@ -92,6 +92,10 @@ if __name__ == '__main__':
         runnerPool(l_devices)
         writeExcel()
         appium_server.stop_server(l_devices)
+
+        #删除temp文件
+        remove_file(PATH("../yamls/temp.yaml"))
+
         #log路径及解析
         path = PATH("../Log/CrashInfo/Android/")
         count = getCrashText().Count_crash(path)

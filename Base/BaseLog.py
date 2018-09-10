@@ -40,7 +40,10 @@ class Log:
         subprocess.run(clear_cmd, shell=True)
 
         # 重新记录log
-        logcat_log = os.path.join(PATH("../Log/CrashInfo/Android/"), "logcat.log")
+        crashPath = os.path.join(PATH("../Log/CrashInfo/Android/"))
+        if not os.path.exists(crashPath):
+            os.makedirs(crashPath)
+        logcat_log = os.path.join(crashPath, "logcat.log")
         cmd_logcat = "adb -s " + devices + " logcat > %s" % (logcat_log)
         os.popen(cmd_logcat)
 

@@ -3,33 +3,33 @@ testinfo:
       title: 进入拍摄页面
       info: 打开app并点击拍摄
 testcase:
-    - element_info: com.quvideo.xiaoying:id/img_creation
-      find_type: id
+    - element_info: $el_creation
+      find_type: $id
       operate_type: click
       info: 点击创作中心主按钮
 
-    - element_info: com.quvideo.xiaoying:id/icon2
-      find_type: id
+    - element_info: $camera
+      find_type: $id
       operate_type: click
       info: 点击'拍摄'
 
-    - element_info: text("允许")
+    - element_info: $allow2
       find_type: text
       operate_type: click
       info: 授权麦克风
 
-    - element_info: text("总是允许")
+    - element_info: $allow3
       find_type: text
       operate_type: click
       info: 授权录制
 
-    - element_info: text("总是允许")
+    - element_info: $allow3
       find_type: text
       operate_type: click
       info: 授权录制
 
 check:
-    - element_info: text("高清相机")
+    - element_info: $nor_cam
       find_type: text
       check: default_check
       info: 进入'Camera'页面成功

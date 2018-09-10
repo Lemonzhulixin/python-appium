@@ -1,0 +1,14 @@
+$el_alert: com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive
+$el_allow: com.android.packageinstaller:id/permission_allow_button
+$el_skip: com.quvideo.xiaoying:id/wel_skip
+$el_creation: com.quvideo.xiaoying:id/layout_fragment_creation
+$el_edit: com.quvideo.xiaoying:id/icon1
+$el_jump: text("跳过")
+$el_check1: text("其他相册")
+$el_jump1: text("跳过")
+$camera: com.quvideo.xiaoying:id/icon2
+$allow2: text("允许")
+$allow3: text("总是允许")
+$nor_cam: text("高清相机")
+$id: id
+$ids: ids

@@ -1,5 +1,4 @@
 from Base.BaseError import get_error
-from Base.BaseYaml import getYam
 from Base.BaseOperate import OperateElement
 import time
 from Base.BaseElements import Element as be

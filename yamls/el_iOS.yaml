@@ -1,0 +1,15 @@
+$el_alert: 允许
+$el_allow: 允许
+$el_skip: 跳过
+$el_creation: camerta_n
+$el_edit: //XCUIElementTypeStaticText[@name="剪辑"]
+$el_jump: 跳过
+$el_check1: //XCUIElementTypeButton[@name="下一步"]
+$camera: //XCUIElementTypeStaticText[@name="普通拍摄10s"]
+$allow2: 好
+$allow3: 好
+$nor_cam: 高清相机
+$ids: ios_ids
+$id: ios_id
+$xpath: xpath
+$name: name

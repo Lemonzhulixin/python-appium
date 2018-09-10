@@ -56,6 +56,7 @@ class ApkInfo():
                              stderr=subprocess.PIPE,
                              stdin=subprocess.PIPE, shell=True)
         (output, err) = p.communicate()
+        # print(output)
         if output != "":
             # print(output)
             result = output.split()[0].decode()[19:-1]
@@ -63,7 +64,7 @@ class ApkInfo():
 
 if __name__ == '__main__':
     pass
-    apkPath = '/Users/zhulixin/Desktop/python-appium/app/VivaVideo_7.3.0.apk'
+    apkPath = '../app/VivaVideo_7.3.0.apk'
     litePath = '/Users/zhulixin/Downloads/XiaoYing_lite.apk'
 
     info = ApkInfo(apkPath)

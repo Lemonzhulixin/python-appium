@@ -32,7 +32,10 @@ class iOSLog:
         self.logger.addHandler(fh)
 
         # 获取系统日志，过滤当前app的log，如不需要获取系统日志，注掉即可
-        syslog_path = os.path.join(PATH("../Log/CrashInfo/iOS/"), "syslog.log")
+        crashPath = os.path.join(PATH("../Log/CrashInfo/iOS/"))
+        if not os.path.exists(crashPath):
+            os.makedirs(crashPath)
+        syslog_path = os.path.join(crashPath, "syslog.log")
         sys_cmd = 'idevicesyslog -u ' + get_phone["udid"] + " |grep 'XiaoYing' > %s" % (syslog_path)
         os.popen(sys_cmd)
 

@@ -63,21 +63,20 @@ class Element(object):
     REPORT_FILE = "Report.xlsx"
 
 
-#启动页
+    #启动页
 
-#首页
-c_btn = 'com.quvideo.xiaoying:id/img_creation'
-el_home_vip = 'com.quvideo.xiaoying:id/btn_vip'
-el_home_ad = 'com.quvideo.xiaoying:id/btn_shuffle'
-el_home_edit = 'com.quvideo.xiaoying:id/icon1'
-el_home_cam = 'com.quvideo.xiaoying:id/icon2'
-'com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive'
-#Gallery
+    #首页
+    c_btn = 'com.quvideo.xiaoying:id/img_creation'
+    el_home_vip = 'com.quvideo.xiaoying:id/btn_vip'
+    el_home_ad = 'com.quvideo.xiaoying:id/btn_shuffle'
+    el_home_edit = 'com.quvideo.xiaoying:id/icon1'
+    el_home_cam = 'com.quvideo.xiaoying:id/icon2'
+    'com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive'
+    #Gallery
 
-#Camera
+    #Camera
 
-#工作室
-el_studio_more = 'com.quvideo.xiaoying:id/btn_more'
+    #工作室
+    el_studio_more = 'com.quvideo.xiaoying:id/btn_more'
 
-
-#订阅
+    #订阅

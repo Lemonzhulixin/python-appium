@@ -36,5 +36,6 @@ if __name__ == '__main__':
     PATH = lambda p: os.path.abspath(
         os.path.join(os.path.dirname(__file__), p)
     )
-    t = getYam(PATH("../yamls/iOS/home/firstOpen.yaml"))
-    print(t)
+    t0 = getYam(PATH("../yamls/testA.yaml"))
+    print(t0)
+
