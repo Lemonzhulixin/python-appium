@@ -111,8 +111,8 @@ if __name__ == '__main__':
             os.system(exportReport) #导出设备中的crash
 
         print("============开始过滤并解析待测app相关crashreport==========")
-        # .bash_profile中导入环境
-        # DEVELOPER_DIR=/Applications/XCode.app/Contents/Developer
+        # .bash_profile中配置以下环境，记得重启下mac
+        # DEVELOPER_DIR="/Applications/XCode.app/Contents/Developer"
         # export DEVELOPER_DIR
         f = FileOperate.FileFilt()
         f.FindFile(find_str, file_format1, beforePath)
@@ -120,7 +120,7 @@ if __name__ == '__main__':
             inputFile = os.path.abspath(file)  # 绝对路径
             # print(inputFile)
             analysisPath = PATH("../iOSCrashAnalysis/")
-            cmd_export = 'export DEVELOPER_DIR="/Applications/XCode.app/Contents/Developer"'
+            # cmd_export = 'export DEVELOPER_DIR="/Applications/XCode.app/Contents/Developer"'
             cmd_analysis = 'python3 ' + analysisPath + '/BaseIosCrash.py' + ' -i ' + inputFile
             # print(cmd_analysis)
             os.system(cmd_analysis)
