@@ -6,7 +6,9 @@ import platform
 from Base.BaseAndroidPhone import *
 from Base.BaseAdb import *
 from Base.BaseRunner import ParametrizedTestCase
-from TestCase.HomeTest import HomeTest
+from TestCase.aheadTest import PrivacySet
+from TestCase.galleryTest import GalleryTest
+from TestCase.settingsTest import SetttingsTest
 from Base.BaseAppiumServer import AppiumServer
 from multiprocessing import Pool
 import unittest
@@ -62,8 +64,9 @@ def runnerPool(getDevices):
 def runnerCaseApp(devices):
     starttime = datetime.now()
     suite = unittest.TestSuite()
-    suite.addTest(ParametrizedTestCase.parametrize(HomeTest, param=devices))
-    # suite.addTest(ParametrizedTestCase.parametrize(HomeTest, param=devices)) #加入测试类
+    suite.addTest(ParametrizedTestCase.parametrize(PrivacySet, param=devices))#加入测试类
+    suite.addTest(ParametrizedTestCase.parametrize(GalleryTest, param=devices))
+    suite.addTest(ParametrizedTestCase.parametrize(SetttingsTest, param=devices))
     unittest.TextTestRunner(verbosity=2).run(suite)
     endtime = datetime.now()
     countDate(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), str((endtime - starttime).seconds) + "秒")

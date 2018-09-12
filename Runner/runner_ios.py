@@ -5,7 +5,9 @@ import random
 sys.path.append("..")
 from Base.BaseIosPhone import *
 from Base.BaseRunner import ParametrizedTestCase
-from TestCase.HomeTest import HomeTest
+from TestCase.aheadTest import PrivacySet
+from TestCase.settingsTest import SetttingsTest
+from TestCase.galleryTest import GalleryTest
 from Base.BaseAppiumServer import AppiumServer
 from multiprocessing import Pool
 import unittest
@@ -30,9 +32,9 @@ def runnerPool(getDevices):
         print("=====runnerPool=========")
         print(getDevices)
         _initApp = {}
-        udid = getDevices[i]["devices"]
-        _initApp["deviceName"] = get_ios_product_name(udid)
-        _initApp["platformVersion"] = get_ios_version(udid)
+        duid = getDevices[i]["devices"]
+        _initApp["deviceName"] = get_ios_product_name(duid)
+        _initApp["platformVersion"] = get_ios_version(duid)
         _initApp["platformName"] = "iOS"
         _initApp["xcodeOrgId"] = "BMP99N9345"
         _initApp["xcodeSigningId"] = "iPhone Developer"
@@ -43,7 +45,7 @@ def runnerPool(getDevices):
         ipaInfo = getIpaInfo(_initApp["app"])
         # print(ipaInfo)
         _initApp["bundleId"] = ipaInfo[1]
-        _initApp["udid"] = udid
+        _initApp["duid"] = duid
         _initApp["automationName"] = "XCUITest"
         _pool.append(_initApp)
         devices_Pool.append(_initApp)
@@ -56,7 +58,9 @@ def runnerPool(getDevices):
 def runnerCaseApp(devices):
     starttime = datetime.now()
     suite = unittest.TestSuite()
-    suite.addTest(ParametrizedTestCase.parametrize(HomeTest, param=devices))
+    suite.addTest(ParametrizedTestCase.parametrize(PrivacySet, param=devices))  # 加入测试类
+    suite.addTest(ParametrizedTestCase.parametrize(GalleryTest, param=devices))
+    suite.addTest(ParametrizedTestCase.parametrize(SetttingsTest, param=devices))
     unittest.TextTestRunner(verbosity=2).run(suite)
     endtime = datetime.now()
     countDate(datetime.now().strftime('%Y-%m-%d %H:%M:%S'), str((endtime - starttime).seconds) + "秒")
@@ -101,12 +105,15 @@ if __name__ == '__main__':
             os.makedirs(afterPath)
         #导出设备中的所有crash文件
         for i in range(0, len(l_devices)):
-            udid = l_devices[i]["devices"]
-            exportReport = 'idevicecrashreport -u ' + udid + ' ' + beforePath + '/'
+            duid = l_devices[i]["devices"]
+            exportReport = 'idevicecrashreport -u ' + duid + ' ' + beforePath + '/'
             print(exportReport)
             os.system(exportReport) #导出设备中的crash
 
         print("============开始过滤并解析待测app相关crashreport==========")
+        # .bash_profile中导入环境
+        # DEVELOPER_DIR=/Applications/XCode.app/Contents/Developer
+        # export DEVELOPER_DIR
         f = FileOperate.FileFilt()
         f.FindFile(find_str, file_format1, beforePath)
         for file in f.fileList:

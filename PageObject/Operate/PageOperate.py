@@ -1,5 +1,5 @@
 from Base.BaseYaml import getYam
-from PageObject import Pages
+from PageObject.Pages import Pages
 
 
 class PageOperate:

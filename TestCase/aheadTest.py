@@ -1,4 +1,3 @@
-
 from Base.BaseRunner import ParametrizedTestCase
 import os
 import sys
@@ -14,7 +13,7 @@ tc_temp = PATH("../yamls/temp.yaml")
 el_android = PATH("../yamls/el_android.yaml")
 el_iOS = PATH("../yamls/el_iOS.yaml")
 
-class HomeTest(ParametrizedTestCase):
+class PrivacySetTest(ParametrizedTestCase):
 
     def repalce(self, tc, tc_temp):
         if self.platformName == 'android':
@@ -22,20 +21,9 @@ class HomeTest(ParametrizedTestCase):
         elif self.platformName == 'iOS':
             ReplaceYaml(tc, tc_temp, el_iOS)
 
-    def testFirstOpen(self):
-        tc = PATH("../yamls/home/firstOpen.yaml")
+    def test_privacy(self):
+        tc = PATH("../yamls/test_ahead/test_privacy.yaml")
         self.repalce(tc, tc_temp)
-        app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
-               "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
-
-        page = PageOperate(app)
-        page.operate()
-        page.checkPoint()
-
-    def testSecondOpen(self):
-        tc = PATH("../yamls/home/secondOpen.yaml")
-        self.repalce(tc, tc_temp)
-
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
 
@@ -45,8 +33,8 @@ class HomeTest(ParametrizedTestCase):
 
     @classmethod
     def setUpClass(cls):
-        super(HomeTest, cls).setUpClass()
+        super(PrivacySetTest, cls).setUpClass()
 
     @classmethod
     def tearDownClass(cls):
-        super(HomeTest, cls).tearDownClass()
+        super(PrivacySetTest, cls).tearDownClass()
