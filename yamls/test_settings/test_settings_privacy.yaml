@@ -1,0 +1,64 @@
+testinfo:
+    - id: test_settings_privacy
+      title: 设置-隐私设置相关
+      info: 设置-隐私设置相关测试
+testcase:
+    - element_info: $el_personal
+      find_type: $id
+      operate_type: click
+      info: 点击'我'按钮
+
+    - element_info: $setting_btn
+      find_type: $id
+      operate_type: click
+      info: 点击'设置'按钮
+
+    - element_info: $privac_set
+      find_type: $text
+      operate_type: click
+      info: 打开'私信权限'设置
+
+    - element_info: $focus_me
+      find_type: $text
+      operate_type: click
+      info: 点击'我关注的人'
+
+    - element_info: $rec_back
+      find_type: $id
+      operate_type: click
+      info: 返回设置页
+
+    - element_info: $block_list
+      find_type: $text
+      operate_type: click
+      info: 点击'黑名单'
+
+    - element_info: $block_list
+      find_type: $text
+      operate_type: click
+      info: 点击'黑名单'
+
+    - element_info: $block_remove
+      find_type: $text
+      operate_type: ignore
+      info: 移除一个用户
+
+    - element_info: $rec_back
+      find_type: $id
+      operate_type: click
+      info: 返回设置页
+
+    - element_info: $privacy_disable
+      find_type: $id
+      operate_type: click
+      info: 关闭隐私账号设置
+
+    - element_info: $watermark_enable
+      find_type: $id
+      operate_type: click
+      info: 水印显示昵称
+check:
+    - element_info: $watermark_enable
+      find_type: $id
+      check: default_check
+      info: 设置-隐私设置相关测试验证OK

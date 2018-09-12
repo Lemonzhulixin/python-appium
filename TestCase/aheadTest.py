@@ -1,7 +1,7 @@
 from Base.BaseRunner import ParametrizedTestCase
 import os
 import sys
-from PageObject.Home.PageOperate import PageOperate
+from PageObject.Operate.PageOperate import PageOperate
 from Base.BaseReplace import ReplaceYaml
 
 
@@ -13,7 +13,7 @@ tc_temp = PATH("../yamls/temp.yaml")
 el_android = PATH("../yamls/el_android.yaml")
 el_iOS = PATH("../yamls/el_iOS.yaml")
 
-class PrivacySetTest(ParametrizedTestCase):
+class PrivacySet(ParametrizedTestCase):
 
     def repalce(self, tc, tc_temp):
         if self.platformName == 'android':
@@ -33,8 +33,8 @@ class PrivacySetTest(ParametrizedTestCase):
 
     @classmethod
     def setUpClass(cls):
-        super(PrivacySetTest, cls).setUpClass()
+        super(PrivacySet, cls).setUpClass()
 
     @classmethod
     def tearDownClass(cls):
-        super(PrivacySetTest, cls).tearDownClass()
+        super(PrivacySet, cls).tearDownClass()

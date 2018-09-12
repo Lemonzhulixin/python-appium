@@ -1,60 +1,50 @@
 testinfo:
-    - id: test_gallery_img
-      title: 相册-图片操作
-      info: 图片相关操作测试
+    - id: test_settings_comm
+      title: 设置-基本设置相关
+      info: 设置-基本设置相关测试
 testcase:
-    - element_info: $el_center
+    - element_info: $el_personal
       find_type: $id
       operate_type: click
-      info: 点击创作中心主按钮
+      info: 点击'我'按钮
 
-    - element_info: $el_home_edit
+    - element_info: $setting_btn
       find_type: $id
       operate_type: click
-      info: 点击'剪辑'
+      info: 点击'设置'按钮
 
-    - element_info: $gal_video_tab
+    - element_info: $net_disable
+      find_type: $id
+      operate_type: click
+      info: 关闭'只在Wi-Fi上传/下载'
+
+    - element_info: $rec_notice
       find_type: $text
       operate_type: click
-      info: 点击'视频'
+      info: 点击'接收通知推送'
 
-    - element_info: $gal_img_tab
+    - element_info: $rec_checkbox
+      find_type: $id
+      operate_type: click
+      info: 任意关闭一个通知推送设置
+
+    - element_info: $rec_back
+      find_type: $id
+      operate_type: click
+      info: 返回设置页
+
+    - element_info: $rec_lang
       find_type: $text
       operate_type: click
-      info: 点击'图片'
+      info: 点击'已选择语言'
 
-    - element_info: $gal_cover_cho
+    - element_info: $lang_back
       find_type: $id
       operate_type: click
-      info: 选择一张'图片'
-
-    - element_info: $gal_img_full
-      find_type: $id
-      operate_type: click
-      info: 选择一张'图片'全屏
-
-    - element_info: $gal_ratate
-      find_type: $id
-      operate_type: click
-      info: 旋转'图片'
-
-    - element_info: $gal_img_add
-      find_type: $id
-      operate_type: click
-      info: 添加'图片'
-
-    - element_info: $gal_next
-      find_type: $text
-      operate_type: click
-      info: 下一步
-
-    - element_info: $save_draft
-      find_type: $text
-      operate_type: click
-      info: 存草稿
+      info: 返回设置页
 
 check:
-    - element_info: $text_studio
+    - element_info: $privac_set
       find_type: $text
       check: default_check
-      info: 图片相关操作测试验证OK
+      info: 设置-基本设置相关测试验证OK

@@ -1,5 +1,5 @@
 testinfo:
-    - id: test_gallery_img
+    - id: test_settings_comm.yaml
       title: 相册及camera授权
       info: 存储/录制授权
 testcase:
@@ -9,12 +9,12 @@ testcase:
       info: 授权存储
 
     - element_info: $el_allow
-      find_type: $id
+      find_type: $text
       operate_type: click
       info: 授权相册
 
     - element_info: $el_allow
-      find_type: $id
+      find_type: $text
       operate_type: click
       info: 授权其他
 
@@ -53,28 +53,28 @@ testcase:
       operate_type: click
       info: 点击'拍摄'
 
-    - element_info: $el_allow2
-      find_type: text
+    - element_info: $el_allow1
+      find_type: $text
       operate_type: click
       info: 授权麦克风
 
     - element_info: $el_allow
-      find_type: text
+      find_type: $text
       operate_type: click
       info: 授权录制
 
     - element_info: $el_allow
-      find_type: text
+      find_type: $text
       operate_type: click
       info: 授权录制
 
 check:
-    - element_info: $el_o_album
-      find_type: text
+    - element_info: $gal_o_album
+      find_type: $text
       check: default_check
       info: 进入'test_gallery'页面成功
 
     - element_info: $nor_cam
-      find_type: text
+      find_type: $text
       check: default_check
       info: 进入'Camera'页面成功

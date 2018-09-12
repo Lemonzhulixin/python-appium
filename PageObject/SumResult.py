@@ -20,7 +20,7 @@ def statistics_result(**kwargs):
     elif kwargs["platformName"] == 'iOS':
         print('Device:', kwargs["devices"])
         get_phone = get_ios_PhoneInfo(kwargs["devices"])
-        phone_name = get_phone["device"] + "_" + get_phone["release"] + "_" + "iOS" + "_" + get_phone["udid"]
+        phone_name = get_phone["device"] + "_" + get_phone["release"] + "_" + "iOS" + "_" + get_phone["duid"]
 
         countInfo(result=kwargs["result"], testInfo=kwargs["testInfo"], caseName=kwargs["caseName"],
                   phoneName=phone_name,
