@@ -90,6 +90,8 @@ class OperateElement:
                 be.SWIPE_RIGHT: lambda: self.swipeToRight(),
                 be.SWIPE_LEFT: lambda: self.swipeToLeft(operate.get("element_info")),
                 be.CLICK: lambda: self.click(operate),
+                be.IGNORE: lambda: self.ignore(operate),
+                be.REPEAT: lambda: self.repeat(operate),
                 be.SCREEN_TAP:lambda: self.screen_tap(200,200),
                 be.GET_VALUE: lambda: self.get_value(operate),
                 be.SET_VALUE: lambda: self.set_value(operate),
@@ -152,6 +154,24 @@ class OperateElement:
         elif mOperate.get("find_type") == be.find_elements_by_id or mOperate.get("find_type") == be.find_elements_by_xpath:
             self.elements_by(mOperate)[mOperate["index"]].click()
         return {"result": True}
+
+    # 忽略不存在的元素
+    def ignore(self, mOperate):
+        if self.click(mOperate):
+            pass
+        else:
+            pass
+        return {"result": True}
+
+    # 重复执行多次操作，默认三次
+    def repeat(self, mOperate):
+        try:
+            for i in range(3):
+                self.click(mOperate)
+            return {"result": True}
+        except:
+            print('操作失败了，请重试该操作')
+            return {"result": False}
 
     # code 事件
     def press_keycode(self, mOperate):

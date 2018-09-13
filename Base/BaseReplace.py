@@ -77,8 +77,8 @@ def ReplaceYaml(yaml, newyaml, el_lists):
 
 
 if __name__ == "__main__":
-    yaml = PATH("../yamls/home/secondOpen.yaml")
-    newyaml = PATH("../yamls/home/new.yaml")
+    yaml = PATH("../yamls/test_home/secondOpen.yaml")
+    newyaml = PATH("../yamls/test_home/new.yaml")
     el_lists = PATH("../yamls/el_android.yaml")
 
     ReplaceYaml(yaml, newyaml, el_lists)

@@ -10,9 +10,9 @@ PATH = lambda p: os.path.abspath(
 )
 
 class iOSLog:
-    def __init__(self, udid):
-        get_phone = get_ios_PhoneInfo(udid)
-        phone_name = get_phone["device"] + "_" + get_phone["release"] + "_" + "iOS" + "_" + get_phone["udid"]
+    def __init__(self, duid):
+        get_phone = get_ios_PhoneInfo(duid)
+        phone_name = get_phone["device"] + "_" + get_phone["release"] + "_" + "iOS" + "_" + get_phone["duid"]
         global logger, resultPath, logPath
         resultPath = PATH("../Log/")
         logPath = os.path.join(resultPath, (phone_name + "_" + time.strftime('%Y%m%d%H%M%S', time.localtime())))
@@ -36,7 +36,7 @@ class iOSLog:
         if not os.path.exists(crashPath):
             os.makedirs(crashPath)
         syslog_path = os.path.join(crashPath, "syslog.log")
-        sys_cmd = 'idevicesyslog -u ' + get_phone["udid"] + " |grep 'XiaoYing' > %s" % (syslog_path)
+        sys_cmd = 'idevicesyslog -u ' + get_phone["duid"] + " |grep 'XiaoYing' > %s" % (syslog_path)
         os.popen(sys_cmd)
 
     def getMyLogger(self):
@@ -166,10 +166,10 @@ class myIosLog:
         pass
 
     @staticmethod
-    def getLog(udid):
+    def getLog(duid):
         if myIosLog.log is None:
             myIosLog.mutex.acquire()
-            myIosLog.log = iOSLog(udid)
+            myIosLog.log = iOSLog(duid)
             myIosLog.mutex.release()
         return myIosLog.log
 
