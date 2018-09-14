@@ -61,4 +61,4 @@ check:
     - element_info: $watermark_enable
       find_type: $id
       check: default_check
-      info: 设置-隐私设置相关测试验证OK
+      info: 设置-隐私设置相关测试验证

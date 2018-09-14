@@ -47,4 +47,4 @@ check:
     - element_info: $privac_set
       find_type: $text
       check: default_check
-      info: 设置-基本设置相关测试验证OK
+      info: 设置-基本设置相关测试验证

@@ -1,5 +1,5 @@
 testinfo:
-    - id: test_gallery_img
+    - id: test_gallery_001
       title: 相册-图片操作
       info: 图片相关操作测试
 testcase:
@@ -53,8 +53,13 @@ testcase:
       operate_type: click
       info: 存草稿
 
+    - element_info: $draft_back
+      find_type: $id
+      operate_type: click
+      info: 返回首页
+
 check:
-    - element_info: $text_studio
+    - element_info: $more_draft
       find_type: $text
       check: default_check
-      info: 图片相关操作测试验证OK
+      info: 验证'保存'草稿返回首页
