@@ -31,6 +31,16 @@ class PrivacySet(ParametrizedTestCase):
         page.operate()
         page.checkPoint()
 
+    def test_login(self):
+        tc = PATH("../yamls/test_ahead/test_login.yaml")
+        self.repalce(tc, tc_temp)
+        app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
+               "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
+
+        page = PageOperate(app)
+        page.operate()
+        page.checkPoint()
+
     @classmethod
     def setUpClass(cls):
         super(PrivacySet, cls).setUpClass()

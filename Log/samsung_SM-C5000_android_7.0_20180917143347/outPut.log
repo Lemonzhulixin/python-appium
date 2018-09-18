@@ -1,0 +1,100 @@
+2018-09-17 14:33:59,492  - INFO - ----  test_home_001_登录测试_com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive_click          ----
+2018-09-17 14:34:01,306  - INFO - ----  test_home_001_登录测试_text("总是允许")_click          ----
+2018-09-17 14:34:03,206  - INFO - ----  test_home_001_登录测试_text("总是允许")_click          ----
+2018-09-17 14:34:11,699  - INFO - ----  test_home_001_登录测试_com.quvideo.xiaoying:id/wel_skip_click          ----
+2018-09-17 14:34:16,642  - INFO - ----  test_home_001_登录测试_com.quvideo.xiaoying:id/img_studio_click          ----
+2018-09-17 14:34:57,534  - INFO - ----  test_home_001_登录测试_text("注册/登录")_click          ----
+2018-09-17 14:35:39,845  - INFO - ----  test_home_001_登录测试_com.quvideo.xiaoying:id/tv_login_qq_text_click          ----
+2018-09-17 14:35:45,058  - INFO - ----  test_home_001_登录测试_text("登录")_click          ----
+2018-09-17 14:35:52,309  - INFO - ----  test_home_001_登录测试_text("编辑资料")_           ----
+2018-09-17 14:35:52,386  - INFO - [CheckPoint_1]: test_login_ : OK
+2018-09-17 14:36:08,856  - INFO - ----  test_home_001_相册及camera授权_com.quvideo.xiaoying:id/img_creation_click          ----
+2018-09-17 14:36:10,802  - INFO - ----  test_home_001_相册及camera授权_com.quvideo.xiaoying:id/icon1_click          ----
+2018-09-17 14:36:21,501  - INFO - ----  test_privacy_失败重连        ----
+2018-09-17 14:36:36,254  - INFO - ----  test_home_001_相册及camera授权_com.quvideo.xiaoying:id/img_creation_click          ----
+2018-09-17 14:36:37,675  - INFO - ----  test_home_001_相册及camera授权_com.quvideo.xiaoying:id/icon1_click          ----
+2018-09-17 14:36:48,107  - INFO - [CheckPoint_2]: test_privacy_用例失败并重连过一次，失败原因:执行失败，请检查该元素是否存在:text("跳过"), 
+执行失败，请检查该元素是否存在:text("跳过"), : NG
+2018-09-17 14:37:58,931  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/img_creation_click          ----
+2018-09-17 14:38:00,513  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/icon1_click          ----
+2018-09-17 14:38:03,031  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/img_icon_click          ----
+2018-09-17 14:38:04,484  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/imgbtn_import_click          ----
+2018-09-17 14:38:07,165  - INFO - ----  test_gallery_004_相册-放弃操作_text("视频")_click          ----
+2018-09-17 14:38:08,089  - INFO - ----  test_gallery_004_相册-放弃操作_text("图片")_click          ----
+2018-09-17 14:38:09,447  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/img_icon_repeat          ----
+2018-09-17 14:38:11,483  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/xiaoying_com_btn_left_click          ----
+2018-09-17 14:38:13,187  - INFO - ----  test_gallery_004_相册-放弃操作_text("丢弃")_click          ----
+2018-09-17 14:38:25,129  - INFO - ----  test_gallery_giveup_失败重连        ----
+2018-09-17 14:38:40,618  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/img_creation_click          ----
+2018-09-17 14:38:42,379  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/icon1_click          ----
+2018-09-17 14:38:44,653  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/img_icon_click          ----
+2018-09-17 14:38:46,402  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/imgbtn_import_click          ----
+2018-09-17 14:38:48,182  - INFO - ----  test_gallery_004_相册-放弃操作_text("视频")_click          ----
+2018-09-17 14:38:51,471  - INFO - ----  test_gallery_004_相册-放弃操作_text("图片")_click          ----
+2018-09-17 14:38:54,778  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/img_icon_repeat          ----
+2018-09-17 14:38:56,443  - INFO - ----  test_gallery_004_相册-放弃操作_com.quvideo.xiaoying:id/xiaoying_com_btn_left_click          ----
+2018-09-17 14:38:58,176  - INFO - ----  test_gallery_004_相册-放弃操作_text("丢弃")_click          ----
+2018-09-17 14:39:11,017  - INFO - [CheckPoint_3]: test_gallery_giveup_用例失败并重连过一次，失败原因:==检查点_验证放弃'保存'草稿返回首页失败，请检查_text("更多草稿")==
+==检查点_验证放弃'保存'草稿返回首页失败，请检查_text("更多草稿")==: NG
+2018-09-17 14:39:33,183  - INFO - ----  test_gallery_001_相册-图片操作_com.quvideo.xiaoying:id/img_creation_click          ----
+2018-09-17 14:39:34,458  - INFO - ----  test_gallery_001_相册-图片操作_com.quvideo.xiaoying:id/icon1_click          ----
+2018-09-17 14:39:36,765  - INFO - ----  test_gallery_001_相册-图片操作_text("视频")_click          ----
+2018-09-17 14:39:37,683  - INFO - ----  test_gallery_001_相册-图片操作_text("图片")_click          ----
+2018-09-17 14:39:38,914  - INFO - ----  test_gallery_001_相册-图片操作_com.quvideo.xiaoying:id/img_icon_click          ----
+2018-09-17 14:39:39,184  - INFO - ----  test_gallery_001_相册-图片操作_com.quvideo.xiaoying:id/xiaoying_gallery_preview_layout_click          ----
+2018-09-17 14:39:41,096  - INFO - ----  test_gallery_001_相册-图片操作_com.quvideo.xiaoying:id/imgbtn_ratate_click          ----
+2018-09-17 14:39:41,253  - INFO - ----  test_gallery_001_相册-图片操作_com.quvideo.xiaoying:id/btn_confirm_click          ----
+2018-09-17 14:39:44,435  - INFO - ----  test_gallery_001_相册-图片操作_text("下一步")_click          ----
+2018-09-17 14:39:47,473  - INFO - ----  test_gallery_001_相册-图片操作_text("存草稿")_click          ----
+2018-09-17 14:39:49,904  - INFO - ----  test_gallery_001_相册-图片操作_com.quvideo.xiaoying:id/xiaoying_com_btn_left_click          ----
+2018-09-17 14:39:51,411  - INFO - ----  test_gallery_001_相册-图片操作_text("更多草稿")_           ----
+2018-09-17 14:39:51,475  - INFO - [CheckPoint_4]: test_gallery_img_ : OK
+2018-09-17 14:40:07,042  - INFO - ----  test_gallery_003_相册-storyboard_com.quvideo.xiaoying:id/img_creation_click          ----
+2018-09-17 14:40:08,782  - INFO - ----  test_gallery_003_相册-storyboard_com.quvideo.xiaoying:id/icon1_click          ----
+2018-09-17 14:40:11,056  - INFO - ----  test_gallery_003_相册-storyboard_com.quvideo.xiaoying:id/img_icon_click          ----
+2018-09-17 14:40:12,316  - INFO - ----  test_gallery_003_相册-storyboard_com.quvideo.xiaoying:id/imgbtn_import_click          ----
+2018-09-17 14:40:14,536  - INFO - ----  test_gallery_003_相册-storyboard_text("视频")_click          ----
+2018-09-17 14:40:17,816  - INFO - ----  test_gallery_003_相册-storyboard_text("图片")_click          ----
+2018-09-17 14:40:19,077  - INFO - ----  test_gallery_003_相册-storyboard_com.quvideo.xiaoying:id/img_icon_repeat          ----
+2018-09-17 14:40:20,799  - INFO - ----  test_gallery_003_相册-storyboard_com.quvideo.xiaoying:id/btn_expand_click          ----
+2018-09-17 14:40:21,502  - INFO - ----  test_gallery_003_相册-storyboard_com.quvideo.xiaoying:id/icon_click          ----
+2018-09-17 14:40:22,994  - INFO - ----  test_gallery_003_相册-storyboard_text("下一步")_click          ----
+2018-09-17 14:40:26,301  - INFO - ----  test_gallery_003_相册-storyboard_text("存草稿")_click          ----
+2018-09-17 14:40:28,237  - INFO - ----  test_gallery_003_相册-storyboard_com.quvideo.xiaoying:id/xiaoying_com_btn_left_click          ----
+2018-09-17 14:40:29,763  - INFO - ----  test_gallery_003_相册-storyboard_text("更多草稿")_           ----
+2018-09-17 14:40:29,830  - INFO - [CheckPoint_5]: test_gallery_storyboard_ : OK
+2018-09-17 14:40:45,579  - INFO - ----  test_gallery_002_相册-视频操作_com.quvideo.xiaoying:id/img_creation_click          ----
+2018-09-17 14:40:47,296  - INFO - ----  test_gallery_002_相册-视频操作_com.quvideo.xiaoying:id/icon1_click          ----
+2018-09-17 14:40:49,607  - INFO - ----  test_gallery_002_相册-视频操作_com.quvideo.xiaoying:id/img_icon_click          ----
+2018-09-17 14:40:51,347  - INFO - ----  test_gallery_002_相册-视频操作_com.quvideo.xiaoying:id/imgbtn_ratate_click          ----
+2018-09-17 14:40:51,523  - INFO - ----  test_gallery_002_相册-视频操作_com.quvideo.xiaoying:id/imgbtn_crop_ignore          ----
+2018-09-17 14:40:52,418  - INFO - ----  test_gallery_002_相册-视频操作_com.quvideo.xiaoying:id/btn_start_trim_click          ----
+2018-09-17 14:40:53,357  - INFO - ----  test_gallery_002_相册-视频操作_com.quvideo.xiaoying:id/imgbtn_import_click          ----
+2018-09-17 14:40:55,967  - INFO - ----  test_gallery_002_相册-视频操作_text("下一步")_click          ----
+2018-09-17 14:40:58,759  - INFO - ----  test_gallery_002_相册-视频操作_text("存草稿")_click          ----
+2018-09-17 14:41:01,331  - INFO - ----  test_gallery_002_相册-视频操作_com.quvideo.xiaoying:id/xiaoying_com_btn_left_click          ----
+2018-09-17 14:41:02,853  - INFO - ----  test_gallery_002_相册-视频操作_text("更多草稿")_           ----
+2018-09-17 14:41:02,917  - INFO - [CheckPoint_6]: test_gallery_video_ : OK
+2018-09-17 14:42:06,929  - INFO - ----  test_settings_001_设置-基本设置相关_com.quvideo.xiaoying:id/img_studio_click          ----
+2018-09-17 14:42:09,864  - INFO - ----  test_settings_001_设置-基本设置相关_com.quvideo.xiaoying:id/btn_setting_click          ----
+2018-09-17 14:42:12,070  - INFO - ----  test_settings_001_设置-基本设置相关_com.quvideo.xiaoying:id/setting_network_wifi_checkbox_click          ----
+2018-09-17 14:42:13,276  - INFO - ----  test_settings_001_设置-基本设置相关_text("确认")_click          ----
+2018-09-17 14:42:16,558  - INFO - ----  test_settings_001_设置-基本设置相关_text("接收通知推送")_click          ----
+2018-09-17 14:42:18,229  - INFO - ----  test_settings_001_设置-基本设置相关_android:id/checkbox_click          ----
+2018-09-17 14:42:18,462  - INFO - ----  test_settings_001_设置-基本设置相关_com.quvideo.xiaoying:id/img_back_click          ----
+2018-09-17 14:42:20,326  - INFO - ----  test_settings_001_设置-基本设置相关_text("已选择语言")_click          ----
+2018-09-17 14:42:22,050  - INFO - ----  test_settings_001_设置-基本设置相关_com.quvideo.xiaoying:id/choose_language_back_click          ----
+2018-09-17 14:42:23,495  - INFO - ----  test_settings_001_设置-基本设置相关_text("私信权限")_           ----
+2018-09-17 14:42:23,555  - INFO - [CheckPoint_7]: test_settings_comm_ : OK
+2018-09-17 14:42:41,313  - INFO - ----  test_settings_002_设置-隐私设置相关_com.quvideo.xiaoying:id/img_studio_click          ----
+2018-09-17 14:42:42,514  - INFO - ----  test_settings_002_设置-隐私设置相关_com.quvideo.xiaoying:id/btn_setting_click          ----
+2018-09-17 14:42:44,822  - INFO - ----  test_settings_002_设置-隐私设置相关_text("私信权限")_click          ----
+2018-09-17 14:42:46,380  - INFO - ----  test_settings_002_设置-隐私设置相关_text("我关注的人")_click          ----
+2018-09-17 14:42:47,114  - INFO - ----  test_settings_002_设置-隐私设置相关_com.quvideo.xiaoying:id/img_back_click          ----
+2018-09-17 14:42:48,562  - INFO - ----  test_settings_002_设置-隐私设置相关_text("黑名单")_click          ----
+2018-09-17 14:42:50,160  - INFO - ----  test_settings_002_设置-隐私设置相关_text("移除")_ignore          ----
+2018-09-17 14:42:51,202  - INFO - ----  test_settings_002_设置-隐私设置相关_com.quvideo.xiaoying:id/img_back_click          ----
+2018-09-17 14:42:52,633  - INFO - ----  test_settings_002_设置-隐私设置相关_com.quvideo.xiaoying:id/setting_privacy_checkbox_click          ----
+2018-09-17 14:42:53,296  - INFO - ----  test_settings_002_设置-隐私设置相关_com.quvideo.xiaoying:id/setting_watermark_show_checkbox_click          ----
+2018-09-17 14:42:53,878  - INFO - ----  test_settings_002_设置-隐私设置相关_com.quvideo.xiaoying:id/setting_watermark_show_checkbox_           ----
+2018-09-17 14:42:53,945  - INFO - [CheckPoint_8]: test_settings_privacy_ : OK

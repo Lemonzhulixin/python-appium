@@ -41,15 +41,15 @@ class SetttingsTest(ParametrizedTestCase):
         page.operate()
         page.checkPoint()
 
-    # def test_settings_feedback(self):
-    #     tc = PATH("../yamls/test_settings/test_settings_feedback.yaml")
-    #     self.repalce(tc, tc_temp)
-    #     app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
-    #            "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
-    #
-    #     page = PageOperate(app)
-    #     page.operate()
-    #     page.checkPoint()
+    def test_settings_feedback(self):
+        tc = PATH("../yamls/test_settings/test_settings_feedback.yaml")
+        self.repalce(tc, tc_temp)
+        app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
+               "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
+
+        page = PageOperate(app)
+        page.operate()
+        page.checkPoint()
 
     @classmethod
     def setUpClass(cls):

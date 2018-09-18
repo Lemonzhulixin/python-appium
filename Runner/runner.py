@@ -65,7 +65,7 @@ def runnerCaseApp(devices):
     starttime = datetime.now()
     suite = unittest.TestSuite()
     suite.addTest(ParametrizedTestCase.parametrize(PrivacySet, param=devices))#加入测试类
-    suite.addTest(ParametrizedTestCase.parametrize(GalleryTest, param=devices))
+    # suite.addTest(ParametrizedTestCase.parametrize(GalleryTest, param=devices))
     suite.addTest(ParametrizedTestCase.parametrize(SetttingsTest, param=devices))
     unittest.TextTestRunner(verbosity=2).run(suite)
     endtime = datetime.now()
@@ -99,11 +99,11 @@ if __name__ == '__main__':
         #删除temp文件
         remove_file(PATH("../yamls/temp.yaml"))
 
-        #log路径及解析
-        path = PATH("../Log/CrashInfo/Android/")
-        count = getCrashText().Count_crash(path)
-        print('crashlog解析完成，crash次数: %d' % count)
-        #中断logcat
-        # kill_adb()
+        # #log路径及解析
+        # path = PATH("../Log/CrashInfo/Android/")
+        # count = getCrashText().Count_crash(path)
+        # print('crashlog解析完成，crash次数: %d' % count)
+        # #中断logcat
+        # # kill_adb()
     else:
         print("没有可用的安卓设备")

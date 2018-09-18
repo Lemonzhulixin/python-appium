@@ -1,0 +1,114 @@
+=========================crash=========================
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: Process: com.quvideo.xiaoying, PID: 7638
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: java.lang.NullPointerException: Attempt to read from field 'int com.quvideo.xiaoying.datacenter.social.publish.PublishTaskInfo.step' on a null object reference
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.d.a.aI(SourceFile:67)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.d.a.aK(SourceFile:123)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.d.a.a(SourceFile:151)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.SocialPublishBaseActivity.da(SourceFile:1531)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.SocialPublishBaseActivity.aaM(SourceFile:1565)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.c.b$1.acg(SourceFile:312)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.videoeditor.j.a.a$4.m(SourceFile:650)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.ui.dialog.c.onClick(SourceFile:165)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.view.View.performClick(View.java:6291)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.view.View$PerformClick.run(View.java:24931)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.os.Handler.handleCallback(Handler.java:808)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:101)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:166)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:7425)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:245)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:921)
+06-20 13:41:06.367   732   732 E wificond: Failed to get NL80211_RATE_INFO_NOISE
+06-20 13:41:06.367   732   732 E wificond: Failed to get NL80211_RATE_INFO_SNR
+06-20 13:41:06.367   732   732 E wificond: Failed to get NL80211_STA_INFO_CNAHLOAD
+06-20 13:41:07.841  1157  1174 I chatty  : uid=1000(system) android.ui expire 3 lines
+06-20 13:41:07.851  1448  1780 I HwNetworkPolicyManager: getHwUidPolicy uid = 10063 policy = 0
+06-20 13:41:07.878  1157  2823 I chatty  : uid=1000(system) Binder:1157_F expire 1 line
+06-20 13:41:07.879  1157  1350 I chatty  : uid=1000(system) ConnectivitySer expire 14 lines
+06-20 13:41:07.879  1157  8282 I chatty  : uid=1000(system) Binder:1157_1B expire 10 lines
+06-20 13:41:07.893  1157  8281 I chatty  : uid=1000(system) Binder:1157_1A expire 12 lines
+06-20 13:41:07.900 17940 17940 I ActivityThread: Removing dead content provider:android.content.ContentProviderProxy@b3b0cdb
+06-20 13:41:07.911  1157 14597 I chatty  : uid=1000(system) Binder:1157_1F expire 9 lines
+06-20 13:41:07.936  1157  1167 I chatty  : uid=1000(system) Binder:1157_1 expire 14 lines
+=========================crash=========================
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: Process: com.quvideo.xiaoying, PID: 7638
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: java.lang.NullPointerException: Attempt to read from field 'int com.quvideo.xiaoying.datacenter.social.publish.PublishTaskInfo.step' on a null object reference
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.d.a.aI(SourceFile:67)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.d.a.aK(SourceFile:123)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.d.a.a(SourceFile:151)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.SocialPublishBaseActivity.da(SourceFile:1531)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.SocialPublishBaseActivity.aaM(SourceFile:1565)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.c.b$1.acg(SourceFile:312)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.videoeditor.j.a.a$4.m(SourceFile:650)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.ui.dialog.c.onClick(SourceFile:165)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.view.View.performClick(View.java:6291)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.view.View$PerformClick.run(View.java:24931)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.os.Handler.handleCallback(Handler.java:808)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:101)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:166)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:7425)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:245)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:921)
+06-20 13:41:06.367   732   732 E wificond: Failed to get NL80211_RATE_INFO_NOISE
+06-20 13:41:06.367   732   732 E wificond: Failed to get NL80211_RATE_INFO_SNR
+06-20 13:41:06.367   732   732 E wificond: Failed to get NL80211_STA_INFO_CNAHLOAD
+06-20 13:41:07.841  1157  1174 I chatty  : uid=1000(system) android.ui expire 3 lines
+06-20 13:41:07.851  1448  1780 I HwNetworkPolicyManager: getHwUidPolicy uid = 10063 policy = 0
+06-20 13:41:07.878  1157  2823 I chatty  : uid=1000(system) Binder:1157_F expire 1 line
+06-20 13:41:07.879  1157  1350 I chatty  : uid=1000(system) ConnectivitySer expire 14 lines
+06-20 13:41:07.879  1157  8282 I chatty  : uid=1000(system) Binder:1157_1B expire 10 lines
+06-20 13:41:07.893  1157  8281 I chatty  : uid=1000(system) Binder:1157_1A expire 12 lines
+06-20 13:41:07.900 17940 17940 I ActivityThread: Removing dead content provider:android.content.ContentProviderProxy@b3b0cdb
+06-20 13:41:07.911  1157 14597 I chatty  : uid=1000(system) Binder:1157_1F expire 9 lines
+06-20 13:41:07.936  1157  1167 I chatty  : uid=1000(system) Binder:1157_1 expire 14 lines
+06-20 13:41:59.005   727 10955 W HwExtendedUtils: hw configLocalPlayBack err = -1010
+06-20 13:41:59.006   734  6855 W imgvideo-omx: Extension index OMX.Hisi.Para.Index.processNameParams not found
+06-20 13:41:59.006   734  6855 E imgvideo-omx: IMG_OMD_GetExtensionIndex FAILED: Index Not Found.
+06-20 13:41:59.006   727 10955 I HwExtendedCodec: mime is [video/avc] at setVideoFormat
+06-20 13:41:59.007   734  6855 E imgvideo-omx: IMG_OMD_GetParameter FAILED: Unknown ColorFormat
+06-20 13:41:59.007   734  6855 E OMXNodeInstance: getParameter(0xeae246a0:IMG.MSVDX.Decoder.AVC, ??(0x7f000008)) ERROR: UnsupportedSetting(0x80001019)
+06-20 13:41:59.007   727 10955 W OMXUtils: do not know color format 0x2f = 47
+06-20 13:41:59.008   734  6855 E imgvideo-omx: IMG_OMD_GetParameter FAILED: Unknown ColorFormat
+=========================crash=========================
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: Process: com.quvideo.xiaoying, PID: 7638
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: java.lang.NullPointerException: Attempt to read from field 'int com.quvideo.xiaoying.datacenter.social.publish.PublishTaskInfo.step' on a null object reference
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.d.a.aI(SourceFile:67)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.d.a.aK(SourceFile:123)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.d.a.a(SourceFile:151)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.SocialPublishBaseActivity.da(SourceFile:1531)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.SocialPublishBaseActivity.aaM(SourceFile:1565)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.app.publish.c.b$1.acg(SourceFile:312)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.videoeditor.j.a.a$4.m(SourceFile:650)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.quvideo.xiaoying.ui.dialog.c.onClick(SourceFile:165)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.view.View.performClick(View.java:6291)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.view.View$PerformClick.run(View.java:24931)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.os.Handler.handleCallback(Handler.java:808)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.os.Handler.dispatchMessage(Handler.java:101)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.os.Looper.loop(Looper.java:166)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at android.app.ActivityThread.main(ActivityThread.java:7425)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at java.lang.reflect.Method.invoke(Native Method)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.android.internal.os.Zygote$MethodAndArgsCaller.run(Zygote.java:245)
+06-20 13:41:06.165  7638  7638 E AndroidRuntime: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:921)
+06-20 13:41:06.367   732   732 E wificond: Failed to get NL80211_RATE_INFO_NOISE
+06-20 13:41:06.367   732   732 E wificond: Failed to get NL80211_RATE_INFO_SNR
+06-20 13:41:06.367   732   732 E wificond: Failed to get NL80211_STA_INFO_CNAHLOAD
+06-20 13:41:07.841  1157  1174 I chatty  : uid=1000(system) android.ui expire 3 lines
+06-20 13:41:07.851  1448  1780 I HwNetworkPolicyManager: getHwUidPolicy uid = 10063 policy = 0
+06-20 13:41:07.878  1157  2823 I chatty  : uid=1000(system) Binder:1157_F expire 1 line
+06-20 13:41:07.879  1157  1350 I chatty  : uid=1000(system) ConnectivitySer expire 14 lines
+06-20 13:41:07.879  1157  8282 I chatty  : uid=1000(system) Binder:1157_1B expire 10 lines
+06-20 13:41:07.893  1157  8281 I chatty  : uid=1000(system) Binder:1157_1A expire 12 lines
+06-20 13:41:07.900 17940 17940 I ActivityThread: Removing dead content provider:android.content.ContentProviderProxy@b3b0cdb
+06-20 13:41:07.911  1157 14597 I chatty  : uid=1000(system) Binder:1157_1F expire 9 lines
+06-20 13:41:07.936  1157  1167 I chatty  : uid=1000(system) Binder:1157_1 expire 14 lines
+06-20 13:42:01.233  1157  1279 V WindowManager: postWindowRemoveCleanupLocked: Window{239573c u0 Toast}
+06-20 13:42:01.233  1157  1279 V WindowManager: Removing Window{239573c u0 Toast} from WindowToken{f669cc5 android.os.Binder@2a010c2}
+06-20 13:42:01.292   626   626 I chatty  : uid=1000(system) sensors@1.0-ser expire 13 lines
+06-20 13:42:01.312 19589 19589 D Gallery2_MediaSync: [onStartCommand] start to sync.
+06-20 13:42:01.312 19589 19589 D CloudLocalSyncService: --schedule-- start local sync
+06-20 13:42:01.312 19589 19589 D CloudLocalSyncService: --schedule-- stop child service
+06-20 13:42:01.313 19589 19589 D Gallery2_Search: stop search servcie
+06-20 13:42:01.329 19589 10966 D Gallery2_Common_GalleryProvider: sync uri: content://com.huawei.gallery.provider/none/sycnner/1
+06-20 13:42:01.334 19589 10966 D Gallery2_MediaSync_LocalSyncToken: no data need delete
+06-20 13:42:01.334 19589 10966 D Gallery2_MediaSync_LocalSyncToken: privilege buckets -1739773001 , 0 , 1028075469, 0

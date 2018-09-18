@@ -93,7 +93,7 @@ class OperateElement:
                 be.IGNORE: lambda: self.ignore(operate),
                 be.REPEAT: lambda: self.repeat(operate),
                 be.SCREEN_TAP:lambda: self.screen_tap(200,200),
-                be.GET_VALUE: lambda: self.get_value(operate),
+                # be.GET_VALUE: lambda: self.get_value(operate),
                 be.SET_VALUE: lambda: self.set_value(operate),
                 be.ADB_TAP: lambda: self.adb_tap(operate, device),
                 be.GET_CONTENT_DESC: lambda: self.get_content_desc(operate),
@@ -374,33 +374,34 @@ class OperateElement:
         :param mOperate:
         :return:
         """
+        self.elements_by(mOperate).clear()
         self.elements_by(mOperate).send_keys(mOperate["msg"])
         return {"result": True}
 
-    def get_value(self, mOperate):
-        '''
-        读取element的值,支持webview下获取值
-        :param mOperate:
-        :return:
-        '''
-
-        if mOperate.get("find_type") == be.find_elements_by_id:
-            element_info = self.elements_by(mOperate)[mOperate["index"]]
-            if mOperate.get("is_webview", "0") == 1:
-                result = element_info.text
-            else:
-                result = element_info.get_attribute("text")
-            re_reulst = re.findall(r'[a-zA-Z\d+\u4e00-\u9fa5]', result)  # 只匹配中文，大小写，字母
-            return {"result": True, "text": "".join(re_reulst)}
-
-        element_info = self.elements_by(mOperate)
-        if mOperate.get("is_webview", "0") == 1:
-            result = element_info.text
-        else:
-            result = element_info.get_attribute("text")
-
-        re_reulst = re.findall(r'[a-zA-Z\d+\u4e00-\u9fa5]', result)
-        return {"result": True, "text": "".join(re_reulst)}
+    # def get_value(self, mOperate):
+    #     '''
+    #     读取element的值,支持webview下获取值
+    #     :param mOperate:
+    #     :return:
+    #     '''
+    #
+    #     if mOperate.get("find_type") == be.find_elements_by_id:
+    #         element_info = self.elements_by(mOperate)[mOperate["index"]]
+    #         if mOperate.get("is_webview", "0") == 1:
+    #             result = element_info.text
+    #         else:
+    #             result = element_info.get_attribute("text")
+    #         re_reulst = re.findall(r'[a-zA-Z\d+\u4e00-\u9fa5]', result)  # 只匹配中文，大小写，字母
+    #         return {"result": True, "text": "".join(re_reulst)}
+    #
+    #     element_info = self.elements_by(mOperate)
+    #     if mOperate.get("is_webview", "0") == 1:
+    #         result = element_info.text
+    #     else:
+    #         result = element_info.get_attribute("text")
+    #
+    #     re_reulst = re.findall(r'[a-zA-Z\d+\u4e00-\u9fa5]', result)
+    #     return {"result": True, "text": "".join(re_reulst)}
 
     # 封装常用的标签
     def elements_by(self, mOperate):

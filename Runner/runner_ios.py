@@ -120,7 +120,6 @@ if __name__ == '__main__':
             inputFile = os.path.abspath(file)  # 绝对路径
             # print(inputFile)
             analysisPath = PATH("../iOSCrashAnalysis/")
-            # cmd_export = 'export DEVELOPER_DIR="/Applications/XCode.app/Contents/Developer"'
             cmd_analysis = 'python3 ' + analysisPath + '/BaseIosCrash.py' + ' -i ' + inputFile
             # print(cmd_analysis)
             os.system(cmd_analysis)

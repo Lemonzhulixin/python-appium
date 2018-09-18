@@ -63,4 +63,6 @@ def get_app_pix(devices):
 
 if __name__=="__main__":
     pass
-    # getPhoneInfo("4ed397ac")
+    t = getPhoneInfo("4ed397ac")
+    print(t)
+

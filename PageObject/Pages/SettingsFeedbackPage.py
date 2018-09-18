@@ -63,7 +63,7 @@ class FeedbackPage:
                 print('上滑距离过大')
                 return False
             else:
-                driver.swipe(start_x, start_y, start_x, end_y, duration)
+                self.driver.swipe(start_x, start_y, start_x, end_y, duration)
             return True
 
         def swipe_down():
@@ -73,7 +73,7 @@ class FeedbackPage:
                 print('下滑距离过大')
                 return False
             else:
-                driver.swipe(start_x, start_y, start_x, end_y, duration)
+                self.driver.swipe(start_x, start_y, start_x, end_y, duration)
             return True
 
         def swipe_left():
@@ -83,7 +83,7 @@ class FeedbackPage:
                 print('左滑距离过大')
                 return False
             else:
-                driver.swipe(start_x, start_y, end_x, start_y, duration)
+                self.driver.swipe(start_x, start_y, end_x, start_y, duration)
             return True
 
         def swipe_right():
@@ -93,7 +93,7 @@ class FeedbackPage:
                 print('右滑距离过大')
                 return False
             else:
-                driver.swipe(start_x, start_y, end_x, start_y, duration)
+                self.driver.swipe(start_x, start_y, end_x, start_y, duration)
             return True
 
         swipe_dict = {'up': swipe_up, 'down': swipe_down, 'left': swipe_left,
@@ -113,16 +113,17 @@ class FeedbackPage:
                 return False
 
             if item.get("operate_type", "0") == be.SWIPE_UP:  # 根据元素上滑动
-                # width, height = self.get_size()
-                # start_x = width // 2
-                # start_bottom = height - height // 8
-                print("向上滑动chenggong")
-                # self.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 500)
+                width, height = self.get_size()
+                start_x = width // 2
+                start_bottom = height - height // 8
+                el_up = self.driver.find_elements_by_id(item["element_info"])
+                while True:
+                    try:
+                        el_up.click()
+                        break
+                    except:
+                        self.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
 
-                # el_up = self.driver.find_element_by_android_uiautomator(item["element_info"])
-                # coord_x = el_up.location.get('x')
-                # coord_y = el_up.location.get('y')
-                # self.swipe_by_ratio(coord_x, coord_y, 'up', 0.7, 300)  # 从某一元素向上滑动
 
             if item.get("operate_type", "0") == be.GET_VALUE:
                 self.get_value.append(result["text"])

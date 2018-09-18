@@ -30,5 +30,5 @@ def getIpaInfo(ipa_path):
 
 if __name__ == '__main__':
     pass
-    # ipa_path = '/Users/zhulixin/Desktop/appium/app/xiaoying.ipa'
-    # getIpaInfo(ipa_path)
+    ipa_path = '../app/xiaoying.ipa'
+    getIpaInfo(ipa_path)
