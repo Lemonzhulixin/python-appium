@@ -63,18 +63,6 @@ class PagesObjects:
                 time.sleep(item["is_time"])  # 等待时间
                 print("等待"+ item["is_time"] + "秒后再执行", )
 
-            if item.get("operate_type", "0") == be.SWIPE_UP:
-                print('向上滑动')
-
-            if item.get("operate_type", "0") == be.SWIPE_DOWN:
-                print('向下滑动')
-
-            if item.get("operate_type", "0") == be.SWIPE_LEFT:
-                print('向左滑动')
-
-            if item.get("operate_type", "0") == be.SWIPE_RIGHT:
-                print('向右滑动')
-
             if item.get("operate_type", "0") == be.GET_VALUE or item.get("operate_type", "0") == be.GET_CONTENT_DESC:
                 self.get_value.append(result["text"])
                 self.is_get = True  # 对比数据

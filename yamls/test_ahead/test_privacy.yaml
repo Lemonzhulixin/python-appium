@@ -14,7 +14,7 @@ testcase:
       info: 点击'剪辑'
 
     - element_info: $el_jump
-      find_type: text
+      find_type: $text
       operate_type: click
       info: 点击'跳过'
 

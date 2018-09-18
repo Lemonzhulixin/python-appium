@@ -289,6 +289,7 @@ class OperateElement:
         :param element_info: 某标准点元素
         :return:
         '''
+        print('向左滑动')
         coord_x = self.elements_by(mOperate).location.get('x')
         coord_y = self.elements_by(mOperate).location.get('y')
         self.swipe_by_ratio(coord_x, coord_y, 'left', 0.5, 300)  # 从某一元素向左滑动
@@ -300,9 +301,10 @@ class OperateElement:
         :param element_info: 某标准点元素
         :return:
         '''
+        print('向右滑动')
         coord_x = self.elements_by(mOperate).location.get('x')
         coord_y = self.elements_by(mOperate).location.get('y')
-        self.swipe_by_ratio(coord_x, coord_y, 'right', 0.5, 300)  # 从某一元素向左滑动
+        self.swipe_by_ratio(coord_x, coord_y, 'right', 0.5, 300)  # 从某一元素向右滑动
         return {"result": True}
 
     def swipeToUp(self, mOperate):
@@ -311,6 +313,7 @@ class OperateElement:
         :param element_info: 某标准点元素
         :return:
         '''
+        print('向上滑动')
         coord_x = self.elements_by(mOperate).location.get('x')
         coord_y = self.elements_by(mOperate).location.get('y')
         self.swipe_by_ratio(coord_x, coord_y, 'up', 0.5, 300)  # 从某一元素向上滑动
@@ -322,9 +325,10 @@ class OperateElement:
         :param element_info: 某标准点元素
         :return:
         '''
+        print('向下滑动')
         coord_x = self.elements_by(mOperate).location.get('x')
         coord_y = self.elements_by(mOperate).location.get('y')
-        self.swipe_by_ratio(coord_x, coord_y, 'down', 0.5, 300)  # 从某一元素向上滑动
+        self.swipe_by_ratio(coord_x, coord_y, 'down', 0.5, 300)  # 从某一元素向下滑动
         return {"result": True}
 
     # def swipeToDown(self):
