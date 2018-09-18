@@ -1,22 +1,13 @@
 from Base.BaseError import get_error
 from Base.BaseOperate import OperateElement
-import time
 from Base.BaseElements import Element as be
-import os
 from PageObject.SumResult import statistics_result
 
-PATH = lambda p: os.path.abspath(
-    os.path.join(os.path.dirname(__file__), p)
-)
 
-
-class PagesObjects:
+class FeedbackPage:
     '''
-    page层
-    kwargs: WebDriver driver, String path(yaml配置参数)
-    isOperate: 操作失败，检查点就失败
-    testInfo：
-    testCase：
+    滑动删除收藏
+    isOperate: 操作失败，检查点就失败,kwargs: WebDriver driver, String path(yaml配置参数)
     '''
 
     def __init__(self, kwargs):
@@ -40,45 +31,101 @@ class PagesObjects:
 
     '''
      操作步骤
+     logTest 日记记录器
     '''
 
+    def get_size(self):
+        """获取屏幕分辨率."""
+        rect = self.driver.get_window_size()
+        return rect['width'], rect['height']
+
+    def swipe_by_ratio(self, start_x, start_y, direction, ratio, duration=None):
+        """
+        按照屏幕比例的滑动.
+
+        :param start_x: 起始横坐标
+        :param start_y: 起始纵坐标
+        :param direction: 滑动方向，只支持'up'、'down'、'left'、'right'四种方向参数
+        :param ratio: 滑动距离与屏幕的比例，范围0到1
+        :param duration: 滑动时间，单位ms
+        :return:
+        """
+        direction_list = ['up', 'down', 'left', 'right']
+        if direction not in direction_list:
+            print('滑动方向%s不支持', direction)
+
+        width, height = self.get_size()
+
+        def swipe_up():
+            """上滑."""
+            end_y = start_y - ratio * height
+            if end_y < 0:
+                print('上滑距离过大')
+                return False
+            else:
+                driver.swipe(start_x, start_y, start_x, end_y, duration)
+            return True
+
+        def swipe_down():
+            """下滑."""
+            end_y = start_y + ratio * height
+            if end_y > height:
+                print('下滑距离过大')
+                return False
+            else:
+                driver.swipe(start_x, start_y, start_x, end_y, duration)
+            return True
+
+        def swipe_left():
+            """左滑."""
+            end_x = start_x - ratio * width
+            if end_x < 0:
+                print('左滑距离过大')
+                return False
+            else:
+                driver.swipe(start_x, start_y, end_x, start_y, duration)
+            return True
+
+        def swipe_right():
+            """右滑."""
+            end_x = start_x + ratio * width
+            if end_x > width:
+                print('右滑距离过大')
+                return False
+            else:
+                driver.swipe(start_x, start_y, end_x, start_y, duration)
+            return True
+
+        swipe_dict = {'up': swipe_up, 'down': swipe_down, 'left': swipe_left,
+                      'right': swipe_right}
+        return swipe_dict[direction]()
+
     def operate(self):
-        if self.test_msg[0] is False: # 如果用例编写错误
-            self.isOperate = False
-            return False
+        m_s_g = self.msg + "\n" if self.msg != "" else ""
         for item in self.testCase:
-            m_s_g = self.msg + "\n" if self.msg != "" else ""
             result = self.operateElement.operate(item, self.testInfo, self.logTest, self.device)
             if not result["result"]:
-                msg = "执行失败，请检查该元素是否存在:" + item["element_info"] + "," + result.get("text", " ")
-                if not result.get("webview", True):
-                    msg = "切换到webview失败，请确定是否在webview页面"
+                msg = "执行过程中失败，请检查元素是否存在" + item["element_info"]
                 print(msg)
-                self.msg = m_s_g + msg
                 self.testInfo[0]["msg"] = msg
+                self.msg = m_s_g + msg
                 self.isOperate = False
                 return False
 
-            if item.get("is_time", "0") != "0":
-                time.sleep(item["is_time"])  # 等待时间
-                print("等待"+ item["is_time"] + "秒后再执行", )
+            if item.get("operate_type", "0") == be.SWIPE_UP:  # 根据元素上滑动
+                # width, height = self.get_size()
+                # start_x = width // 2
+                # start_bottom = height - height // 8
+                print("向上滑动chenggong")
+                # self.swipe_by_ratio(start_x, start_bottom, 'up', 0.7, 500)
 
-            if item.get("operate_type", "0") == be.SWIPE_UP:
-                print('向上滑动')
+                # el_up = self.driver.find_element_by_android_uiautomator(item["element_info"])
+                # coord_x = el_up.location.get('x')
+                # coord_y = el_up.location.get('y')
+                # self.swipe_by_ratio(coord_x, coord_y, 'up', 0.7, 300)  # 从某一元素向上滑动
 
-            if item.get("operate_type", "0") == be.SWIPE_DOWN:
-                print('向下滑动')
-
-            if item.get("operate_type", "0") == be.SWIPE_LEFT:
-                print('向左滑动')
-
-            if item.get("operate_type", "0") == be.SWIPE_RIGHT:
-                print('向右滑动')
-
-            if item.get("operate_type", "0") == be.GET_VALUE or item.get("operate_type", "0") == be.GET_CONTENT_DESC:
+            if item.get("operate_type", "0") == be.GET_VALUE:
                 self.get_value.append(result["text"])
-                self.is_get = True  # 对比数据
-
         return True
 
     def checkPoint(self, kwargs={}):
@@ -95,7 +142,6 @@ class PagesObjects:
                 self.operate()
                 result = self.check(kwargs)
                 self.testInfo[0]["msg"] = self.msg
-            # self.operateElement.switchToNative()
 
         statistics_result(result=result, testInfo=self.testInfo, caseName=self.caseName,
                           driver=self.driver, logTest=self.logTest, devices=self.device,
@@ -177,3 +223,7 @@ class PagesObjects:
         else:
             result = False
         return result
+
+
+if __name__ == "__main__":
+    pass

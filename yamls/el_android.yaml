@@ -40,6 +40,7 @@ $draft_back: com.quvideo.xiaoying:id/xiaoying_com_btn_left
 $more_draft: text("更多草稿")
 $setting_btn: com.quvideo.xiaoying:id/btn_setting
 $net_disable: com.quvideo.xiaoying:id/setting_network_wifi_checkbox
+$net_confirm: text("确认")
 $rec_notice: text("接收通知推送")
 $rec_checkbox: android:id/checkbox
 $rec_back: com.quvideo.xiaoying:id/img_back
@@ -51,13 +52,25 @@ $block_list: text("黑名单")
 $block_remove: text("移除")
 $privacy_disable: com.quvideo.xiaoying:id/setting_privacy_checkbox
 $watermark_enable: com.quvideo.xiaoying:id/setting_watermark_show_checkbox
+$btn_about: text("关于小影")
+$btn_watermark: text("水印显示昵称")
 $fb_btn: com.quvideo.xiaoying:id/setting_feedback_rl
 $fb_edit: com.quvideo.xiaoying:id/feedback_msg_edit
-$fb_send: com.quvideo.xiaoying:id/feedback_msg_send
-$fb_read: text("阅读全部")
+$fb_send: text("发送")
+$fb_read: com.quvideo.xiaoying:id/view_all_tv
 $fb_back: com.quvideo.xiaoying:id/feedback_left_icon
-$fb_kefu: com.quvideo.xiaoying:id/feedback_left_icon
+$fb_kefu: com.quvideo.xiaoying:id/fb_manual_customer_service_tv
 $kefu_cancel: text("不用了")
+$kefu_confirm: text("好的")
+$btn_login: text("注册/登录")
+$QQ_login: com.quvideo.xiaoying:id/tv_login_qq_text
+$login: text("登录")
+$profile_edit: text("编辑资料")
+$QQ_chat: com.tencent.mobileqq:id/ivTitleBtnRightImage
+
+
+
+
 
 
 

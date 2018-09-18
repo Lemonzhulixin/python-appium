@@ -1,5 +1,5 @@
 testinfo:
-    - id: test_gallery_001
+    - id: test_gallery_002
       title: 相册-图片操作
       info: 图片相关操作测试
 testcase:

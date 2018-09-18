@@ -1,5 +1,5 @@
 testinfo:
-    - id: test_gallery_004
+    - id: test_gallery_001
       title: 相册-放弃操作
       info: 相册-放弃操作测试
 testcase:

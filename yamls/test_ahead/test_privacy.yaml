@@ -1,28 +1,8 @@
 testinfo:
-    - id: test_home_001
+    - id: test_home_002
       title: 相册及camera授权
       info: 存储/录制授权
 testcase:
-    - element_info: $el_alert
-      find_type: $id
-      operate_type: click
-      info: 授权存储
-
-    - element_info: $el_allow_always
-      find_type: $text
-      operate_type: click
-      info: 授权相册
-
-    - element_info: $el_allow_always
-      find_type: $text
-      operate_type: click
-      info: 授权其他
-
-    - element_info: $el_skip
-      find_type: $id
-      operate_type: click
-      info: 跳过闪屏视频
-
     - element_info: $el_center
       find_type: $id
       operate_type: click

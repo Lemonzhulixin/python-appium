@@ -1,5 +1,5 @@
 testinfo:
-    - id: test_settings_comm
+    - id: test_settings_001
       title: 设置-基本设置相关
       info: 设置-基本设置相关测试
 testcase:
@@ -17,6 +17,11 @@ testcase:
       find_type: $id
       operate_type: click
       info: 关闭'只在Wi-Fi上传/下载'
+
+    - element_info: $net_confirm
+      find_type: $text
+      operate_type: click
+      info: 确认关闭'只在Wi-Fi上传/下载'
 
     - element_info: $rec_notice
       find_type: $text
@@ -42,9 +47,8 @@ testcase:
       find_type: $id
       operate_type: click
       info: 返回设置页
-
 check:
     - element_info: $privac_set
       find_type: $text
       check: default_check
-      info: 设置-基本设置相关测试验证
+      info: 验证返回设置页

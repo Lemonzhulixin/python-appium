@@ -30,7 +30,7 @@ class OperateElement:
                     #     self.switchToWebview()
                     # elif item.get("is_webview", "0") == 2:
                     #     self.switchToNative()
-                    if item.get("element_info", "0") == "0":  # 如果没有页面元素，就不检测是页面元素，可能是滑动等操作
+                    if item.get("element_info", "0") == "0":   # 如果没有页面元素，就不检测是页面元素，可能是滑动等操作
                         return {"result": True}
                     t = item["check_time"] if item.get("check_time", "0") != "0" else be.WAIT_TIME
                     WebDriverWait(self.driver, t).until(lambda x: self.elements_by(item))
@@ -80,15 +80,15 @@ class OperateElement:
             logTest.buildStartLine(testInfo[0]["id"] + "_" + testInfo[0]["title"] + "_" + info)  # 记录日志
             print("==操作步骤：%s==" % info)
 
-            if operate.get("operate_type", "0") == "0":  # 如果没有此字段，说明没有相应操作，一般是检查点，直接判定为成功
-                return {"result": True}
+            # if operate.get("operate_type", "0") == "0":  # 如果没有此字段，说明没有相应操作，一般是检查点，直接判定为成功
+            #     return {"result": True}
 
             # threading._start_new_thread(self.click_windows(device),())
             elements = {
-                be.SWIPE_DOWN: lambda: self.swipeToDown(),
-                be.SWIPE_UP: lambda: self.swipeToUp(),
-                be.SWIPE_RIGHT: lambda: self.swipeToRight(),
-                be.SWIPE_LEFT: lambda: self.swipeToLeft(operate.get("element_info")),
+                be.SWIPE_DOWN: lambda: self.swipeToDown(operate),
+                be.SWIPE_UP: lambda: self.swipeToUp(operate),
+                be.SWIPE_RIGHT: lambda: self.swipeToRight(operate),
+                be.SWIPE_LEFT: lambda: self.swipeToLeft(operate),
                 be.CLICK: lambda: self.click(operate),
                 be.IGNORE: lambda: self.ignore(operate),
                 be.REPEAT: lambda: self.repeat(operate),
@@ -151,7 +151,7 @@ class OperateElement:
         if mOperate["find_type"] == be.find_element_by_id or mOperate["find_type"] == be.find_element_by_xpath or mOperate["find_type"] == be.find_element_by_android_uiautomator or \
                 mOperate["find_type"] == be.find_element_by_accessibility_id or mOperate["find_type"] == be.find_element_by_name:
             self.elements_by(mOperate).click()
-        elif mOperate.get("find_type") == be.find_elements_by_id or mOperate.get("find_type") == be.find_elements_by_xpath:
+        elif mOperate["find_type"] == be.find_elements_by_id or mOperate["find_type"] == be.find_elements_by_xpath:
             self.elements_by(mOperate)[mOperate["index"]].click()
         return {"result": True}
 
@@ -221,7 +221,7 @@ class OperateElement:
         rect = self.driver.get_window_size()
         return rect['width'], rect['height']
 
-    def swipe_by_ratio(self,start_x, start_y, direction, ratio, duration=None):
+    def swipe_by_ratio(self, start_x, start_y, direction, ratio, duration=None):
         """
         按照屏幕比例的滑动.
 
@@ -283,43 +283,75 @@ class OperateElement:
         return swipe_dict[direction]()
 
     # 左滑动
-    def swipeToLeft(self,element_info):
+    def swipeToLeft(self, mOperate):
         '''
         以某个元素作为标准点，左滑动
         :param element_info: 某标准点元素
         :return:
         '''
-        print('向左滑动')
-        coord_x = element_info.location.get('x')
-        coord_y = element_info.location.get('y')
-        self.swipe_by_ratio(coord_x, coord_y, 'left', 0.7, 300)  # 从某一元素向左滑动
+        coord_x = self.elements_by(mOperate).location.get('x')
+        coord_y = self.elements_by(mOperate).location.get('y')
+        self.swipe_by_ratio(coord_x, coord_y, 'left', 0.5, 300)  # 从某一元素向左滑动
         return {"result": True}
 
-    def swipeToDown(self):
-        width, height = self.get_size()
-        start_x = width // 2
-        start_y = height // 8
-        start_bottom = height - start_y
-
-        print("向下滑动")
-        self.swipe_by_ratio(start_x, start_bottom, 'down', 0.5, 500)
+    def swipeToRight(self, mOperate):
+        '''
+        以某个元素作为标准点，右滑动
+        :param element_info: 某标准点元素
+        :return:
+        '''
+        coord_x = self.elements_by(mOperate).location.get('x')
+        coord_y = self.elements_by(mOperate).location.get('y')
+        self.swipe_by_ratio(coord_x, coord_y, 'right', 0.5, 300)  # 从某一元素向左滑动
         return {"result": True}
 
-    def swipeToUp(self):
-        width, height = self.get_size()
-        start_x = width // 2
-        start_bottom = height - height // 8
-        print("向上滑动")
-        self.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
+    def swipeToUp(self, mOperate):
+        '''
+        以某个元素作为标准点，上滑动
+        :param element_info: 某标准点元素
+        :return:
+        '''
+        coord_x = self.elements_by(mOperate).location.get('x')
+        coord_y = self.elements_by(mOperate).location.get('y')
+        self.swipe_by_ratio(coord_x, coord_y, 'up', 0.5, 300)  # 从某一元素向上滑动
         return {"result": True}
 
-    def swipeToRight(self):
-        width, height = self.get_size()
-        start_x = width // 8
-        start_bottom = height // 2
-        print("向右滑动")
-        self.swipe_by_ratio(start_x, start_bottom, 'right', 0.5, 500)
+    def swipeToDown(self, mOperate):
+        '''
+        以某个元素作为标准点，下滑动
+        :param element_info: 某标准点元素
+        :return:
+        '''
+        coord_x = self.elements_by(mOperate).location.get('x')
+        coord_y = self.elements_by(mOperate).location.get('y')
+        self.swipe_by_ratio(coord_x, coord_y, 'down', 0.5, 300)  # 从某一元素向上滑动
         return {"result": True}
+
+    # def swipeToDown(self):
+    #     width, height = self.get_size()
+    #     start_x = width // 2
+    #     start_y = height // 8
+    #     start_bottom = height - start_y
+    #
+    #     print("向下滑动")
+    #     self.swipe_by_ratio(start_x, start_bottom, 'down', 0.5, 500)
+    #     return {"result": True}
+
+    # def swipeToUp(self):
+    #     width, height = self.get_size()
+    #     start_x = width // 2
+    #     start_bottom = height - height // 8
+    #     print("向上滑动")
+    #     self.swipe_by_ratio(start_x, start_bottom, 'up', 0.5, 500)
+    #     return {"result": True}
+
+    # def swipeToRight(self):
+    #     width, height = self.get_size()
+    #     start_x = width // 8
+    #     start_bottom = height // 2
+    #     print("向右滑动")
+    #     self.swipe_by_ratio(start_x, start_bottom, 'right', 0.5, 500)
+    #     return {"result": True}
 
     def screen_tap(self, x, y):
         '''
@@ -365,35 +397,6 @@ class OperateElement:
 
         re_reulst = re.findall(r'[a-zA-Z\d+\u4e00-\u9fa5]', result)
         return {"result": True, "text": "".join(re_reulst)}
-
-    # def click_windows(self, device):
-    #     try:
-    #         button0 = 'com.huawei.systemmanager:id/btn_allow'
-    #         # button1 = 'com.android.packageinstaller:id/btn_allow_once'
-    #         # button2 = 'com.android.packageinstaller:id/bottom_button_two'
-    #         # button3 = 'com.android.packageinstaller:id/btn_continue_install'
-    #         # button4 = 'android:id/button1'
-    #         # button5 = 'vivo:id/vivo_adb_install_ok_button'
-    #         button_list = [button0]
-    #         for elem in button_list:
-    #             find = self.driver.find_element_by_id(elem)
-    #             WebDriverWait(self.driver, 1).until(lambda x: self.elements_by(find(elem)))
-    #             bounds = find.location
-    #             x = str(bounds["x"])
-    #             y = str(bounds["y"])
-    #             cmd = "adb -s " + device + " shell input tap " + x + " " + y
-    #             print(cmd)
-    #             os.system(cmd)
-    #             print("==点击授权弹框_%s==" % elem)
-    #     except TimeoutException:
-    #         # print("==查找元素超时==")
-    #         pass
-    #     except NoSuchElementException:
-    #         # print("==查找元素不存在==")
-    #        pass
-    #     except WebDriverException:
-    #         # print("WebDriver出现问题了")
-    #        pass
 
     # 封装常用的标签
     def elements_by(self, mOperate):

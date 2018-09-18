@@ -1,5 +1,5 @@
 testinfo:
-    - id: test_settings_privacy
+    - id: test_settings_003
       title: 设置-隐私设置相关
       info: 设置-隐私设置相关测试
 testcase:
@@ -33,11 +33,6 @@ testcase:
       operate_type: click
       info: 点击'黑名单'
 
-    - element_info: $block_list
-      find_type: $text
-      operate_type: click
-      info: 点击'黑名单'
-
     - element_info: $block_remove
       find_type: $text
       operate_type: ignore
@@ -61,4 +56,4 @@ check:
     - element_info: $watermark_enable
       find_type: $id
       check: default_check
-      info: 设置-隐私设置相关测试验证
+      info: 验证隐私设置
