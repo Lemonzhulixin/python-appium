@@ -1,0 +1,65 @@
+testinfo:
+    - id: test_gallery_002
+      title: 相册-图片操作
+      info: 图片相关操作测试
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_edit
+      find_type: $id
+      operate_type: click
+      info: 点击'剪辑'
+
+    - element_info: $text_video
+      find_type: $text
+      operate_type: click
+      info: 点击'视频'
+
+    - element_info: $text_img
+      find_type: $text
+      operate_type: click
+      info: 点击'图片'
+
+    - element_info: $gal_cover_cho
+      find_type: $id
+      operate_type: click
+      info: 选择一张'图片'
+
+    - element_info: $gal_img_full
+      find_type: $id
+      operate_type: click
+      info: 选择一张'图片'全屏
+
+    - element_info: $gal_ratate
+      find_type: $id
+      operate_type: click
+      info: 旋转'图片'
+
+    - element_info: $gal_img_add
+      find_type: $id
+      operate_type: click
+      info: 添加'图片'
+
+    - element_info: $gal_next
+      find_type: $text
+      operate_type: click
+      info: 下一步
+
+    - element_info: $text_save_draft
+      find_type: $text
+      operate_type: click
+      info: 存草稿
+
+    - element_info: $comm_back
+      find_type: $id
+      operate_type: click
+      info: 返回首页
+
+check:
+    - element_info: $stu_more_draft
+      find_type: $text
+      check: default_check
+      info: 验证'保存'草稿返回首页

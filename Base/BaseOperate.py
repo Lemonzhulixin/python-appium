@@ -425,4 +425,4 @@ class OperateElement:
             be.find_element_by_android_uiautomator: lambda: self.driver.find_element_by_android_uiautomator(
                 mOperate["element_info"])
         }
-        return elements[mOperate["find_type"]]()
+        return elements[mOperate["find_type"]]

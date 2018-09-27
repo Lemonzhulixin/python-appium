@@ -68,13 +68,12 @@ if __name__ == '__main__':
     litePath = '/Users/zhulixin/Downloads/XiaoYing_lite.apk'
 
     info = ApkInfo(apkPath)
-
-
     apk = info.getApkBaseInfo()
     size = info.getApkSize()
     activity = info.getApkActivity()
     appname = info.getApkName()
 
+    print('appName:', appname)
     print('size:', size)
     print('launchActivity:', activity)
-    print('appName:', appname)
+

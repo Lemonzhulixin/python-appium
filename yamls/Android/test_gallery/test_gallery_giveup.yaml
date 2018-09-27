@@ -1,0 +1,55 @@
+testinfo:
+    - id: test_gallery_001
+      title: 相册-放弃操作
+      info: 相册-放弃操作测试
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_edit
+      find_type: $id
+      operate_type: click
+      info: 点击'剪辑'
+
+    - element_info: $gal_cover_cho
+      find_type: $id
+      operate_type: click
+      info: 选择一个'视频'
+
+    - element_info: $gal_video_add
+      find_type: $id
+      operate_type: click
+      info: 添加
+
+    - element_info: $text_video
+      find_type: $text
+      operate_type: click
+      info: 点击'视频'
+
+    - element_info: $text_img
+      find_type: $text
+      operate_type: click
+      info: 点击'图片'
+
+    - element_info: $gal_cover_cho
+      find_type: $id
+      operate_type: repeat
+      info: 选择几张'图片'
+
+    - element_info: $gal_back_icon
+      find_type: $id
+      operate_type: click
+      info: 左上角返回按钮
+
+    - element_info: $gal_cancel
+      find_type: $text
+      operate_type: click
+      info: 点击放弃
+
+check:
+    - element_info: $stu_more_draft
+      find_type: $text
+      check: default_check
+      info: 验证放弃'保存'草稿返回首页

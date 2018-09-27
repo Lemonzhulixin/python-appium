@@ -56,13 +56,11 @@ def get_ios_product_os(duid):
         if len(t) >= 2:
             return t[0]
 
-
 def get_ios_PhoneInfo(duid):
     name = get_ios_product_name(duid)
     release = get_ios_version(duid)
-    # type = get_ios_product_type(duid)
-    result = {"release": release, "device": name, "duid": duid}
-    # print(result)
+    type = get_ios_product_type(duid)
+    result = {"release": release, "device": name, "duid": duid, "type": type}
     return result
 
 #编译facebook的wda到真机
@@ -72,8 +70,12 @@ def build_wda_ios(duid):
 
 
 if __name__ == '__main__':
+    dev_list = []
     devices = get_ios_devices()
-    print(devices)
-    duid = get_ios_devices()[0]
-    get_ios_PhoneInfo(duid)
+    for i in range(len(devices)):
+        duid = get_ios_devices()[i]
+        dev = get_ios_PhoneInfo(duid)
+        dev_list.append(dev)
+    print(dev_list)
+
 

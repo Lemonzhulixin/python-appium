@@ -1,3 +1,4 @@
+#控件获取方法
 $id: ios_id
 $ids: ios_ids
 $class_name: predicate
@@ -7,14 +8,484 @@ $texts: names
 $index: index
 $xpaths: xpaths
 $xpath: xpath
-$el_alert: com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive
-$el_allow: text("总是允许")
-$el_skip: com.quvideo.xiaoying:id/wel_skip
-$el_center: com.quvideo.xiaoying:id/layout_fragment_creation
-$el_home_edit: com.quvideo.xiaoying:id/icon1
-$el_jump: text("跳过")
-$el_o_album: text("其他相册")
-$el_home_cam: com.quvideo.xiaoying:id/icon2
-$el_allow2: text("允许")
-$nor_cam: text("高清相机")
-$gal_back_icon: com.quvideo.xiaoying:id/xiaoying_com_btn_left
+
+#登录
+$btn_login: 注册/登录
+$QQ_login: QQ登录
+$login: 登录
+
+#通用
+$text_alert: 好
+$text_allow_always: 总是允许
+$text_skip: 跳过
+$text_allow: 允许
+$text_not_allow: 不允许
+$text_save: 保存
+$text_drap: 丢弃
+$text_confirm: 确认
+$text_cancel: 取消
+$text_upload: 保存/上传
+$text_save_draft: 存草稿
+$text_save_album: 保存到相册
+$text__del: 删除
+$text_add: 添加
+$text_done: 完成
+$text_use: 使用
+$text_gif: GIF
+$text_img: 图片
+$text_video: 视频
+$text_all: 全部
+$text_download: 下载
+$text_yes: 是
+$text_no: 否
+$comm_back: xiaoying com nav back n
+$video_play: vivavideo playerview small whi
+
+#首页底部tab
+$tab_center: camerta_n
+$tab_personal: me_n
+$tab_plant: xiaoyingquan_f
+
+#首页功能位
+$home_edit: //XCUIElementTypeStaticText[@name="视频剪辑"]
+$home_cam: //XCUIElementTypeStaticText[@name="高清拍摄"]
+$home_vip: //*/XCUIElementTypeOther/XCUIElementTypeButton[1]
+$home_vip_clo: icon close n
+$home_ad: //*/XCUIElementTypeOther/XCUIElementTypeButton[2]
+$home_ad_clo: vivavideo com nav cancel n
+$home_mv: 相册MV
+$home_temp: 素材中心
+$home_self: 美颜趣拍
+$home_draft_cover: //*/XCUIElementTypeOther[2]/*/XCUIElementTypeButton
+
+#工作室
+$stu_more_draft: 更多草稿
+$stu_back: xiaoying com nav back n
+$stu_draft_del: vivavideo tool studio delete n
+$stu_grid_del: vivavideo tool studio delete2
+$stu_view_mode: vivavideo tool studio list n
+$stu_grid_mode: vivavideo tool studio list2 n
+$stu_draft_cover: //*/XCUIElementTypeCollectionView//*/XCUIElementTypeOther[2]/XCUIElementTypeImage[1]
+
+#gallery
+$gal_back_icon: vivavideo popup icon cancel nr
+$gal_o_album: 其他
+$gal_cover_cho: vivavideo edit gallery icon ch
+$gal_ratate: vivavideo edit gallery icon ro
+$gal_trim: vivavideo edit gallery icon tr
+$gal_next: type == 'XCUIElementTypeButton' AND label CONTAINS '下一步'
+
+#camera
+$cam_left_back: vivavideo camera tool icon clo
+$cam_normal: 高清相机
+$cam_self: 自拍美颜
+$cam_music: 音乐视频
+$cam_ratio_ful: vivavideo camera tool icon ful
+$cam_ratio_fou: vivavideo camera tool icon fou
+$cam_ratio_one: vivavideo camera tool icon one
+$cam_switch: vivavideo camera tool icon cha
+$cam_set: vivavideo camera tool icon set
+$cam_grid: vivavideo camera tool icon gri
+$cam_flashlight: vivavideo camera tool icon fla
+$cam_timer: vivavideo camera tool icon tim
+$cam_record_normal: //*/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeOther[1]
+$cam_record_self: //*/XCUIElementTypeOther[4]/XCUIElementTypeOther/XCUIElementTypeOther[1]
+$cam_record_music: //*/XCUIElementTypeOther[5]/XCUIElementTypeOther/XCUIElementTypeOther[1]
+$cam_effect: vivavideo camera tool icon fil
+$cam_filter_download: //*/XCUIElementTypeOther[3]//*/XCUIElementTypeOther/XCUIElementTypeImage[2]
+$cam_filter_more: vivavideo_camera_bg_filter_store
+$cam_face_effect: vivavideo camera tool icon sti
+$cam_face_download: //XCUIElementTypeImage[@name='vivavideo_camera_tool_icon_sticker_download_nrm'])[1]
+$cam_face_used: //*/XCUIElementTypeCollectionView[1]//*/XCUIElementTypeCell[2]/XCUIElementTypeOther/XCUIElementTypeImage
+$cam_face_null: //XCUIElementTypeImage[@name='vivavideo_camera_tool_icon_null_nrm']
+$cam_audio_cho: 点击添加配乐
+$cam_rec_next: vivavideo camera tool icon nex
+$cam_change_rec: 更换音乐重录
+$cam_direct_rec: 直接重录
+$cam_undo: 撤销
+$cam_change: //*/XCUIElementTypeOther[4]//*/XCUIElementTypeButton
+$cam_edit_btn: 编辑此视频
+
+#音乐库
+$mus_download: music select download n
+$mus_name: //*/XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeButton[2]
+$mus_play: music select pause n
+$mus_network: 网络
+$mus_downloaded: 已下载
+$mus_loc: 本地
+$mus_del: music select delete n
+$mus_checked_del: music select delete h
+$mus_checkbox: music select music choose n
+
+#预览页
+$pre_theme: 主题·配乐
+$pre_edit: 镜头编辑
+$pre_effects: 素材·效果
+$pre_theme_download: (//XCUIElementTypeImage[@name="vivavideo_camera_tool_icon_download_nrm"])[1]
+$pre_theme_cover: //*/XCUIElementTypeOther[3]//*/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeImage
+$pre_bgm_add: 添加配乐
+$pre_mus_change: 更换配乐
+$pre_mus_add: 点击添加配乐
+$pre_mus_arrow: theme_change_music_add_arrow
+$pre_mus_del: theme change music add delete
+$pre_bgm_mute: theme change music right n
+$pre_video_mute: theme change music left n
+$pre_watermark: vivavideo watermark edit cn n
+$pre_img_time: //*/XCUIElementTypeWindow[1]//*/XCUIElementTypeOther/XCUIElementTypeButton
+
+#镜头编辑-tab
+$tab_fil: 滤镜
+$tab_bg: 比例和背景
+$tab_pic_timer: 图片时长
+$tab_trim: 修剪
+$tab_split: 分割
+$tab_copy: 复制
+$tab_speed: 变速
+$tab_adjust: 调色
+$tab_reverse: 倒放镜头
+$tab_mute: 静音
+$tab_rotate: 旋转
+$tab_pic_dh: 图片动画
+
+#镜头编辑-通用
+$bottom_right: xiaoying itembar finish
+$bottom_left: xiaoying itembar close
+$clip_use_all: 运用于全部镜头
+$pic_use_all: 应用于全部镜头
+$save_exit: 保存并退出
+$editor_back: //XCUIElementTypeButton[@name="vivavideo editor common cancel"]
+$clip_del: vivavideo edit video close n
+$clip_add: vivavideo edit add clip n
+$clip_add_capture: com.quvideo.xiaoying:id/gallery_btn_captrue
+$clip_add_album: 相册
+$clip_add_cam: 拍摄
+$clip_add_cancel: edit normal add close
+$speed_keep: 保持音调不变
+
+#镜头编辑-滤镜
+$fil_pre_download: vivavideo_camera_tool_icon_download_nrm
+$fil_more: vivavideo_camera_bg_filter_store
+$fil_temp_download: vivavideo material download2 n
+$fil_unlock: 解锁
+$fil_detail_download: 免费下载
+$fil_detail_back: vivavideo back n
+$fil_par_cover: //*/XCUIElementTypeOther[2]/*/XCUIElementTypeOther[2]//*/XCUIElementTypeImage
+$fil_chil_cover: //*/XCUIElementTypeOther[1]//*/XCUIElementTypeOther/XCUIElementTypeImage
+
+#镜头编辑-比例和背景
+$bg_ratio: vivavideo_edit_icon_proportion_original
+$bg_ratio_one: vivavideo_edit_icon_proportion_1_1
+$bg_tab_blur: vivavideo edit icon vague nrm
+$bg_tab_color: vivavideo edit icon color nrm
+$bg_tab_bg: vivavideo edit icon background
+$bg_fit: vivavideo edit ratio icon fiti
+$bg_pic_album: 其他 相册
+$bg_pic_none: //*/XCUIElementTypeCollectionView[1]/XCUIElementTypeCell[1]/XCUIElementTypeOther
+$bg_pic_cover: //*/XCUIElementTypeCollectionView[1]/*/XCUIElementTypeOther/XCUIElementTypeImage
+$bg_pic_gif: (//XCUIElementTypeImage[@name="vivavideo_edit_gallery_icon_gif_nrm"])[1]
+
+#镜头编辑-转场
+$tran_sb_icon: vivavideo transfer icon transf
+$tran_download: (//XCUIElementTypeImage[@name="vivavideo_camera_tool_icon_download_nrm"])[1]
+$tran_cover: //*/XCUIElementTypeOther[2]/XCUIElementTypeOther[2]//*/XCUIElementTypeOther/XCUIElementTypeImage
+$tran_null: vivavideo_camera_bg_filter_normal
+
+#镜头编辑-多选
+$mutl_tab_cho: 多选
+$mutl_cho_box: vivavideo edit gallery icon ch
+
+#效果-tab
+$tab_mult_mus: 多段配乐
+$tab_text: 字幕
+$tab_sticker: 贴纸
+$tab_collage: 画中画
+$tab_fx: 特效
+$tab_rec_audio: 配音和音效
+
+#效果-多段配乐
+$mult_fade_in: vivavideo edit bgm icon left n
+$mult_fade_out: vivavideo edit bgm icon right
+$mult_undo: vivavideo edit icon revoke n
+
+#效果-字幕
+$text_tab_def: xiaoying caption bar text t h
+$text_tab_comm: xiaoying caption bar text n
+$text_tab_font: xiaoying caption bar aa n
+$text_tab_color: xiaoying caption bar font n
+$text_tab_set: xiaoying caption bar set n
+$text_def_cho: //*/XCUIElementTypeCollectionView[2]/*/XCUIElementTypeOther/XCUIElementTypeImage
+$text_def_added: //*/XCUIElementTypeOther/XCUIElementTypeImage[1]
+$text_flip: vivavideo_edit_icon_flip_n
+$text_font_download: vivavideo_camera_tool_icon_sticker_download_nrm
+$text_input_other: type == 'XCUIElementTypeTextView' AND value CONTAINS '请输入字幕...'
+$text_input_def: type == 'XCUIElementTypeTextView' AND value CONTAINS '点击输入字幕'
+$text_r: xiaoying caption bar set btn r
+$text_c: xiaoying caption bar set btn c
+$text_l: xiaoying caption bar set btn l
+$text_shadow: type == 'XCUIElementTypeSwitch'
+
+#效果-贴纸
+$sticker_type: //*/XCUIElementTypeOther[1]/XCUIElementTypeCollectionView[1]/*/XCUIElementTypeOther/XCUIElementTypeImage
+$sticker_more: xiaoying itembar down more
+$sticker_id: //*/XCUIElementTypeCollectionView[2]/*/XCUIElementTypeOther/XCUIElementTypeImage
+
+#效果-画中画
+$coll_expand: //*/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeOther/XCUIElementTypeButton
+$coll_pic_img: //*/XCUIElementTypeCollectionView[1]//*/XCUIElementTypeImage[1]
+$coll_pic_gif: //*/XCUIElementTypeCollectionView[1]//*/XCUIElementTypeImage
+$coll_o_album: //XCUIElementTypeStaticText[@name="其他 相册"]
+$coll_gif_search: type == 'XCUIElementTypeTextField' AND value == '搜索Gif'
+$coll_gif_download: type == 'XCUIElementTypeImage' AND name == 'vivavideo_tool_collage_download_n'
+$coll_gif_cover: //*/XCUIElementTypeCollectionView[3]/*/XCUIElementTypeOther/XCUIElementTypeImage
+$coll_vid_cover: //*/XCUIElementTypeCollectionView[2]//*/XCUIElementTypeImage
+
+#效果-特效
+$fx_type: //*/android.support.v7.widget.RecyclerView[1]/*/android.widget.ImageView
+$fx_download: (//XCUIElementTypeImage[@name="vivavideo_camera_tool_icon_sticker_download_nrm"])[1]
+$fx_more: xiaoying itembar down more
+$fx_cover: //*/XCUIElementTypeOther[2]/XCUIElementTypeOther[1]/XCUIElementTypeCollectionView[2]/*/XCUIElementTypeImage
+
+#效果-录音
+$rec_rec_tab: 录音
+$rec_aud_tab: 音效
+$rec_rec: vivavideo_edit_dub_play_nrm
+$rec_rec_stop: vivavideo_edit_dub_stop_nrm
+$rec_rec_undo: vivavideo_edit_icon_revoke_n
+$rec_aud_download: (//XCUIElementTypeImage[@name="vivavideoedit_dub_download"])[1]
+$rec_aud_cho: /XCUIElementTypeOther[2]/XCUIElementTypeScrollView//*/XCUIElementTypeCell[2]/XCUIElementTypeOther[1]
+
+#分享页
+$share_title: //XCUIElementTypeStaticText[@name="请输入标题，你的作品记录了什么？"]
+$share_des: //*/XCUIElementTypeOther[1]/XCUIElementTypeTextView
+$share_topic: //XCUIElementTypeButton[@name=" 添加话题"]
+$topic_search: 搜索话题
+$topic_cho: //*/android.support.v7.widget.RecyclerView/android.widget.RelativeLayout[1]
+$share_loc: //XCUIElementTypeButton[@name=" 显示位置"]
+$share_privacy: 隐私设置
+$private_visible: //*/XCUIElementTypeOther/XCUIElementTypeSwitch[1]
+$private_download: //*/XCUIElementTypeOther/XCUIElementTypeSwitch[2]
+
+#更换封面
+$cover_change: 更换封面
+$cover_right: vivavideo editor common ok
+$cover_pop: 气泡
+$cover_font: 字体
+$cover_ok: xiaoying itembar finish
+$cover_cancel: xiaoying itembar close
+$cover_sticker_gif: //XCUIElementTypeButton[@name="GIF"]
+$cover_more: xiaoying itembar down more
+
+#导出
+$exp_to_ablum: 保存到相册
+$exp_480P: 清晰 480P
+$exp_720P: 高清 720P
+$exp_1080P: 超清 1080P
+$exp_re: 重新导出
+$exp_right: icon exit close n
+$exp_wait: 再等等
+$exp_cancel: 不等了
+$exp_back_home: 首页
+$exp_share_viva: 分享小影
+
+#gif导出
+$gif_export: 导出5秒
+$gif_480P: 480P
+$gif_320P: 480P
+$gif_240P: 480P
+$gif_15fs: 15F/s
+$gif_10fs: 10F/s
+$gif_5fs: 5F/s
+
+#发布
+$publish_cancel: vivavideo icon close nrm
+$share_QQ: QQ空间
+
+#素材中心
+$temp_banner: XiaoYingResource.bundle/xiaoying_template_no_banner
+$temp_banner_back: vivavideo back n
+$temp_theme: 主题·配乐
+$temp_text: 字幕
+$temp_fx: 特效s
+$temp_fil: 滤镜
+$temp_stick: 动画贴纸
+$temp_tran: 转场
+$temp_font: 字体
+
+#素材中心-通用
+$temp_back: vivavideo com nav back n
+$temp_mgr: vivavideo material Management
+
+#素材中心-主题
+$temp_theme_downlaod: vivavideo material download n
+$temp_theme_del: vivavideo material delete n
+
+#素材中心-字幕
+$temp_text_download: vivavideo material download n
+$temp_text_del: vivavideo material delete n
+
+#素材中心-特效
+$temp_fx_download: vivavideo material download n
+$temp_fx_del: vivavideo material delete n
+
+#素材中心-滤镜
+$temp_fil_download: vivavideo material download2 n
+$temp_fil_del: vivavideo material delete n
+
+#素材中心-动画贴纸
+$temp_stick_download: vivavideo material download n
+$temp_stick_del: vivavideo material delete n
+
+#素材中心-动画贴纸
+$temp_stick_download: vivavideo material download n
+$temp_stick_del: vivavideo material delete n
+$temp_gif_search: //*/XCUIElementTypeTextField/XCUIElementTypeTextField
+
+#素材中心-转场
+$temp_tran_download: vivavideo material download n
+$temp_tran_del: vivavideo material delete n
+
+#素材中心-字体
+$temp_stick_download: vivavideo material download n
+$temp_stick_del: vivavideo material delete n
+
+#通用设置
+$settings_btn: vivavideo me setting n
+$receive_notice: 接收通知推送
+$receive_checkbox: type == 'XCUIElementTypeImage'
+$settings_lang: 已选择语言
+$lang_back: com.quvideo.xiaoying:id/choose_language_back
+
+#隐私权限
+$privacy_set: 私信权限
+$focus_me: 我关注的人
+$block_list: 黑名单
+$block_remove: 移除
+$privacy_disable: //*/XCUIElementTypeCell[6]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]
+$btn_about: 关于小影
+$btn_watermark: 保存本地视频显示昵称水印
+
+#客服系统
+$fb_btn: 联系客服
+$fb_edit: type == 'XCUIElementTypeTextField' AND value == '请输入你的问题'
+$fb_send: 发送
+$fb_read: 阅读全部
+$fb_back: vivavideo common back n
+$fb_kefu: 还没解决？人工客服 >
+$fb_cancel: 不用了
+$fb_confirm: 好的
+
+#个人页
+$per_profile: 编辑资料
+$per_share: vivavideo personal icon share
+$per_vipinfo: //XCUIElementTypeImage[@name="vivavideo_personal_icon_enter_n"]
+$per_vip: //XCUIElementTypeButton[@name=" 开通VIP会员"]
+$per_listview: vivavideo me list view
+$per_gridview: vivavideo grid view
+$per_my_video: type == 'XCUIElementTypeButton' AND value CONTAINS '作品'
+$per_like_video: type == 'XCUIElementTypeButton' AND value CONTAINS '喜欢'
+$per_likes: //*/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeButton[2]
+$per_fans: //*/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeButton[3]
+$per_focus: //*/XCUIElementTypeOther[2]/XCUIElementTypeOther/XCUIElementTypeOther[1]/XCUIElementTypeButton[4]
+
+#个人信息
+$pro_avatar_modify: 更换头像
+$pro_from_cam: 拍摄
+$pro_from_album: 从相册选择
+$pro_copy: 复制
+$pro_brife: //*/XCUIElementTypeOther[3]/XCUIElementTypeOther/XCUIElementTypeTextView
+$pro_nickname: //*/XCUIElementTypeOther[1]/XCUIElementTypeTextField/XCUIElementTypeTextField
+$pro_gender: 性别
+$pro_male: 男
+$pro_famale: 女
+$pro_secret: 保密
+
+#他人页
+$el_avatar_img: //*/XCUIElementTypeTable/XCUIElementTypeCell[3]/XCUIElementTypeButton[1]
+$el_focus: vivavideo me icon follow nrm
+$el_msg: 私信
+$el_back: vivavideo personal icon back n
+$el_more: vivavideo personal icon more n
+$el_focus_cancel: 取消关注
+$el_blocked: 直接拉黑
+$el_report_user: 举报该用户
+$el_report_video: 举报该视频
+$el_blocked_confirm: 拉黑
+$el_blocked_cancel: 不拉黑ta了
+$el_msg_input: //XCUIElementTypeStaticText[@name="发送消息"]
+
+#单个视频
+$video_play_icon: vivavideo following play
+$video_pause: 暂停播放
+$video_net: 使用流量
+$video_like: vivavideo like n
+$video_comment: vivavideo comment
+$video_share: vivavideo share n
+$video_download: vivavideo download
+$video_more: vivavideo more n
+$video_no_public: 设置为不公开
+$video_confirm: 我知道了
+$video_like_detail: vivavideo like detail n
+$video_comment_detail: vivavideo comment detail
+$video_share_detail: vivavideo share detail
+
+#小影圈
+$tab_focus: //XCUIElementTypeStaticText[@name="关注"]
+$tab_recommend: //XCUIElementTypeStaticText[@name="推荐"]
+$tab_explore: //XCUIElementTypeStaticText[@name="发现"]
+$tab_msg: vivavideo navi message
+$tab_search: vivavideo navi search
+$comm_input: //XCUIElementTypeStaticText[@name="请输入评论"]
+$comm_like: vivavideo detail icon like n
+$comm_del: vivavideo tool video delete n
+$comm_reply: vivavideo tool video reply n
+$focus_user: vivavideo button follow n
+$plant_add_icon: xiaoying featured button add n
+$plant_add_shot: xiaoying_featured_button_shot_n
+$plant_add_album: xiaoying_featured_button_album_n
+$plant_add_cancel: xiaoying_featured_button_add_n
+
+#消息中心
+$tab_dynamic: //XCUIElementTypeStaticText[@name="动态"]
+$tab_notice: //XCUIElementTypeStaticText[@name="消息"]
+$like_msg: vivavideo message icon dianzan
+$comm_msg: vivavideo message icon pinglun
+$@_msg: vivavideo message icon @ n
+$fans_msg: vivavideo message icon fensi n
+$chl_avatar: //*/XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeButton[1]
+$chl_video: //*/XCUIElementTypeTable/XCUIElementTypeCell[2]/XCUIElementTypeButton[2]
+$chl_back: vivavideo common back n
+$dynamic_avatar: //*/XCUIElementTypeTable/*/XCUIElementTypeButton
+$dynamic_video: //*/XCUIElementTypeCell[1]//*/XCUIElementTypeOther/XCUIElementTypeImage
+
+#搜索
+$search_user: 用户
+$search_field: type == 'XCUIElementTypeTextField'
+$recomm_avatar: /XCUIElementTypeOther[2]//*/XCUIElementTypeButton[2]
+$result_focus: //XCUIElementTypeButton[@name="关注"]
+$result_avatar: //*/XCUIElementTypeCollectionView/*/XCUIElementTypeOther/XCUIElementTypeStaticText[1]
+$user_avatar: vivavideo user n
+$video_avatar: //*/XCUIElementTypeCollectionView/*/XCUIElementTypeOther/XCUIElementTypeOther[1]/*/XCUIElementTypeButton[1]
+
+#推荐
+$recomm_hot: 热门
+$recomm_food: 美食
+$recomm_pet: 萌宠
+$recomm_video: //*/XCUIElementTypeCollectionView/*/XCUIElementTypeOther/XCUIElementTypeOther/XCUIElementTypeButton
+
+#单个热门视频
+$full_back: vivavideo fullscreen icon back
+$full_mute: vivavideo fullscreen icon Mute
+$full_sound: vivavideo fullscreen icon soun
+$full_focus: vivavideo fullscreen icon guan
+$full_play: vivavideo following play
+$full_avatar: //*/XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeButton[1]
+$full_like_icon: //*/XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeButton[4]
+$full_comm_icon: //*/XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeButton[5]
+$full_forward_icon: //*/XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeButton[6]
+$full_more_icon: //*/XCUIElementTypeTable/XCUIElementTypeCell[1]/XCUIElementTypeButton[7]
+$full_comm_avatar: //*/XCUIElementTypeOther[3]/XCUIElementTypeTable/*/XCUIElementTypeImage
+$full_comm_clo: vivavideo fullscreen icon clos
+$full_comm_@: vivavideo fullscreen icon at n
+$full_comm_input: //XCUIElementTypeStaticText[@name="发表评论"]
+$full_comm_report: 举报
+$full_comm_more: vivavideo_fullscreen_icon_more_nrm

@@ -1,3 +1,4 @@
+#控件获取方法
 $id: id
 $ids: ids
 $class_name: class_name
@@ -7,21 +8,67 @@ $texts: texts
 $index: index
 $xpaths: xpaths
 $xpath: xpath
-$el_alert: com.quvideo.xiaoying:id/xiaoying_alert_dialog_positive
-$el_allow_always: text("总是允许")
-$el_skip: com.quvideo.xiaoying:id/wel_skip
-$el_center: com.quvideo.xiaoying:id/img_creation
-$el_personal: com.quvideo.xiaoying:id/img_studio
-$el_plant: com.quvideo.xiaoying:id/img_find
-$el_home_edit: com.quvideo.xiaoying:id/icon1
-$el_jump: text("跳过")
-$gal_o_album: text("其他相册")
-$el_home_cam: com.quvideo.xiaoying:id/icon2
-$el_allow: text("允许")
-$nor_cam: text("高清相机")
+
+#登录
+$btn_login: text("注册/登录")
+$QQ_login: com.quvideo.xiaoying:id/tv_login_qq_text
+$login: text("登录")
+
+#通用
+$text_alert: text("好")
+$text_allow_always: text("总是允许")
+$text_skip: text("跳过")
+$text_allow: text("允许")
+$text_not_allow: text("不允许")
+$text_save: text("保存")
+$text_drap: text("丢弃")
+$text_confirm: text("确认")
+$text_cancel: text("取消")
+$text_upload: text("保存/上传")
+$text_save_draft: text("存草稿")
+$text_save_album: text("保存到相册")
+$text_del: text("删除")
+$text_add: text("添加")
+$text_done: text("完成")
+$text_use: text("使用")
+$text_gif: text("GIF")
+$text_img: text("图片")
+$text_video: text("视频")
+$text_all: text("全部")
+$text_download: text("下载")
+$text_yes: text("是")
+$text_no: text("否")
+$comm_back: com.quvideo.xiaoying:id/img_back
+$video_play: com.quvideo.xiaoying:id/video_editor_seek_play
+
+#首页底部tab
+$tab_center: com.quvideo.xiaoying:id/img_creation
+$privacy_set: com.quvideo.xiaoying:id/img_studio
+$tab_plant: com.quvideo.xiaoying:id/img_find
+
+#首页功能位
+$home_edit: com.quvideo.xiaoying:id/icon1
+$home_cam: com.quvideo.xiaoying:id/icon2
+$home_vip: com.quvideo.xiaoying:id/btn_vip
+$home_vip_clo: com.quvideo.xiaoying:id/vip_home_close
+$home_ad: com.quvideo.xiaoying:id/btn_shuffle
+$home_ad_clo: com.quvideo.xiaoying:id/back_btn
+$home_mv: text("相册MV")
+$home_temp: text("素材中心")
+$home_self: text("美颜趣拍")
+$home_coll_capture: text("画中画拍摄")
+$home_coll_edit: text("画中画编辑")
+
+#工作室
+$stu_more_draft: text("更多草稿")
+$stu_back: com.quvideo.xiaoying:id/xiaoying_com_btn_left
+$stu_draft_del: com.quvideo.xiaoying:id/xiaoying_studio_img_delete
+$stu_view_mode: com.quvideo.xiaoying:id/xiaoying_com_btn_right
+$stu_draft_cover: com.quvideo.xiaoying:id/xiaoying_studio_img_project_thumb
+
+#gallery
 $gal_back_icon: com.quvideo.xiaoying:id/xiaoying_com_btn_left
-$gal_video_tab: text("视频")
-$gal_img_tab: text("图片")
+$gal_o_album: text("其他相册")
 $gal_cover_cho: com.quvideo.xiaoying:id/img_icon
 $gal_img_full: com.quvideo.xiaoying:id/xiaoying_gallery_preview_layout
 $gal_ratate: com.quvideo.xiaoying:id/imgbtn_ratate
@@ -31,22 +78,286 @@ $gal_img_add: com.quvideo.xiaoying:id/btn_confirm
 $gal_video_add: com.quvideo.xiaoying:id/imgbtn_import
 $gal_expand: com.quvideo.xiaoying:id/btn_expand
 $gal_del: com.quvideo.xiaoying:id/icon
-$gal_save: text("保存")
-$gal_cancel: text("丢弃")
 $gal_next: text("下一步")
-$save_draft: text("存草稿")
-$text_save_upload: text("保存/上传")
-$draft_back: com.quvideo.xiaoying:id/xiaoying_com_btn_left
-$more_draft: text("更多草稿")
+gal_cancel: text("放弃")
+
+#camera
+$cam_left_back: com.quvideo.xiaoying:id/cam_btn_cancel
+$cam_normal: text("高清相机")
+$cam_self: text("自拍美颜")
+$cam_music: text("音乐视频")
+$cam_ratio: com.quvideo.xiaoying:id/cam_btn_ratio
+$cam_switch: com.quvideo.xiaoying:id/img_switch
+$cam_set: com.quvideo.xiaoying:id/cam_btn_setting
+$cam_grid: com.quvideo.xiaoying:id/icon_tool_grid
+$cam_aelock: com.quvideo.xiaoying:id/icon_tool_aelock
+$cam_flashlight: com.quvideo.xiaoying:id/icon_tool_flashlight
+$cam_timer: com.quvideo.xiaoying:id/icon_tool_time
+$cam_record: com.quvideo.xiaoying:id/btn_rec
+$cam_effect: com.quvideo.xiaoying:id/cam_btn_filter_effect
+$cam_filter_download: com.quvideo.xiaoying:id/icon_filter_download
+$cam_face_effect: com.quvideo.xiaoying:id/cam_btn_fb_effect
+$cam_audio_cho: text("请选择音乐")
+$cam_rec_next: com.quvideo.xiaoying:id/cam_btn_next
+$cam_change: com.quvideo.xiaoying:id/icon_tool_music_control_arrow
+$cam_change_rec: text("更换音乐重录")
+$cam_direct_rec: text("直接重录")
+$cam_undo: text("撤销")
+$cam_edit_btn: com.quvideo.xiaoying:id/edit_this_video_text
+
+#音乐库
+$mus_download: com.quvideo.xiaoying:id/music_item_download
+$mus_name: com.quvideo.xiaoying:id/music_item_name
+$mus_play: com.quvideo.xiaoying:id/music_item_play_state
+$mus_use: com.quvideo.xiaoying:id/music_item_use
+$mus_network: text("网络")
+$mus_downloaded: text("已下载")
+$mus_loc: text("本地")
+$mus_del: com.quvideo.xiaoying:id/music_rubbish_icon
+$mus_checkbox: com.quvideo.xiaoying:id/music_item_check_box
+
+#预览页
+$pre_theme: text("主题·配乐")
+$pre_edit: text("镜头编辑")
+$pre_effects: text("素材·效果")
+$pre_theme_download: com.quvideo.xiaoying:id/icon_download
+$pre_theme_cover: com.quvideo.xiaoying:id/item_cover
+$pre_bgm_add: text("添加配乐")
+$pre_mus_change: text("更换配乐")
+$pre_mus_add: text("点击添加配乐")
+$pre_mus_del: com.quvideo.xiaoying:id/iv_del_music
+$pre_bgm_mute: com.quvideo.xiaoying:id/imgview_icon_bgm
+$pre_video_mute: com.quvideo.xiaoying:id/imgview_icon_video
+$pre_watermark: com.quvideo.xiaoying:id/btn_purchase_remove_watermark
+
+
+#镜头编辑-tab
+$tab_fil: text("滤镜")
+$tab_bg: text("比例和背景")
+$tab_pic_timer: text("图片时长")
+$tab_trim: text("修剪")
+$tab_split: text("分割")
+$tab_copy: text("复制")
+$tab_speed: text("变速")
+$tab_adjust: text("调色")
+$tab_reverse: text("倒放镜头")
+$tab_mute: text("静音")
+$tab_rotate: text("旋转")
+$tab_pic_dh: text("图片动画")
+
+#镜头编辑-通用
+$bottom_right: com.quvideo.xiaoying:id/terminator_right
+$bottom_left: com.quvideo.xiaoying:id/terminator_left
+$clip_use_all: text("应用于全部镜头")
+$pic_use_all: text("运用于全部图片")
+$save_exit: text("保存并退出")
+$editor_back: com.quvideo.xiaoying:id/editor_back_btn
+$clip_del: com.quvideo.xiaoying:id/item_delete_btn
+$clip_add: com.quvideo.xiaoying:id/clipedit_add_btn
+$clip_add_capture: com.quvideo.xiaoying:id/gallery_btn_captrue
+$speed_keep: text("保持音调不变")
+
+#镜头编辑-滤镜
+$fil_pre_download: com.quvideo.xiaoying:id/layout_filter_download
+$fil_more: text("下载更多")
+$fil_temp_download: com.quvideo.xiaoying:id/template_filter_download
+$fil_unlock: text("解锁")
+$fil_detail_download: text("免费下载")
+$fil_mgr: com.quvideo.xiaoying:id/right_mgr
+$fil_del: com.quvideo.xiaoying:id/img_delete
+$fil_temp_use: com.quvideo.xiaoying:id/template_filter_apply
+$fil_detail_download: text("免费下载")
+$fil_detail_back: com.quvideo.xiaoying:id/template_datail_back
+$fil_par_cover: com.quvideo.xiaoying:id/item_fitler_parent_cover
+$fil_chil_cover: com.quvideo.xiaoying:id/item_fitler_child_cover
+
+#镜头编辑-比例和背景
+$bg_ratio: com.quvideo.xiaoying:id/ratio_icon
+$bg_tab_blur: com.quvideo.xiaoying:id/iv_tab_blur
+$bg_tab_color: com.quvideo.xiaoying:id/iv_tab_color
+$bg_tab_bg: com.quvideo.xiaoying:id/iv_tab_background
+$bg_fit: com.quvideo.xiaoying:id/iv_btn_fit
+$bg_pic_album: text("其他 相册")
+$bg_pic_none: com.quvideo.xiaoying:id/pic_item_none
+$bg_pic_cover: com.quvideo.xiaoying:id/collage_pic_item_cover
+
+#镜头编辑-转场
+$tran_sb_icon: com.quvideo.xiaoying:id/transition_entrance_btn
+$tran_download: com.quvideo.xiaoying:id/icon_lock
+$tran_cover: com.quvideo.xiaoying:id/item_cover
+
+#镜头编辑-多选
+$mutl_cho_tab: text("多选")
+$mutl_cho_box: com.quvideo.xiaoying:id/item_select_btn
+
+#效果-tab
+$tab_mult_mus: text("多段配乐")
+$tab_text: text("字幕")
+$tab_sticker: text("贴纸")
+$tab_collage: text("画中画")
+$tab_fx: text("特效")
+$tab_rec_audio: text("配音和音效")
+
+#效果-多段配乐
+$mult_fade_in: com.quvideo.xiaoying:id/iv_editor_music_fade_in
+$mult_fade_out: com.quvideo.xiaoying:id/iv_editor_music_fade_out
+$mult_undo: com.quvideo.xiaoying:id/iv_editor_audio_operation_cancel
+
+#效果-字幕
+$text_tab_def: //*/android.widget.LinearLayout/android.widget.RelativeLayout[1]/android.widget.ImageView
+$text_tab_comm: //*/android.widget.LinearLayout/android.widget.RelativeLayout[2]/android.widget.ImageView
+$text_tab_font: //*/android.widget.LinearLayout/android.widget.RelativeLayout[3]/android.widget.ImageView
+$text_tab_color: //*/android.widget.LinearLayout/android.widget.RelativeLayout[4]/android.widget.ImageView
+$text_tab_set: //*/android.widget.LinearLayout/android.widget.RelativeLayout[5]/android.widget.ImageView
+$text_def_cho: //*/android.support.v7.widget.RecyclerView[2]/*/android.widget.RelativeLayout/*/android.widget.ImageView
+$text_font_download: com.quvideo.xiaoying:id/iv_font_download_flag
+$text_def_cho: com.quvideo.xiaoying:id/div_roll_thumb
+$text_undo: com.quvideo.xiaoying:id/iv_subtitle_op_left_btn
+$text_r: //*/android.widget.RelativeLayout[2]/android.widget.RadioGroup/android.widget.RadioButton[1]
+$text_c: //*/android.widget.RelativeLayout[2]/android.widget.RadioGroup/android.widget.RadioButton[2]
+$text_l: //*/android.widget.RelativeLayout[2]/android.widget.RadioGroup/android.widget.RadioButton[3]
+$text_shadow: com.quvideo.xiaoying:id/btn_import_finish
+
+#效果-贴纸
+$sticker_type: com.quvideo.xiaoying:id/item_icon
+$sticker_gif: com.quvideo.xiaoying:id/ib_giphy_download
+$sticker_more: com.quvideo.xiaoying:id/ib_download
+$sticker_id: com.quvideo.xiaoying:id/item_layout
+
+#效果-画中画
+$coll_expand: com.quvideo.xiaoying:id/btn_expand
+$coll_pic_cover: com.quvideo.xiaoying:id/collage_pic_item_cover
+$coll_o_album: com.quvideo.xiaoying:id/collage_pic_item_other_album
+$coll_gif_search: text("搜索Gif")
+$coll_gif_download: com.quvideo.xiaoying:id/collage_gif_download_flag
+$coll_gif_cover: com.quvideo.xiaoying:id/collage_gif_item_cover
+
+#效果-特效
+$fx_type: //*/android.support.v7.widget.RecyclerView[1]/*/android.widget.ImageView
+$fx_download: com.quvideo.xiaoying:id/iv_download_flag
+$fx_more: com.quvideo.xiaoying:id/iv_download_more
+$fx_cover: //*/android.support.v7.widget.RecyclerView[2]/android.widget.RelativeLayout[2]/android.widget.ImageView
+
+#效果-录音
+$rec_rec_tab: text("录音")
+$rec_aud_tab: text("音效")
+$rec_rec: com.quvideo.xiaoying:id/view_editor_audio_record
+$rec_rec_undo: com.quvideo.xiaoying:id/iv_editor_audio_operation_cancel
+$rec_aud_download: com.quvideo.xiaoying:id/music_item_download
+$rec_aud_use: com.quvideo.xiaoying:id/music_item_use
+$rec_aud_cho: com.quvideo.xiaoying:id/music_item_above_layout
+
+#分享页
+$share_title: com.quvideo.xiaoying:id/share_video_title_text
+$share_des: com.quvideo.xiaoying:id/share_edit_txt_description
+$share_topic: com.quvideo.xiaoying:id/share_btn_add_topic
+$topic_search: text("搜索话题")
+$topic_cho: //*/android.support.v7.widget.RecyclerView/android.widget.RelativeLayout[1]
+$share_loc: com.quvideo.xiaoying:id/txt_locating_tips
+$share_privacy: com.quvideo.xiaoying:id/share_btn_privacy
+$private_visible: com.quvideo.xiaoying:id/private_setting_visible_btn
+$private_download: com.quvideo.xiaoying:id/private_setting_candnload_btn
+$hardware_speed: text("视频处理硬件加速")
+$hardware_clo: text("关闭硬件加速")
+
+#更换封面
+$cover_cha: text("更换封面")
+$cover_right: com.quvideo.xiaoying:id/xiaoying_btn_finish
+$cover_sticker: text("动画贴纸")
+$text_pop: text("气泡")
+$text_font: text("字体")
+$cover_ok: com.quvideo.xiaoying:id/btn_subtitle_ok
+$cover_cancel: com.quvideo.xiaoying:id/btn_subtitle_cancel
+$cover_stick_gif: com.quvideo.xiaoying:id/btn_giphy_download
+$cover_more: com.quvideo.xiaoying:id/btn_download
+$cover_use: com.quvideo.xiaoying:id/iconf
+
+#导出
+$exp_to_ablum: com.quvideo.xiaoying:id/btn_export
+$exp_480P: com.quvideo.xiaoying:id/normal_layout
+$exp_720P: com.quvideo.xiaoying:id/purchase_hd_title
+$exp_1080P: com.quvideo.xiaoying:id/purchase_hd_1080_title
+$exp_gif: com.quvideo.xiaoying:id/gif_layout
+$share_viva: text("分享小影")
+$exp_re: text("重新导出")
+$exp_right: com.quvideo.xiaoying:id/imgbtn_cancel
+$exp_wait: text("再等等")
+$exp_cancel: text("不等了")
+$back_home: text("首页")
+$exp_share_viva: text("分享小影")
+
+#gif导出
+$gif_export: com.quvideo.xiaoying:id/share_btn_share
+$gif_480P: text("480P")
+$gif_320P: text("480P")
+$gif_240P: text("480P")
+$gif_15fs: text("15F/s")
+$gif_10fs: text("10F/s")
+$gif_5fs: text("5F/s")
+
+#发布
+$publish_cancel: com.quvideo.xiaoying:id/btn_cancel
+$share_QQ: text("QQ空间")
+
+#素材中心
+$temp_banner: //*/android.support.v4.view.ViewPager/android.widget.ImageView
+$temp_banner_back: com.quvideo.xiaoying:id/img_back
+$temp_theme: text("主题·配乐")
+$temp_text: text("字幕")
+$temp_fx: text("特效")
+$temp_fil: text("滤镜")
+$temp_stick: text("动画贴纸")
+$temp_tran: text("转场")
+$temp_font: text("字体")
+
+#素材中心-通用
+$temp_back: com.quvideo.xiaoying:id/img_back
+$temp_mgr: com.quvideo.xiaoying:id/text_right
+
+#素材中心-主题
+$temp_theme_download: com.quvideo.xiaoying:id/imgbtn_download
+$temp_theme_del: com.quvideo.xiaoying:id/template_caption_grid_btn_update
+
+#素材中心-字幕
+$temp_text_download: com.quvideo.xiaoying:id/template_pack_download_progress
+$temp_text_del: com.quvideo.xiaoying:id/img_delete
+
+#素材中心-特效
+$temp_fx_download: com.quvideo.xiaoying:id/imgbtn_download
+$temp_fx_del: com.quvideo.xiaoying:id/template_caption_grid_btn_update
+
+#素材中心-滤镜
+$temp_fil_download: com.quvideo.xiaoying:id/template_filter_download
+$temp_fil_del: com.quvideo.xiaoying:id/img_delete
+
+#素材中心-动画贴纸
+$temp_stick_download: com.quvideo.xiaoying:id/template_pack_download_progress
+$temp_stick_del: com.quvideo.xiaoying:id/img_delete
+
+#素材中心-动画贴纸
+$temp_stick_download: com.quvideo.xiaoying:id/template_pack_download_progress
+$temp_stick_del: com.quvideo.xiaoying:id/img_delete
+$temp_gif: com.quvideo.xiaoying:id/right_button
+$temp_gif_search: com.quvideo.xiaoying:id/edittext_search
+
+#素材中心-转场
+$temp_tran_download: com.quvideo.xiaoying:id/imgbtn_download
+$temp_tran_del: com.quvideo.xiaoying:id/template_caption_grid_btn_update
+
+#素材中心-字体
+$temp_stick_downloa: com.quvideo.xiaoying:id/btn_download
+$temp_stick_del: com.quvideo.xiaoying:id/img_delete
+
+#通用设置
 $setting_btn: com.quvideo.xiaoying:id/btn_setting
 $net_disable: com.quvideo.xiaoying:id/setting_network_wifi_checkbox
-$net_confirm: text("确认")
-$rec_notice: text("接收通知推送")
-$rec_checkbox: android:id/checkbox
-$rec_back: com.quvideo.xiaoying:id/img_back
-$rec_lang: text("已选择语言")
+$receive_notice: text("接收通知推送")
+$receive_checkbox: android:id/checkbox
+$settings_lang: text("已选择语言")
 $lang_back: com.quvideo.xiaoying:id/choose_language_back
-$privac_set: text("私信权限")
+
+#隐私权限
+$privacy_set: text("私信权限")
 $focus_me: text("我关注的人")
 $block_list: text("黑名单")
 $block_remove: text("移除")
@@ -54,30 +365,120 @@ $privacy_disable: com.quvideo.xiaoying:id/setting_privacy_checkbox
 $watermark_enable: com.quvideo.xiaoying:id/setting_watermark_show_checkbox
 $btn_about: text("关于小影")
 $btn_watermark: text("水印显示昵称")
+
+#客服系统
 $fb_btn: com.quvideo.xiaoying:id/setting_feedback_rl
 $fb_edit: com.quvideo.xiaoying:id/feedback_msg_edit
-$fb_send: text("发送")
+$fb_send: com.quvideo.xiaoying:id/comment_send_btn
 $fb_read: com.quvideo.xiaoying:id/view_all_tv
 $fb_back: com.quvideo.xiaoying:id/feedback_left_icon
 $fb_kefu: com.quvideo.xiaoying:id/fb_manual_customer_service_tv
-$kefu_cancel: text("不用了")
-$kefu_confirm: text("好的")
-$btn_login: text("注册/登录")
-$QQ_login: com.quvideo.xiaoying:id/tv_login_qq_text
-$login: text("登录")
-$profile_edit: text("编辑资料")
-$QQ_chat: com.tencent.mobileqq:id/ivTitleBtnRightImage
+$fb_cancel: text("不用了")
+$fb_confirm: text("好的")
 
+#个人页
+$per_profile: text("编辑资料")
+$per_share: com.quvideo.xiaoying:id/btn_share
+$per_vipinfo: com.quvideo.xiaoying:id/tv_available_days
+$per_vip: text("我的VIP会员")
+$per_view_mode: com.quvideo.xiaoying:id/btn_exchange
+$per_my_video: //*/android.widget.LinearLayout/android.widget.RelativeLayout[1]/android.widget.TextView
+$per_like_video: //*/android.widget.LinearLayout/android.widget.RelativeLayout[2]/android.widget.TextView
+$per_likes: com.quvideo.xiaoying:id/user_zan_text
+$per_fans: com.quvideo.xiaoying:id/user_fans_text
+$per_focus: com.quvideo.xiaoying:id/user_follow_text
 
+#个人信息
+$pro_avatar_modify: text("更换头像")
+$pro_from_cam: text("拍摄照片")
+$pro_from_album: text("从图库中选择")
+$pro_copy: text("复制")
+$pro_brife: com.quvideo.xiaoying:id/account_edit_intro_tv
+$pro_nickname: com.quvideo.xiaoying:id/account_edit_name_et
+$pro_gender: text("性别")
+$pro_male: text("男")
+$pro_famale: text("女")
+$pro_secret: text("保密")
 
+#他人页
+$el_avatar_img: com.quvideo.xiaoying:id/avatar_img
+$el_focus: com.quvideo.xiaoying:id/user_follow_btn
+$el_msg: text("私信")
+$el_back: com.quvideo.xiaoying:id/btn_back
+$el_more: com.quvideo.xiaoying:id/btn_more
+$el_focus_cancel: text("取消关注")
+$el_blocked: text("直接拉黑")
+$el_copy_id: text("复制 ID")
+$el_report_user: text("举报该用户")
+$el_report_video: text("举报该视频")
+$el_blocked_confirm: text("拉黑")
+$el_blocked_cancel: text("不拉黑ta了")
+$el_msg_input: com.quvideo.xiaoying:id/comment_editor_view
 
+#单个视频
+$video_play_icon: com.quvideo.xiaoying:id/xiaoying_com_btn_play
+$video_pause: text("暂停播放")
+$video_net: text("使用流量")
+$video_like: com.quvideo.xiaoying:id/img_like
+$video_comment: com.quvideo.xiaoying:id/xiaoying_com_text_comment
+$video_share: com.quvideo.xiaoying:id/xiaoying_com_text_share_count
+$video_download: com.quvideo.xiaoying:id/xiaoying_com_text_download
+$video_more: com.quvideo.xiaoying:id/btn_more
+$video_no_public: text("设置为不公开")
+$video_confirm: text("我知道了")
+$video_like_detail: com.quvideo.xiaoying:id/video_detail_like_icon
+$video_comment_detail: //*/android.widget.RelativeLayout[2]/*/android.widget.LinearLayout[1]/android.widget.LinearLayout[2]/android.widget.ImageView
+$video_share_detail: com.quvideo.xiaoying:id/video_detail_share_icon
+$video_download_detail: com.quvideo.xiaoying:id/video_detail_download_icon
+$video_more_detail: com.quvideo.xiaoying:id/video_detail_more
 
+#小影圈
+$tab_focus: text("关注")
+$tab_recommend: text("推荐")
+$tab_explore: text("发现")
+$tab_msg: com.quvideo.xiaoying:id/btn_message
+$tab_search: com.quvideo.xiaoying:id/btn_search
+$plant_add_icon: com.quvideo.xiaoying:id/fab_expand_menu_button
+$plant_add_shot: //*/android.view.ViewGroup/android.widget.LinearLayout[1]/android.widget.ImageView
+$plant_add_album: //*/android.view.ViewGroup/android.widget.LinearLayout[2]/android.widget.ImageView
+$plant_add_cancel: com.quvideo.xiaoying:id/fab_expand_menu_button
 
+#消息中心
+$tab_dynamic: text("动态")
+$tab_notice: text("消息")
+$like_msg: //*/android.support.v7.widget.RecyclerView//*/android.widget.RelativeLayout[1]/android.widget.ImageView
+$comm_msg: //*/android.support.v7.widget.RecyclerView//*/android.widget.RelativeLayout[2]/android.widget.ImageView
+$@_msg: //*/android.support.v7.widget.RecyclerView//*/android.widget.RelativeLayout[3]/android.widget.ImageView
+$fans_msg: //*/android.support.v7.widget.RecyclerView//*/android.widget.RelativeLayout[4]/android.widget.ImageView
+$chl_avatar: com.quvideo.xiaoying:id/message_img_avatar
+$chl_video: com.quvideo.xiaoying:id/message_video_thumb
+$chl_back: com.quvideo.xiaoying:id/msg_liked_back
+$dynamic_video: com.quvideo.xiaoying:id/msg_new_video_img
 
+#搜索
+$search_all: text("综合")
+$search_user: text("用户")
+$search_topic: text("话题")
+$search_field: com.quvideo.xiaoying:id/edittext_search
+$recomm_avatar: //*/android.support.v7.widget.RecyclerView/android.widget.LinearLayout/*/android.widget.LinearLayout/android.widget.ImageView
+$result_focus: text("关注")
 
+#推荐
+$recomm_hot: text("热门")
+$recomm_food: text("美食")
+$recomm_pet: text("萌宠")
+$recomm_video: //*/android.support.v7.widget.RecyclerView[2]/*/android.widget.RelativeLayout/android.widget.ImageView[2]
 
-
-
-
-
-
+#单个热门视频
+$full_back: //*/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.ImageView[1]
+$full_ramadan: //*/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.ImageView[2]
+$full_mute: com.quvideo.xiaoying:id/btnMuteMode
+$full_focus: com.quvideo.xiaoying:id/feed_bottom_head_follow_state
+$full_avatar: com.quvideo.xiaoying:id/feed_bottom_head
+$full_like_icon: com.quvideo.xiaoying:id/feed_like_action
+$full_comm_icon: com.quvideo.xiaoying:id/feed_comment_action
+$full_forward_icon: com.quvideo.xiaoying:id/feed_share_action
+$full_more_icon: com.quvideo.xiaoying:id/feed_more_action
+$full_comm_avatar: com.quvideo.xiaoying:id/img_avatar
+$full_comm_clo: //*/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.ImageView
+$full_comm_like: com.quvideo.xiaoying:id/commentLikeCount

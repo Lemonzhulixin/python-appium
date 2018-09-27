@@ -10,7 +10,7 @@ PATH = lambda p: os.path.abspath(
     os.path.join(os.path.dirname(__file__), p)
 )
 
-apkPath = PATH("../app/VivaVideo_7.3.1.apk")  # 测试的app路径
+apkPath = PATH("../app/VivaVideo_7.3.6.apk")  # 测试的app路径
 ipaPath = PATH("../app/xiaoying.ipa")  # 测试的app路径
 
 def mk_file(platform):

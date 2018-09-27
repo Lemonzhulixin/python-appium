@@ -1,0 +1,60 @@
+testinfo:
+    - id: test_gallery_004
+      title: 相册-视频操作
+      info: 视频相关操作测试s
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_edit
+      find_type: $id
+      operate_type: click
+      info: 点击'剪辑'
+
+    - element_info: $gal_cover_cho
+      find_type: $id
+      operate_type: click
+      info: 选择一个'视频'
+
+    - element_info: $gal_ratate
+      find_type: $id
+      operate_type: click
+      info: 旋转'视频'
+
+    - element_info: $gal_zoom
+      find_type: $id
+      operate_type: ignore
+      info: 缩放非'1:1' 视频
+
+    - element_info: $gal_trim
+      find_type: $id
+      operate_type: click
+      info: 裁剪'视频'
+
+    - element_info: $gal_video_add
+      find_type: $id
+      operate_type: click
+      info: 添加
+
+    - element_info: $gal_next
+      find_type: $text
+      operate_type: click
+      info: 下一步
+
+    - element_info: $text_save_draft
+      find_type: $text
+      operate_type: click
+      info: 存草稿
+
+    - element_info: $comm_back
+      find_type: $id
+      operate_type: click
+      info: 返回首页
+
+check:
+    - element_info: $stu_more_draft
+      find_type: $text
+      check: default_check
+      info: 验证'保存'草稿返回首页

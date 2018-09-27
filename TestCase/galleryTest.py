@@ -23,7 +23,7 @@ class GalleryTest(ParametrizedTestCase):
             ReplaceYaml(tc, tc_temp, el_iOS)
 
     def test_gallery_img(self):
-        tc = PATH("../yamls/test_gallery/test_gallery_img.yaml")
+        tc = PATH("../yamls/Android/test_gallery/test_gallery_img.yaml")
         self.repalce(tc, tc_temp)
 
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
@@ -34,7 +34,7 @@ class GalleryTest(ParametrizedTestCase):
         page.checkPoint()
 
     def test_gallery_video(self):
-        tc = PATH("../yamls/test_gallery/test_gallery_video.yaml")
+        tc = PATH("../yamls/Android/test_gallery/test_gallery_video.yaml")
         self.repalce(tc, tc_temp)
 
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
@@ -45,7 +45,7 @@ class GalleryTest(ParametrizedTestCase):
         page.checkPoint()
 
     def test_gallery_storyboard(self):
-        tc = PATH("../yamls/test_gallery/test_gallery_storyboard.yaml")
+        tc = PATH("../yamls/Android/test_gallery/test_gallery_storyboard.yaml")
         self.repalce(tc, tc_temp)
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
@@ -55,7 +55,7 @@ class GalleryTest(ParametrizedTestCase):
         page.checkPoint()
 
     def test_gallery_giveup(self):
-        tc = PATH("../yamls/test_gallery/test_gallery_giveup.yaml")
+        tc = PATH("../yamls/Android/test_gallery/test_gallery_giveup.yaml")
         self.repalce(tc, tc_temp)
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}

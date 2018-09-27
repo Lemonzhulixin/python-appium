@@ -22,7 +22,7 @@ class PrivacySet(ParametrizedTestCase):
             ReplaceYaml(tc, tc_temp, el_iOS)
 
     def test_privacy(self):
-        tc = PATH("../yamls/test_ahead/test_privacy.yaml")
+        tc = PATH("../yamls/Android/test_ahead/test_privacy.yaml")
         self.repalce(tc, tc_temp)
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
@@ -32,7 +32,7 @@ class PrivacySet(ParametrizedTestCase):
         page.checkPoint()
 
     def test_login(self):
-        tc = PATH("../yamls/test_ahead/test_login.yaml")
+        tc = PATH("../yamls/Android/test_ahead/test_login.yaml")
         self.repalce(tc, tc_temp)
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}

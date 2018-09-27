@@ -59,22 +59,13 @@ class ParametrizedTestCase(unittest.TestCase):
             cls.platformName = 'iOS'
             cls.logTest = myIosLog().getLog(cls.udid)  # 每个设备实例化一个日志记录器
 
-    # def setUp(self):
-    #     pass
-
     @classmethod
     def tearDownClass(cls):
         pass
         cls.driver.close_app()
-        # cls.driver.quit()
-
-    # def tearDown(self):
-    #     pass
 
     @staticmethod
     def parametrize(testcase_klass, param=None):
-        # print("---parametrize-----")
-        # print(param)
         testloader = unittest.TestLoader()
         testnames = testloader.getTestCaseNames(testcase_klass)
         suite = unittest.TestSuite()

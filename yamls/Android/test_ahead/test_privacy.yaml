@@ -1,0 +1,55 @@
+testinfo:
+    - id: test_home_002
+      title: 相册及camera授权
+      info: 存储/录制授权
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_edit
+      find_type: $id
+      operate_type: click
+      info: 点击'剪辑'
+
+    - element_info: $text_skip
+      find_type: $text
+      operate_type: click
+      info: 点击'跳过'
+
+    - element_info: $home_edit
+      find_type: $id
+      operate_type: click
+      info: 再次点击'剪辑'
+
+    - element_info: $gal_back_icon
+      find_type: $id
+      operate_type: click
+      info: 退出Gallery
+
+    - element_info: $home_cam
+      find_type: $id
+      operate_type: click
+      info: 点击'拍摄'
+
+    - element_info: $text_allow
+      find_type: $text
+      operate_type: click
+      info: 授权麦克风
+
+    - element_info: $text_allow_always
+      find_type: $text
+      operate_type: click
+      info: 授权录制
+
+    - element_info: $text_allow_always
+      find_type: $text
+      operate_type: click
+      info: 授权录制
+
+check:
+    - element_info: $cam_normal
+      find_type: $text
+      check: default_check
+      info: 验证进入拍摄页面
