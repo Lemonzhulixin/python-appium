@@ -10,9 +10,47 @@ $xpaths: xpaths
 $xpath: xpath
 
 #登录
+$btn_login_QQ: //*/android.widget.GridView/android.widget.RelativeLayout[3]/android.widget.ImageView
+$btn_login_wx: //*/android.widget.GridView/android.widget.RelativeLayout[2]/android.widget.ImageView
+$btn_login_wb: //*/android.widget.GridView/android.widget.RelativeLayout[1]/android.widget.ImageView
 $btn_login: text("注册/登录")
 $QQ_login: com.quvideo.xiaoying:id/tv_login_qq_text
+$wx_login: com.quvideo.xiaoying:id/tv_login_wechat_text
+$phone_login: com.quvideo.xiaoying:id/btn_login_phone
+$wb_login: com.quvideo.xiaoying:id/btn_login_weibo
 $login: text("登录")
+
+#通用设置
+$setting_btn: com.quvideo.xiaoying:id/btn_setting
+$net_disable: com.quvideo.xiaoying:id/setting_network_wifi_checkbox
+$receive_notice: text("接收通知推送")
+$receive_checkbox: android:id/checkbox
+$lang: text("已选择语言")
+$lang_cho_English: text("English")
+$lang_cho_chinese: text("简体中文")
+$lang_English: Language already selected
+$lang_back: com.quvideo.xiaoying:id/choose_language_back
+
+#隐私权限
+$privacy_set: text("私信权限")
+$focus_me: text("我关注的人")
+$block_list: text("黑名单")
+$block_remove: text("移除")
+$privacy_disable: com.quvideo.xiaoying:id/setting_privacy_checkbox
+$watermark_enable: com.quvideo.xiaoying:id/setting_watermark_show_checkbox
+$btn_about: text("关于小影")
+$btn_watermark: text("水印显示昵称")
+$btn_vip: com.quvideo.xiaoying:id/setting_to_be_vip_text
+
+#客服系统
+$fb_btn: com.quvideo.xiaoying:id/setting_feedback_rl
+$fb_edit: com.quvideo.xiaoying:id/feedback_msg_edit
+$fb_send: com.quvideo.xiaoying:id/comment_send_btn
+$fb_read: com.quvideo.xiaoying:id/view_all_tv
+$fb_back: com.quvideo.xiaoying:id/feedback_left_icon
+$fb_kefu: com.quvideo.xiaoying:id/fb_manual_customer_service_tv
+$fb_cancel: text("不用了")
+$fb_confirm: text("好的")
 
 #通用
 $text_alert: text("好")
@@ -21,6 +59,7 @@ $text_skip: text("跳过")
 $text_allow: text("允许")
 $text_not_allow: text("不允许")
 $text_save: text("保存")
+$text_save_english: text("Save")
 $text_drap: text("丢弃")
 $text_confirm: text("确认")
 $text_cancel: text("取消")
@@ -348,33 +387,7 @@ $temp_tran_del: com.quvideo.xiaoying:id/template_caption_grid_btn_update
 $temp_stick_downloa: com.quvideo.xiaoying:id/btn_download
 $temp_stick_del: com.quvideo.xiaoying:id/img_delete
 
-#通用设置
-$setting_btn: com.quvideo.xiaoying:id/btn_setting
-$net_disable: com.quvideo.xiaoying:id/setting_network_wifi_checkbox
-$receive_notice: text("接收通知推送")
-$receive_checkbox: android:id/checkbox
-$settings_lang: text("已选择语言")
-$lang_back: com.quvideo.xiaoying:id/choose_language_back
 
-#隐私权限
-$privacy_set: text("私信权限")
-$focus_me: text("我关注的人")
-$block_list: text("黑名单")
-$block_remove: text("移除")
-$privacy_disable: com.quvideo.xiaoying:id/setting_privacy_checkbox
-$watermark_enable: com.quvideo.xiaoying:id/setting_watermark_show_checkbox
-$btn_about: text("关于小影")
-$btn_watermark: text("水印显示昵称")
-
-#客服系统
-$fb_btn: com.quvideo.xiaoying:id/setting_feedback_rl
-$fb_edit: com.quvideo.xiaoying:id/feedback_msg_edit
-$fb_send: com.quvideo.xiaoying:id/comment_send_btn
-$fb_read: com.quvideo.xiaoying:id/view_all_tv
-$fb_back: com.quvideo.xiaoying:id/feedback_left_icon
-$fb_kefu: com.quvideo.xiaoying:id/fb_manual_customer_service_tv
-$fb_cancel: text("不用了")
-$fb_confirm: text("好的")
 
 #个人页
 $per_profile: text("编辑资料")

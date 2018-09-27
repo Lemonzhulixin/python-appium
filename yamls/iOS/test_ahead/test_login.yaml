@@ -1,0 +1,39 @@
+testinfo:
+    - id: test_home_001
+      title: 登录测试
+      info: 登录测试验证
+testcase:
+    - element_info: $text_allow
+      find_type: $text
+      operate_type: click
+      info: 点击'好'授权通知
+
+    - element_info: $text_skip
+      find_type: $text
+      operate_type: click
+      info: 跳过闪屏视频
+
+    - element_info: $tab_personal
+      find_type: $id
+      operate_type: click
+      info: 点击'我'
+
+    - element_info: $btn_login
+      find_type: $text
+      operate_type: click
+      info: 点击'注册/登录'
+
+    - element_info: $QQ_login
+      find_type: $text
+      operate_type: click
+      info: 点击'QQ登录'
+
+    - element_info: $login
+      find_type: $text
+      operate_type: click
+      info: 点击'登录'
+check:
+    - element_info: $per_profile
+      find_type: $text
+      check: default_check
+      info: 验证QQ登录

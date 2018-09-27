@@ -1,0 +1,70 @@
+testinfo:
+    - id: test_settings_002
+      title: 设置-意见反馈相关
+      info: 设置-意见反馈相关测试
+testcase:
+    - element_info: $tab_personal
+      find_type: $id
+      operate_type: click
+      info: 点击'我'按钮
+
+    - element_info: $settings_btn
+      find_type: $id
+      operate_type: click
+      info: 点击'设置'按钮
+
+    - element_info: $block_list
+      find_type: $text
+      operate_type: swipe_up
+      info: 向上滑动
+
+    - element_info: $btn_vip
+      find_type: $id
+      operate_type: swipe_up
+      info: 向上滑动
+
+    - element_info: $fb_btn
+      find_type: $id
+      operate_type: click
+      info: 点击'联系客服'
+
+    - element_info: $fb_edit
+      find_type: $id
+      operate_type: set_value
+      msg: 退款
+      info: 输入'退款'
+
+    - element_info: $fb_send
+      find_type: $id
+      operate_type: click
+      info: 点击'发送'
+
+    - element_info: $fb_read
+      find_type: $id
+      operate_type: click
+      info: 点击'阅读全部'
+
+    - element_info: $fb_back
+      find_type: $id
+      operate_type: click
+      info: 返回'智能客服'
+
+    - element_info: $fb_kefu
+      find_type: $id
+      operate_type: click
+      info: 点击'人工客服'
+
+    - element_info: $fb_cancel
+      find_type: $text
+      operate_type: click
+      info: 点击'不用了'
+
+    - element_info: $fb_back
+      find_type: $id
+      operate_type: click
+      info: 返回'设置页'
+check:
+    - element_info: $fb_btn
+      find_type: $id
+      check: default_check
+      info: 验证返回设置页面

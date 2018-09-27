@@ -8,7 +8,7 @@ testcase:
       operate_type: click
       info: 点击'我'按钮
 
-    - element_info: $setting_btn
+    - element_info: $settings_btn
       find_type: $id
       operate_type: click
       info: 点击'设置'按钮

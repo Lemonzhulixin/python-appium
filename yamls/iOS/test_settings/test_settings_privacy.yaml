@@ -1,5 +1,5 @@
 testinfo:
-    - id: test_settings_004
+    - id: test_settings_003
       title: 设置-隐私设置相关
       info: 设置-隐私设置相关测试
 testcase:
@@ -44,15 +44,9 @@ testcase:
       info: 返回设置页
 
     - element_info: $privacy_disable
-      find_type: $id
+      find_type: $xpath
       operate_type: click
       info: 关闭隐私账号设置
-
-    - element_info: $watermark_enable
-      find_type: $id
-      operate_type: click
-      info: 开启水印显示昵称
-
 check:
     - element_info: $btn_watermark
       find_type: $text

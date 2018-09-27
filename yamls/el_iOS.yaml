@@ -10,9 +10,46 @@ $xpaths: xpaths
 $xpath: xpath
 
 #登录
+$btn_login_QQ: vivavideo welcome qq d
+$btn_login_wx: vivavideo welcome weixin d
+$btn_login_phone: vivavideo share phone d
+$btn_login_wb: vivavideo welcome weibo d
 $btn_login: 注册/登录
 $QQ_login: QQ登录
+$wx_login: 微信登录
+$phone_login: vivavideo share phone
+$wb_login: vivavideo share weibo
 $login: 登录
+
+#通用设置
+$settings_btn: vivavideo me setting n
+$receive_notice: 接收通知推送
+$receive_checkbox: type == 'XCUIElementTypeImage'
+$lang: 已选择语言
+$lang_cho_English: English
+$lang_cho_chinese: 简体中文
+$lang_English: Language already selected
+$lang_swipe: Italiano
+$lang_swipe_melayu: //XCUIElementTypeStaticText[@name="Melayu"]
+
+#隐私权限
+$privacy_set: 私信权限
+$focus_me: 我关注的人
+$block_list: 黑名单
+$block_remove: 移除
+$privacy_disable: //*/XCUIElementTypeCell[6]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]
+$btn_about: 关于小影
+$btn_watermark: 保存本地视频显示昵称水印
+
+#客服系统
+$fb_btn: 联系客服
+$fb_edit: type == 'XCUIElementTypeTextField' AND value == '请输入你的问题'
+$fb_send: 发送
+$fb_read: 阅读全部
+$fb_back: vivavideo com nav back n
+$fb_kefu: 还没解决？人工客服 >
+$fb_cancel: 不用了
+$fb_confirm: 好的
 
 #通用
 $text_alert: 好
@@ -60,12 +97,12 @@ $home_draft_cover: //*/XCUIElementTypeOther[2]/*/XCUIElementTypeButton
 
 #工作室
 $stu_more_draft: 更多草稿
-$stu_back: xiaoying com nav back n
 $stu_draft_del: vivavideo tool studio delete n
 $stu_grid_del: vivavideo tool studio delete2
 $stu_view_mode: vivavideo tool studio list n
 $stu_grid_mode: vivavideo tool studio list2 n
 $stu_draft_cover: //*/XCUIElementTypeCollectionView//*/XCUIElementTypeOther[2]/XCUIElementTypeImage[1]
+$stu_ad_clo: vivavideo purchase close n
 
 #gallery
 $gal_back_icon: vivavideo popup icon cancel nr
@@ -347,32 +384,6 @@ $temp_tran_del: vivavideo material delete n
 #素材中心-字体
 $temp_stick_download: vivavideo material download n
 $temp_stick_del: vivavideo material delete n
-
-#通用设置
-$settings_btn: vivavideo me setting n
-$receive_notice: 接收通知推送
-$receive_checkbox: type == 'XCUIElementTypeImage'
-$settings_lang: 已选择语言
-$lang_back: com.quvideo.xiaoying:id/choose_language_back
-
-#隐私权限
-$privacy_set: 私信权限
-$focus_me: 我关注的人
-$block_list: 黑名单
-$block_remove: 移除
-$privacy_disable: //*/XCUIElementTypeCell[6]/XCUIElementTypeOther[3]/XCUIElementTypeOther[1]
-$btn_about: 关于小影
-$btn_watermark: 保存本地视频显示昵称水印
-
-#客服系统
-$fb_btn: 联系客服
-$fb_edit: type == 'XCUIElementTypeTextField' AND value == '请输入你的问题'
-$fb_send: 发送
-$fb_read: 阅读全部
-$fb_back: vivavideo common back n
-$fb_kefu: 还没解决？人工客服 >
-$fb_cancel: 不用了
-$fb_confirm: 好的
 
 #个人页
 $per_profile: 编辑资料

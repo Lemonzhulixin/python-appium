@@ -13,23 +13,13 @@ testcase:
       operate_type: click
       info: 点击'设置'按钮
 
-    - element_info: $net_disable
-      find_type: $id
-      operate_type: click
-      info: 关闭'只在Wi-Fi上传/下载'
-
-    - element_info: $text_confirm
-      find_type: $text
-      operate_type: click
-      info: 确认关闭'只在Wi-Fi上传/下载'
-
     - element_info: $receive_notice
       find_type: $text
       operate_type: click
       info: 点击'接收通知推送'
 
     - element_info: $receive_checkbox
-      find_type: $id
+      find_type: $class_name
       operate_type: click
       info: 任意关闭一个通知推送设置
 
@@ -48,38 +38,27 @@ testcase:
       operate_type: click
       info: 选择'English'
 
-    - element_info: $text_save
-      find_type: $text
-      operate_type: click
-      info: 点击'保存'
-
-    - element_info: $settings_btn
-      find_type: $id
-      operate_type: click
-      info: 点击'设置'按钮
-
     - element_info: $lang_English
       find_type: $text
       operate_type: click
       info: 选择'已选择语言'
 
+    - element_info: $lang_swipe
+      find_type: $text
+      operate_type: swipe_up
+      info: 上滑动
+
+    - element_info: $lang_swipe_melayu
+      find_type: $text
+      operate_type: swipe_up
+      info: 上滑动
+
     - element_info: $lang_cho_chinese
       find_type: $text
       operate_type: click
       info: 选择'简体中文'
-
-    - element_info: $text_save_english
-      find_type: $text
-      operate_type: click
-      info: 点击'save'
-
-    - element_info: $settings_btn
-      find_type: $id
-      operate_type: click
-      info: 点击'设置'按钮
-
 check:
-    - element_info: $lang
+    - element_info: $privacy_set
       find_type: $text
       check: default_check
       info: 验证返回设置页
