@@ -1,0 +1,80 @@
+testinfo:
+    - id: test_preview_004
+      title: 预览页-主题
+      info: 预览页-主题下载及使用
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_edit
+      find_type: $xpath
+      operate_type: click
+      info: 点击'剪辑'
+
+    - element_info: $gal_cover_cho
+      find_type: $id
+      operate_type: click
+      info: 选择一个'视频'
+
+    - element_info: $text_video
+      find_type: $text
+      operate_type: click
+      info: 点击'视频'
+
+    - element_info: $text_img
+      find_type: $text
+      operate_type: click
+      info: 点击'图片'
+
+    - element_info: $gal_cover_cho
+      find_type: $id
+      operate_type: repeat
+      info: 选择几张'图片'
+
+    - element_info: $pre_theme
+      find_type: $text
+      operate_type: click
+      info: 点击'主题*配乐'
+
+    - element_info: $pre_theme_download
+      find_type: $xpath
+      operate_type: click
+      info: 下载'主题'
+
+    - element_info: $pre_watermark
+      find_type: $text
+      operate_type: ignore
+      info: 点击'水印'
+
+    - element_info: $home_vip_clo
+      find_type: $text
+      operate_type: ignore
+      info: 关闭'订阅页面'
+
+    - element_info: $home_vip_clo
+      find_type: $text
+      operate_type: ignore
+      info: 关闭'订阅页面'
+
+    - element_info: $text_save_draft
+      find_type: $text
+      operate_type: click
+      info: 存草稿
+
+    - element_info: $stu_ad_clo
+      find_type: $id
+      operate_type: ignore
+      info: 关闭保存成功后的广告弹窗
+
+    - element_info: $comm_back
+      find_type: $id
+      operate_type: click
+      info: 返回首页
+
+check:
+    - element_info: $stu_more_draft
+      find_type: $text
+      check: default_check
+      info: 验证'主题下载及使用'完成并返回首页

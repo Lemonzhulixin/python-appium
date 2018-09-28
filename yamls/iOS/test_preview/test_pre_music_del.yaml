@@ -1,0 +1,60 @@
+testinfo:
+    - id: test_preview_003
+      title: 删除已下载配乐
+      info: 预览页-配乐编辑-删除已下载配乐
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $stu_more_draft
+      find_type: $text
+      operate_type: click
+      info: 点击'更多草稿'
+
+    - element_info: $stu_draft_cover
+      find_type: $text
+      operate_type: click
+      info: 点击第一个'草稿'封面
+
+    - element_info: $pre_mus_change
+      find_type: $text
+      operate_type: click
+      info: 点击'更换配乐'
+
+    - element_info: $pre_mus_del
+      find_type: $text
+      operate_type: click
+      info: 删除配乐
+
+    - element_info: $pre_mus_add
+      find_type: $text
+      operate_type: click
+      info: 点击添加配乐
+
+    - element_info: $mus_downloaded
+      find_type: $text
+      operate_type: click
+      info: 切换到已下载
+
+    - element_info: $mus_del
+      find_type: $text
+      operate_type: click
+      info: 点击删除按钮
+
+    - element_info: $mus_checkbox
+      find_type: $text
+      operate_type: click
+      info: 选择一个已下载音频
+
+    - element_info: $mus_checked_del
+      find_type: $text
+      operate_type: click
+      info: 确定删除
+
+check:
+    - element_info: $mus_del
+      find_type: $text
+      check: default_check
+      info: 验证'删除已下载配乐'完成

@@ -13,7 +13,7 @@ tc_temp = PATH("../yamls/temp.yaml")
 el_android = PATH("../yamls/el_android.yaml")
 el_iOS = PATH("../yamls/el_iOS.yaml")
 
-class SetttingsTest(ParametrizedTestCase):
+class PreviewTest(ParametrizedTestCase):
 
     def repalce(self, tc, tc_temp):
         if self.platformName == 'android':
@@ -21,8 +21,8 @@ class SetttingsTest(ParametrizedTestCase):
         elif self.platformName == 'iOS':
             ReplaceYaml(tc, tc_temp, el_iOS)
 
-    def test_settings_comm(self):
-        tc = PATH("../yamls/iOS/test_settings/test_settings_comm.yaml")
+    def test_pre_album(self):
+        tc = PATH("../yamls/iOS/test_preview/test_pre_album.yaml")
         self.repalce(tc, tc_temp)
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
@@ -31,8 +31,8 @@ class SetttingsTest(ParametrizedTestCase):
         page.operate()
         page.checkPoint()
 
-    def test_settings_privacy(self):
-        tc = PATH("../yamls/iOS/test_settings/test_settings_privacy.yaml")
+    def test_pre_music(self):
+        tc = PATH("../yamls/iOS/test_preview/test_pre_music.yaml")
         self.repalce(tc, tc_temp)
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
@@ -41,8 +41,18 @@ class SetttingsTest(ParametrizedTestCase):
         page.operate()
         page.checkPoint()
 
-    def test_settings_feedback(self):
-        tc = PATH("../yamls/iOS/test_settings/test_settings_feedback.yaml")
+    def test_pre_music_del(self):
+        tc = PATH("../yamls/iOS/test_preview/test_pre_music_del.yaml")
+        self.repalce(tc, tc_temp)
+        app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
+               "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
+
+        page = PageOperate(app)
+        page.operate()
+        page.checkPoint()
+
+    def test_pre_theme(self):
+        tc = PATH("../yamls/iOS/test_preview/test_pre_theme.yaml")
         self.repalce(tc, tc_temp)
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
@@ -53,8 +63,8 @@ class SetttingsTest(ParametrizedTestCase):
 
     @classmethod
     def setUpClass(cls):
-        super(SetttingsTest, cls).setUpClass()
+        super(PreviewTest, cls).setUpClass()
 
     @classmethod
     def tearDownClass(cls):
-        super(SetttingsTest, cls).tearDownClass()
+        super(PreviewTest, cls).tearDownClass()

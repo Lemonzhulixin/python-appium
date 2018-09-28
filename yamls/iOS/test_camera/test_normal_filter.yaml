@@ -1,0 +1,40 @@
+testinfo:
+    - id: test_camera_005
+      title: 高清拍摄-滤镜下载
+      info: 拍摄-高清拍摄-滤镜下载
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_cam
+      find_type: $xpath
+      operate_type: click
+      info: 点击'高清拍摄'
+
+    - element_info: $cam_effect
+      find_type: $text
+      operate_type: click
+      info: 点击'滤镜'按钮
+
+    - element_info: $cam_filter_download
+      find_type: $xpath
+      operate_type: click
+      info: 下载'滤镜'
+
+    - element_info: $cam_filter_more
+      find_type: $text
+      operate_type: click
+      info: 下载'更多'
+
+    - element_info: $temp_back
+      find_type: $text
+      operate_type: click
+      info: 返回'拍摄页面'
+
+check:
+    - element_info: $cam_filter_more
+      find_type: $text
+      check: default_check
+      info: 验证'高清拍摄-滤镜下载'完成并返回首页

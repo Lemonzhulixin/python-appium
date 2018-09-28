@@ -1,0 +1,70 @@
+testinfo:
+    - id: test_camera_001
+      title: 美颜趣拍
+      info: 拍摄-美颜趣拍(全屏拍摄)
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_temp
+      find_type: $text
+      operate_type: swipe_left
+      info: 从'素材中心'左滑动
+
+    - element_info: $home_self
+      find_type: $text
+      operate_type: click
+      info: 点击'美颜趣拍'
+
+    - element_info: $cam_face_icon
+      find_type: $text
+      operate_type: click
+      info: 点击'人脸贴纸'icon
+
+    - element_info: $cam_face_download
+      find_type: $xpath
+      operate_type: click
+      info: 点击'下载'人脸贴纸
+
+    - element_info: $cam_face_used
+      find_type: $xpath
+      operate_type: click
+      info: 使用人脸贴纸
+
+    - element_info: $null
+      find_type: $null
+      operate_type: screen_tap
+      info: 点击屏幕消除人脸贴纸弹窗
+
+    - element_info: $cam_record_self
+      find_type: $xpath
+      operate_type: click
+      info: 开始拍摄
+      is_time: 5
+
+    - element_info: $cam_record_self
+      find_type: $xpath
+      operate_type: click
+      info: 结束拍摄
+
+    - element_info: $cam_rec_next
+      find_type: $text
+      operate_type: click
+      info: 进入预览页
+
+    - element_info: $text_save_draft
+      find_type: $text
+      operate_type: click
+      info: 点击'存草稿'
+
+    - element_info: $comm_back
+      find_type: $id
+      operate_type: click
+      info: 返回首页
+check:
+    - element_info: $stu_more_draft
+      find_type: $text
+      check: default_check
+      info: 验证'美颜趣拍'完成并返回首页

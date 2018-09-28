@@ -1,0 +1,90 @@
+testinfo:
+    - id: test_camera_007
+      title: 拍摄-设置
+      info: 拍摄-设置
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_cam
+      find_type: $xpath
+      operate_type: click
+      info: 点击'高清拍摄'
+
+    - element_info: $cam_ratio_ful
+      find_type: $text
+      operate_type: click
+      info: 切换到'3:4'
+
+    - element_info: $cam_ratio_fou
+      find_type: $text
+      operate_type: click
+      info: 切换到'1:1'
+
+    - element_info: $cam_ratio_one
+      find_type: $text
+      operate_type: click
+      info: 再切回'全屏'
+
+    - element_info: $cam_switch
+      find_type: $text
+      operate_type: click
+      info: 切换成'前置'
+
+    - element_info: $cam_switch
+      find_type: $text
+      operate_type: click
+      info: 再切回'后置'
+
+    - element_info: $cam_set
+      find_type: $text
+      operate_type: click
+      info: 点击'设置'按钮
+
+    - element_info: $cam_flashlight
+      find_type: $text
+      operate_type: click
+      info: 点击'闪光灯'按钮
+
+    - element_info: $cam_grid
+      find_type: $text
+      operate_type: click
+      info: 点击'grid'按钮
+
+    - element_info: $cam_timer
+      find_type: $text
+      operate_type: click
+      info: 点击'timer'按钮
+
+    - element_info: $cam_set
+      find_type: $text
+      operate_type: click
+      info: 点击'设置'按钮
+
+    - element_info: $cam_self
+      find_type: $text
+      operate_type: click
+      info: 切换到'自拍美颜'
+
+    - element_info: $cam_normal
+      find_type: $text
+      operate_type: click
+      info: 切换到'高清相机'
+
+    - element_info: $cam_music
+      find_type: $text
+      operate_type: click
+      info: 切换到'音乐视频'
+
+    - element_info: $cam_left_back
+      find_type: $text
+      operate_type: click
+      info: 退出'拍摄'
+
+check:
+    - element_info: $stu_more_draft
+      find_type: $text
+      check: default_check
+      info: 验证'拍摄-设置'完成并返回首页

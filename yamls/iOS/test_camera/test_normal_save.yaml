@@ -1,0 +1,41 @@
+testinfo:
+    - id: test_camera_006
+      title: 高清拍摄-保存草稿
+      info: 拍摄-高清拍摄-保存草稿（全屏拍摄）
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_cam
+      find_type: $xpath
+      operate_type: click
+      info: 点击'高清拍摄'
+
+    - element_info: $cam_record_normal
+      find_type: $xpath
+      operate_type: click
+      info: 开始'拍摄'
+      is_time: 5
+
+     - element_info: $cam_record_normal
+      find_type: $xpath
+      operate_type: click
+      info: 结束'拍摄'
+
+    - element_info: $cam_left_back
+      find_type: $text
+      operate_type: click
+      info: 点击'左上角X按钮'
+
+    - element_info: $text_drap
+      find_type: $text
+      operate_type: click
+      info: 点击'保存'
+
+check:
+    - element_info: $stu_more_draft
+      find_type: $text
+      check: default_check
+      info: 验证'高清拍摄-保存草稿'完成并返回首页

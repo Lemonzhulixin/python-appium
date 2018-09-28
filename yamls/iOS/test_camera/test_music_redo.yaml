@@ -1,0 +1,75 @@
+testinfo:
+    - id: test_camera_003
+      title: 音乐视频-直接重录
+      info: 拍摄-音乐视频-直接重录(全屏拍摄)
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_temp
+      find_type: $text
+      operate_type: swipe_left
+      info: 从'素材中心'左滑动
+
+    - element_info: $cam_music
+      find_type: $text
+      operate_type: click
+      info: 点击'音乐视频'
+
+    - element_info: $cam_audio_cho
+      find_type: $text
+      operate_type: click
+      info: 点击'添加配乐'
+
+    - element_info: $mus_name
+      find_type: $xpath
+      operate_type: click
+      info: 选择一首音频试听
+
+    - element_info: $text_add
+      find_type: $text
+      operate_type: click
+      info: 点击添加按钮
+
+    - element_info: $cam_change
+      find_type: $xpath
+      operate_type: click
+      info: 点击已添加的音频更换音频
+
+    - element_info: $cam_direct_rec
+      find_type: $text
+      operate_type: click
+      info: 直接重录
+
+    - element_info: $cam_record_music
+      find_type: $xpath
+      operate_type: click
+      info: 开始'拍摄'
+      is_time: 5
+
+    - element_info: $cam_record_music
+      find_type: $xpath
+      operate_type: click
+      info: 结束'拍摄'
+
+    - element_info: $cam_rec_next
+      find_type: $text
+      operate_type: click
+      info: 进入预览页
+
+    - element_info: $text_save_draft
+      find_type: $text
+      operate_type: click
+      info: 点击'存草稿'
+
+    - element_info: $comm_back
+      find_type: $id
+      operate_type: click
+      info: 返回首页
+check:
+    - element_info: $stu_more_draft
+      find_type: $text
+      check: default_check
+      info: 验证'音乐视频-直接重录'完成并返回首页

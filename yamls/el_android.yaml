@@ -8,6 +8,7 @@ $texts: texts
 $index: index
 $xpaths: xpaths
 $xpath: xpath
+$null: null
 
 #登录
 $btn_login_QQ: //*/android.widget.GridView/android.widget.RelativeLayout[3]/android.widget.ImageView
@@ -135,7 +136,7 @@ $cam_timer: com.quvideo.xiaoying:id/icon_tool_time
 $cam_record: com.quvideo.xiaoying:id/btn_rec
 $cam_effect: com.quvideo.xiaoying:id/cam_btn_filter_effect
 $cam_filter_download: com.quvideo.xiaoying:id/icon_filter_download
-$cam_face_effect: com.quvideo.xiaoying:id/cam_btn_fb_effect
+$cam_face_icon: com.quvideo.xiaoying:id/cam_btn_fb_effect
 $cam_audio_cho: text("请选择音乐")
 $cam_rec_next: com.quvideo.xiaoying:id/cam_btn_next
 $cam_change: com.quvideo.xiaoying:id/icon_tool_music_control_arrow

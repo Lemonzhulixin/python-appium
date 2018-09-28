@@ -1,6 +1,6 @@
 testinfo:
     - id: test_home_002
-      title: 相册及camera授权
+      title: 授权
       info: 存储/录制授权
 testcase:
     - element_info: $tab_center

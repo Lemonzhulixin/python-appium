@@ -8,6 +8,7 @@ $texts: names
 $index: index
 $xpaths: xpaths
 $xpath: xpath
+$null: null
 
 #登录
 $btn_login_QQ: vivavideo welcome qq d
@@ -131,7 +132,7 @@ $cam_record_music: //*/XCUIElementTypeOther[5]/XCUIElementTypeOther/XCUIElementT
 $cam_effect: vivavideo camera tool icon fil
 $cam_filter_download: //*/XCUIElementTypeOther[3]//*/XCUIElementTypeOther/XCUIElementTypeImage[2]
 $cam_filter_more: vivavideo_camera_bg_filter_store
-$cam_face_effect: vivavideo camera tool icon sti
+$cam_face_icon: vivavideo camera tool icon sti
 $cam_face_download: //XCUIElementTypeImage[@name='vivavideo_camera_tool_icon_sticker_download_nrm'])[1]
 $cam_face_used: //*/XCUIElementTypeCollectionView[1]//*/XCUIElementTypeCell[2]/XCUIElementTypeOther/XCUIElementTypeImage
 $cam_face_null: //XCUIElementTypeImage[@name='vivavideo_camera_tool_icon_null_nrm']
@@ -167,6 +168,7 @@ $pre_mus_arrow: theme_change_music_add_arrow
 $pre_mus_del: theme change music add delete
 $pre_bgm_mute: theme change music right n
 $pre_video_mute: theme change music left n
+$pre_mus_confirm: vivavideo_green_tick
 $pre_watermark: vivavideo watermark edit cn n
 $pre_img_time: //*/XCUIElementTypeWindow[1]//*/XCUIElementTypeOther/XCUIElementTypeButton
 

@@ -1,6 +1,6 @@
 testinfo:
     - id: test_settings_002
-      title: 设置-意见反馈相关
+      title: 设置-意见反馈
       info: 设置-意见反馈相关测试
 testcase:
     - element_info: $tab_personal

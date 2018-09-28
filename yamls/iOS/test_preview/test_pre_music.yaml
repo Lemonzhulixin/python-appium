@@ -1,0 +1,125 @@
+testinfo:
+    - id: test_preview_002
+      title: 配乐编辑
+      info: 预览页-配乐编辑
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_edit
+      find_type: $xpath
+      operate_type: click
+      info: 点击'剪辑'
+
+    - element_info: $gal_cover_cho
+      find_type: $id
+      operate_type: click
+      info: 选择一个'视频'
+
+    - element_info: $text_video
+      find_type: $text
+      operate_type: click
+      info: 点击'视频'
+
+    - element_info: $text_img
+      find_type: $text
+      operate_type: click
+      info: 点击'图片'
+
+    - element_info: $gal_cover_cho
+      find_type: $id
+      operate_type: repeat
+      info: 选择几张'图片'
+
+    - element_info: $pre_theme
+      find_type: $text
+      operate_type: click
+      info: 点击'主题*配乐'
+
+    - element_info: $pre_bgm_add
+      find_type: $text
+      operate_type: click
+      info: 点击'添加配乐'
+
+    - element_info: $mus_download
+      find_type: $text
+      operate_type: click
+      info: 下载音频
+
+    - element_info: $mus_name
+      find_type: $xpath
+      operate_type: click
+      info: 选择一首音频试听
+
+    - element_info: $text_add
+      find_type: $text
+      operate_type: click
+      info: 点击添加按钮
+
+    - element_info: $pre_video_mute
+      find_type: $text
+      operate_type: click
+      info: 关闭视频原声
+
+    - element_info: $pre_bgm_mute
+      find_type: $text
+      operate_type: click
+      info: 关闭配乐
+
+    - element_info: $pre_mus_confirm
+      find_type: $text
+      operate_type: click
+      info: 确定添加
+
+    - element_info: $pre_mus_change
+      find_type: $text
+      operate_type: click
+      info: 点击'更换配乐'
+
+    - element_info: $pre_mus_del
+      find_type: $text
+      operate_type: click
+      info: 删除配乐
+
+    - element_info: $pre_mus_add
+      find_type: $text
+      operate_type: click
+      info: 点击添加配乐
+
+    - element_info: $mus_name
+      find_type: $xpath
+      operate_type: click
+      info: 选择一首音频试听
+
+    - element_info: $text_add
+      find_type: $text
+      operate_type: click
+      info: 点击添加按钮
+
+    - element_info: $pre_mus_confirm
+      find_type: $text
+      operate_type: click
+      info: 确定添加
+
+    - element_info: $text_save_draft
+      find_type: $text
+      operate_type: click
+      info: 存草稿
+
+    - element_info: $stu_ad_clo
+      find_type: $id
+      operate_type: ignore
+      info: 关闭保存成功后的广告弹窗
+
+    - element_info: $comm_back
+      find_type: $id
+      operate_type: click
+      info: 返回首页
+
+check:
+    - element_info: $stu_more_draft
+      find_type: $text
+      check: default_check
+      info: 验证'配乐编辑'完成并返回首页

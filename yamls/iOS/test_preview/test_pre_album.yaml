@@ -1,37 +1,47 @@
 testinfo:
-    - id: test_gallery_004
-      title: 相册-视频操作
-      info: 视频相关操作测试
+    - id: test_preview_001
+      title: 相册MV
+      info: 预览页-相册MV编辑
 testcase:
     - element_info: $tab_center
       find_type: $id
       operate_type: click
       info: 点击创作中心主按钮
 
-    - element_info: $home_edit
-      find_type: $xpath
+    - element_info: $home_mv
+      find_type: $text
       operate_type: click
-      info: 点击'剪辑'
+      info: 点击'相册MV'
 
     - element_info: $gal_cover_cho
       find_type: $id
-      operate_type: click
-      info: 选择一个'视频'
-
-    - element_info: $gal_ratate
-      find_type: $id
-      operate_type: click
-      info: 旋转'视频'
-
-    - element_info: $gal_trim
-      find_type: $id
-      operate_type: click
-      info: 裁剪'视频'
+      operate_type: repeat
+      info: 选择几张'图片'
 
     - element_info: $gal_next
       find_type: $class_name
       operate_type: click
       info: 下一步
+
+    - element_info: $pre_edit
+      find_type: $text
+      operate_type: click
+      info: 点击'镜头编辑'
+
+    - element_info: $tab_pic_timer
+      find_type: $text
+      operate_type: click
+      info: 点击'图片时长'
+
+    - element_info: $pic_use_all
+      find_type: $text
+      operate_type: click
+      info: 应用于全部镜头
+
+    - element_info: $bottom_right
+      find_type: $text
+      operate_type: click
+      info: 确认
 
     - element_info: $text_save_draft
       find_type: $text
@@ -47,8 +57,9 @@ testcase:
       find_type: $id
       operate_type: click
       info: 返回首页
+
 check:
     - element_info: $stu_more_draft
       find_type: $text
       check: default_check
-      info: 验证'保存'草稿返回首页
+      info: 验证'相册MV'完成并返回首页

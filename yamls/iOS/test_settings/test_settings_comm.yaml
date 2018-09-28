@@ -1,6 +1,6 @@
 testinfo:
     - id: test_settings_001
-      title: 设置-基本设置相关
+      title: 设置-基本设置
       info: 设置-基本设置相关测试
 testcase:
     - element_info: $tab_personal

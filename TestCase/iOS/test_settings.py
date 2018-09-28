@@ -13,7 +13,7 @@ tc_temp = PATH("../yamls/temp.yaml")
 el_android = PATH("../yamls/el_android.yaml")
 el_iOS = PATH("../yamls/el_iOS.yaml")
 
-class SetttingsTest(ParametrizedTestCase):
+class SettingsTest(ParametrizedTestCase):
 
     def repalce(self, tc, tc_temp):
         if self.platformName == 'android':
@@ -22,7 +22,7 @@ class SetttingsTest(ParametrizedTestCase):
             ReplaceYaml(tc, tc_temp, el_iOS)
 
     def test_settings_comm(self):
-        tc = PATH("../yamls/Android/test_settings/test_settings_comm.yaml")
+        tc = PATH("../yamls/iOS/test_settings/test_settings_comm.yaml")
         self.repalce(tc, tc_temp)
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
@@ -32,7 +32,7 @@ class SetttingsTest(ParametrizedTestCase):
         page.checkPoint()
 
     def test_settings_privacy(self):
-        tc = PATH("../yamls/Android/test_settings/test_settings_privacy.yaml")
+        tc = PATH("../yamls/iOS/test_settings/test_settings_privacy.yaml")
         self.repalce(tc, tc_temp)
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
@@ -42,7 +42,7 @@ class SetttingsTest(ParametrizedTestCase):
         page.checkPoint()
 
     def test_settings_feedback(self):
-        tc = PATH("../yamls/Android/test_settings/test_settings_feedback.yaml")
+        tc = PATH("../yamls/iOS/test_settings/test_settings_feedback.yaml")
         self.repalce(tc, tc_temp)
         app = {"logTest": self.logTest, "driver": self.driver, "path": tc_temp,
                "device": self.udid, "platformName": self.platformName, "caseName": sys._getframe().f_code.co_name}
@@ -53,8 +53,8 @@ class SetttingsTest(ParametrizedTestCase):
 
     @classmethod
     def setUpClass(cls):
-        super(SetttingsTest, cls).setUpClass()
+        super(SettingsTest, cls).setUpClass()
 
     @classmethod
     def tearDownClass(cls):
-        super(SetttingsTest, cls).tearDownClass()
+        super(SettingsTest, cls).tearDownClass()

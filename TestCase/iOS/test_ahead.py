@@ -13,7 +13,7 @@ tc_temp = PATH("../yamls/temp.yaml")
 el_android = PATH("../yamls/el_android.yaml")
 el_iOS = PATH("../yamls/el_iOS.yaml")
 
-class PrivacySet(ParametrizedTestCase):
+class AheadTest(ParametrizedTestCase):
 
     def repalce(self, tc, tc_temp):
         if self.platformName == 'android':
@@ -43,8 +43,8 @@ class PrivacySet(ParametrizedTestCase):
 
     @classmethod
     def setUpClass(cls):
-        super(PrivacySet, cls).setUpClass()
+        super(AheadTest, cls).setUpClass()
 
     @classmethod
     def tearDownClass(cls):
-        super(PrivacySet, cls).tearDownClass()
+        super(AheadTest, cls).tearDownClass()

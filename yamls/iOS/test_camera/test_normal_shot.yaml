@@ -1,0 +1,60 @@
+testinfo:
+    - id: test_camera_008
+      title: 高清拍摄-前置拍摄
+      info: 拍摄-高清拍摄-前置拍摄（1:1）
+testcase:
+    - element_info: $tab_center
+      find_type: $id
+      operate_type: click
+      info: 点击创作中心主按钮
+
+    - element_info: $home_cam
+      find_type: $xpath
+      operate_type: click
+      info: 点击'高清拍摄'
+
+    - element_info: $cam_ratio_ful
+      find_type: $text
+      operate_type: click
+      info: 切换到'3:4'
+
+    - element_info: $cam_ratio_fou
+      find_type: $text
+      operate_type: click
+      info: 切换到'1:1'
+
+    - element_info: $cam_switch
+      find_type: $text
+      operate_type: click
+      info: 切换成'前置'
+
+    - element_info: $cam_record_normal
+      find_type: $xpath
+      operate_type: click
+      info: 开始'拍摄'
+      is_time: 5
+
+     - element_info: $cam_record_normal
+      find_type: $xpath
+      operate_type: click
+      info: 结束'拍摄'
+
+    - element_info: $cam_rec_next
+      find_type: $text
+      operate_type: click
+      info: 进入预览页
+
+    - element_info: $text_save_draft
+      find_type: $text
+      operate_type: click
+      info: 点击'存草稿'
+
+    - element_info: $comm_back
+      find_type: $id
+      operate_type: click
+      info: 返回首页
+check:
+    - element_info: $stu_more_draft
+      find_type: $text
+      check: default_check
+      info: 验证'高清拍摄-前置拍摄'完成并返回首页
