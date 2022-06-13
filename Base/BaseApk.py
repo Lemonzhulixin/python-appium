@@ -64,7 +64,7 @@ class ApkInfo():
 
 if __name__ == '__main__':
     pass
-    apkPath = '../app/VivaVideo_7.3.1.apk'
+    apkPath = '../app/XiaoYing_V8.1.5.apk'
     litePath = '/Users/zhulixin/Downloads/XiaoYing_lite.apk'
 
     info = ApkInfo(apkPath)
